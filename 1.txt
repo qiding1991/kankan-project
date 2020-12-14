@@ -1,0 +1,877 @@
+Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00)
+Maven home: /Users/qiding/systemtools/apache-maven-3.5.4
+Java version: 1.8.0_271, vendor: Oracle Corporation, runtime: /Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home
+Default locale: en_CN, platform encoding: UTF-8
+OS name: "mac os x", version: "10.16", arch: "x86_64", family: "mac"
+[DEBUG] Created new class realm maven.api
+[DEBUG] Importing foreign packages into class realm maven.api
+[DEBUG]   Imported: javax.annotation.* < plexus.core
+[DEBUG]   Imported: javax.annotation.security.* < plexus.core
+[DEBUG]   Imported: javax.enterprise.inject.* < plexus.core
+[DEBUG]   Imported: javax.enterprise.util.* < plexus.core
+[DEBUG]   Imported: javax.inject.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.artifact < plexus.core
+[DEBUG]   Imported: org.apache.maven.classrealm < plexus.core
+[DEBUG]   Imported: org.apache.maven.cli < plexus.core
+[DEBUG]   Imported: org.apache.maven.configuration < plexus.core
+[DEBUG]   Imported: org.apache.maven.exception < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution < plexus.core
+[DEBUG]   Imported: org.apache.maven.execution.scope < plexus.core
+[DEBUG]   Imported: org.apache.maven.lifecycle < plexus.core
+[DEBUG]   Imported: org.apache.maven.model < plexus.core
+[DEBUG]   Imported: org.apache.maven.monitor < plexus.core
+[DEBUG]   Imported: org.apache.maven.plugin < plexus.core
+[DEBUG]   Imported: org.apache.maven.profiles < plexus.core
+[DEBUG]   Imported: org.apache.maven.project < plexus.core
+[DEBUG]   Imported: org.apache.maven.reporting < plexus.core
+[DEBUG]   Imported: org.apache.maven.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.rtinfo < plexus.core
+[DEBUG]   Imported: org.apache.maven.settings < plexus.core
+[DEBUG]   Imported: org.apache.maven.toolchain < plexus.core
+[DEBUG]   Imported: org.apache.maven.usability < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.* < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authentication < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.authorization < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.events < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.observers < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.proxy < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.repository < plexus.core
+[DEBUG]   Imported: org.apache.maven.wagon.resource < plexus.core
+[DEBUG]   Imported: org.codehaus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.* < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.classworlds < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.component < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.configuration < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.container < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.context < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.lifecycle < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.logging < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.personality < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.Xpp3Dom < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParser < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlPullParserException < plexus.core
+[DEBUG]   Imported: org.codehaus.plexus.util.xml.pull.XmlSerializer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.* < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.artifact < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.collection < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.deployment < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.graph < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.installation < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.internal.impl < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.metadata < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.repository < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.resolution < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.spi < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.transfer < plexus.core
+[DEBUG]   Imported: org.eclipse.aether.version < plexus.core
+[DEBUG]   Imported: org.fusesource.jansi.* < plexus.core
+[DEBUG]   Imported: org.slf4j.* < plexus.core
+[DEBUG]   Imported: org.slf4j.helpers.* < plexus.core
+[DEBUG]   Imported: org.slf4j.spi.* < plexus.core
+[DEBUG] Populating class realm maven.api
+[INFO] Error stacktraces are turned on.
+[DEBUG] Message scheme: color
+[DEBUG] Message styles: debug info warning error success failure strong mojo project
+[DEBUG] Reading global settings from /Users/qiding/systemtools/apache-maven-3.5.4/conf/settings.xml
+[DEBUG] Reading user settings from /Users/qiding/.m2/settings.xml
+[DEBUG] Reading global toolchains from /Users/qiding/systemtools/apache-maven-3.5.4/conf/toolchains.xml
+[DEBUG] Reading user toolchains from /Users/qiding/.m2/toolchains.xml
+[DEBUG] Using local repository at /Users/qiding/systemtools/apache-maven-3.5.4/jarlib
+[DEBUG] Using manager EnhancedLocalRepositoryManager with priority 10.0 for /Users/qiding/systemtools/apache-maven-3.5.4/jarlib
+[INFO] Scanning for projects...
+[DEBUG] Using mirror alimaven (http://maven.aliyun.com/nexus/content/groups/public/) for central (https://repo.maven.apache.org/maven2).
+[DEBUG] Extension realms for project com.kankan:kankan-project:jar:0.0.1-SNAPSHOT: (none)
+[DEBUG] Looking up lifecycle mappings for packaging jar from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project org.springframework.boot:spring-boot-starter-parent:pom:2.3.5.RELEASE: (none)
+[DEBUG] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[DEBUG] Extension realms for project org.springframework.boot:spring-boot-dependencies:pom:2.3.5.RELEASE: (none)
+[DEBUG] Looking up lifecycle mappings for packaging pom from ClassRealm[plexus.core, parent: null]
+[DEBUG] === REACTOR BUILD PLAN ================================================
+[DEBUG] Project: com.kankan:kankan-project:jar:0.0.1-SNAPSHOT
+[DEBUG] Tasks:   [clean, package]
+[DEBUG] Style:   Regular
+[DEBUG] =======================================================================
+[INFO] 
+[INFO] ---------------------< com.kankan:kankan-project >----------------------
+[INFO] Building kankan-project 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] Lifecycle default -> [validate, initialize, generate-sources, process-sources, generate-resources, process-resources, compile, process-classes, generate-test-sources, process-test-sources, generate-test-resources, process-test-resources, test-compile, process-test-classes, test, prepare-package, package, pre-integration-test, integration-test, post-integration-test, verify, install, deploy]
+[DEBUG] Lifecycle clean -> [pre-clean, clean, post-clean]
+[DEBUG] Lifecycle site -> [pre-site, site, post-site, site-deploy]
+[DEBUG] === PROJECT BUILD PLAN ================================================
+[DEBUG] Project:       com.kankan:kankan-project:0.0.1-SNAPSHOT
+[DEBUG] Dependencies (collect): [compile+runtime]
+[DEBUG] Dependencies (resolve): [compile, compile+runtime, runtime, test]
+[DEBUG] Repositories (dependencies): [aliyun (http://maven.aliyun.com/nexus/content/groups/public/, default, releases+snapshots), alimaven (http://maven.aliyun.com/nexus/content/groups/public/, default, releases)]
+[DEBUG] Repositories (plugins)     : [alimaven (http://maven.aliyun.com/nexus/content/groups/public/, default, releases)]
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean (default-clean)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <directory default-value="${project.build.directory}"/>
+  <excludeDefaultDirectories default-value="false">${maven.clean.excludeDefaultDirectories}</excludeDefaultDirectories>
+  <failOnError default-value="true">${maven.clean.failOnError}</failOnError>
+  <followSymLinks default-value="false">${maven.clean.followSymLinks}</followSymLinks>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <reportDirectory default-value="${project.build.outputDirectory}"/>
+  <retryOnError default-value="true">${maven.clean.retryOnError}</retryOnError>
+  <skip default-value="false">${maven.clean.skip}</skip>
+  <testOutputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <verbose>${maven.clean.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.1.0:resources (default-resources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <delimiters>
+    <delimiter>@</delimiter>
+  </delimiters>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <resources default-value="${project.resources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.resources.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true">false</useDefaultDelimiters>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.compileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedSourcesDirectory default-value="${project.build.directory}/generated-sources/annotations"/>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.outputDirectory}"/>
+  <parameters default-value="false">true</parameters>
+  <project default-value="${project}"/>
+  <projectArtifact default-value="${project.artifact}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="false">${maven.compiler.showWarnings}</showWarnings>
+  <skipMain>${maven.main.skip}</skipMain>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.6">${maven.compiler.source}</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.6">${maven.compiler.target}</target>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-resources-plugin:3.1.0:testResources (default-testResources)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <addDefaultExcludes default-value="true"/>
+  <buildFilters default-value="${project.build.filters}"/>
+  <delimiters>
+    <delimiter>@</delimiter>
+  </delimiters>
+  <encoding default-value="${project.build.sourceEncoding}"/>
+  <escapeWindowsPaths default-value="true"/>
+  <fileNameFiltering default-value="false"/>
+  <includeEmptyDirs default-value="false"/>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <overwrite default-value="false"/>
+  <project default-value="${project}"/>
+  <resources default-value="${project.testResources}"/>
+  <session default-value="${session}"/>
+  <skip default-value="false">${maven.test.skip}</skip>
+  <supportMultiLineFiltering default-value="false"/>
+  <useBuildFilters default-value="true"/>
+  <useDefaultDelimiters default-value="true">false</useDefaultDelimiters>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-compiler-plugin:3.8.1:testCompile (default-testCompile)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <basedir default-value="${basedir}"/>
+  <buildDirectory default-value="${project.build.directory}"/>
+  <compilePath default-value="${project.compileClasspathElements}"/>
+  <compileSourceRoots default-value="${project.testCompileSourceRoots}"/>
+  <compilerId default-value="javac">${maven.compiler.compilerId}</compilerId>
+  <compilerReuseStrategy default-value="${reuseCreated}">${maven.compiler.compilerReuseStrategy}</compilerReuseStrategy>
+  <compilerVersion>${maven.compiler.compilerVersion}</compilerVersion>
+  <debug default-value="true">${maven.compiler.debug}</debug>
+  <debuglevel>${maven.compiler.debuglevel}</debuglevel>
+  <encoding default-value="${project.build.sourceEncoding}">${encoding}</encoding>
+  <executable>${maven.compiler.executable}</executable>
+  <failOnError default-value="true">${maven.compiler.failOnError}</failOnError>
+  <failOnWarning default-value="false">${maven.compiler.failOnWarning}</failOnWarning>
+  <forceJavacCompilerUse default-value="false">${maven.compiler.forceJavacCompilerUse}</forceJavacCompilerUse>
+  <fork default-value="false">${maven.compiler.fork}</fork>
+  <generatedTestSourcesDirectory default-value="${project.build.directory}/generated-test-sources/test-annotations"/>
+  <maxmem>${maven.compiler.maxmem}</maxmem>
+  <meminitial>${maven.compiler.meminitial}</meminitial>
+  <mojoExecution default-value="${mojoExecution}"/>
+  <optimize default-value="false">${maven.compiler.optimize}</optimize>
+  <outputDirectory default-value="${project.build.testOutputDirectory}"/>
+  <parameters default-value="false">true</parameters>
+  <project default-value="${project}"/>
+  <release>${maven.compiler.release}</release>
+  <session default-value="${session}"/>
+  <showDeprecation default-value="false">${maven.compiler.showDeprecation}</showDeprecation>
+  <showWarnings default-value="false">${maven.compiler.showWarnings}</showWarnings>
+  <skip>${maven.test.skip}</skip>
+  <skipMultiThreadWarning default-value="false">${maven.compiler.skipMultiThreadWarning}</skipMultiThreadWarning>
+  <source default-value="1.6">${maven.compiler.source}</source>
+  <staleMillis default-value="0">${lastModGranularityMs}</staleMillis>
+  <target default-value="1.6">${maven.compiler.target}</target>
+  <testPath default-value="${project.testClasspathElements}"/>
+  <testRelease>${maven.compiler.testRelease}</testRelease>
+  <testSource>${maven.compiler.testSource}</testSource>
+  <testTarget>${maven.compiler.testTarget}</testTarget>
+  <useIncrementalCompilation default-value="true">${maven.compiler.useIncrementalCompilation}</useIncrementalCompilation>
+  <verbose default-value="false">${maven.compiler.verbose}</verbose>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-surefire-plugin:2.22.2:test (default-test)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <additionalClasspathElements>${maven.test.additionalClasspath}</additionalClasspathElements>
+  <argLine>${argLine}</argLine>
+  <basedir default-value="${basedir}"/>
+  <childDelegation default-value="false">${childDelegation}</childDelegation>
+  <classesDirectory default-value="${project.build.outputDirectory}"/>
+  <classpathDependencyExcludes>${maven.test.dependency.excludes}</classpathDependencyExcludes>
+  <debugForkedProcess>${maven.surefire.debug}</debugForkedProcess>
+  <dependenciesToScan>${dependenciesToScan}</dependenciesToScan>
+  <disableXmlReport default-value="false">${disableXmlReport}</disableXmlReport>
+  <enableAssertions default-value="true">${enableAssertions}</enableAssertions>
+  <encoding default-value="${project.reporting.outputEncoding}">${surefire.encoding}</encoding>
+  <excludedGroups>${excludedGroups}</excludedGroups>
+  <excludesFile>${surefire.excludesFile}</excludesFile>
+  <failIfNoSpecifiedTests>${surefire.failIfNoSpecifiedTests}</failIfNoSpecifiedTests>
+  <failIfNoTests>${failIfNoTests}</failIfNoTests>
+  <forkCount default-value="1">${forkCount}</forkCount>
+  <forkMode default-value="once">${forkMode}</forkMode>
+  <forkedProcessExitTimeoutInSeconds default-value="30">${surefire.exitTimeout}</forkedProcessExitTimeoutInSeconds>
+  <forkedProcessTimeoutInSeconds>${surefire.timeout}</forkedProcessTimeoutInSeconds>
+  <groups>${groups}</groups>
+  <includesFile>${surefire.includesFile}</includesFile>
+  <junitArtifactName default-value="junit:junit">${junitArtifactName}</junitArtifactName>
+  <junitPlatformArtifactName default-value="org.junit.platform:junit-platform-engine">${junitPlatformArtifactName}</junitPlatformArtifactName>
+  <jvm>${jvm}</jvm>
+  <localRepository default-value="${localRepository}"/>
+  <objectFactory>${objectFactory}</objectFactory>
+  <parallel>${parallel}</parallel>
+  <parallelMavenExecution default-value="${session.parallel}"/>
+  <parallelOptimized default-value="true">${parallelOptimized}</parallelOptimized>
+  <parallelTestsTimeoutForcedInSeconds>${surefire.parallel.forcedTimeout}</parallelTestsTimeoutForcedInSeconds>
+  <parallelTestsTimeoutInSeconds>${surefire.parallel.timeout}</parallelTestsTimeoutInSeconds>
+  <perCoreThreadCount default-value="true">${perCoreThreadCount}</perCoreThreadCount>
+  <pluginArtifactMap>${plugin.artifactMap}</pluginArtifactMap>
+  <pluginDescriptor default-value="${plugin}"/>
+  <printSummary default-value="true">${surefire.printSummary}</printSummary>
+  <projectArtifactMap>${project.artifactMap}</projectArtifactMap>
+  <projectBuildDirectory default-value="${project.build.directory}"/>
+  <redirectTestOutputToFile default-value="false">${maven.test.redirectTestOutputToFile}</redirectTestOutputToFile>
+  <remoteRepositories default-value="${project.pluginArtifactRepositories}"/>
+  <reportFormat default-value="brief">${surefire.reportFormat}</reportFormat>
+  <reportNameSuffix default-value="">${surefire.reportNameSuffix}</reportNameSuffix>
+  <reportsDirectory default-value="${project.build.directory}/surefire-reports"/>
+  <rerunFailingTestsCount default-value="0">${surefire.rerunFailingTestsCount}</rerunFailingTestsCount>
+  <reuseForks default-value="true">${reuseForks}</reuseForks>
+  <runOrder default-value="filesystem">${surefire.runOrder}</runOrder>
+  <shutdown default-value="testset">${surefire.shutdown}</shutdown>
+  <skip default-value="false">${maven.test.skip}</skip>
+  <skipAfterFailureCount default-value="0">${surefire.skipAfterFailureCount}</skipAfterFailureCount>
+  <skipExec>${maven.test.skip.exec}</skipExec>
+  <skipTests default-value="false">${skipTests}</skipTests>
+  <suiteXmlFiles>${surefire.suiteXmlFiles}</suiteXmlFiles>
+  <tempDir default-value="surefire">${tempDir}</tempDir>
+  <test>${test}</test>
+  <testClassesDirectory default-value="${project.build.testOutputDirectory}"/>
+  <testFailureIgnore default-value="false">${maven.test.failure.ignore}</testFailureIgnore>
+  <testNGArtifactName default-value="org.testng:testng">${testNGArtifactName}</testNGArtifactName>
+  <testSourceDirectory default-value="${project.build.testSourceDirectory}"/>
+  <threadCount>${threadCount}</threadCount>
+  <threadCountClasses default-value="0">${threadCountClasses}</threadCountClasses>
+  <threadCountMethods default-value="0">${threadCountMethods}</threadCountMethods>
+  <threadCountSuites default-value="0">${threadCountSuites}</threadCountSuites>
+  <trimStackTrace default-value="true">${trimStackTrace}</trimStackTrace>
+  <useFile default-value="true">${surefire.useFile}</useFile>
+  <useManifestOnlyJar default-value="true">${surefire.useManifestOnlyJar}</useManifestOnlyJar>
+  <useSystemClassLoader default-value="true">${surefire.useSystemClassLoader}</useSystemClassLoader>
+  <useUnlimitedThreads default-value="false">${useUnlimitedThreads}</useUnlimitedThreads>
+  <workingDirectory>${basedir}</workingDirectory>
+  <project default-value="${project}"/>
+  <session default-value="${session}"/>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.apache.maven.plugins:maven-jar-plugin:3.2.0:jar (default-jar)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <archive>
+    <manifest>
+      <mainClass>${start-class}</mainClass>
+      <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+    </manifest>
+  </archive>
+  <classesDirectory default-value="${project.build.outputDirectory}"/>
+  <finalName default-value="${project.build.finalName}"/>
+  <forceCreation default-value="false">${maven.jar.forceCreation}</forceCreation>
+  <outputDirectory default-value="${project.build.directory}"/>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <project default-value="${project}"/>
+  <session default-value="${session}"/>
+  <skipIfEmpty default-value="false"/>
+  <useDefaultManifestFile default-value="false">${jar.useDefaultManifestFile}</useDefaultManifestFile>
+</configuration>
+[DEBUG] -----------------------------------------------------------------------
+[DEBUG] Goal:          org.springframework.boot:spring-boot-maven-plugin:2.3.5.RELEASE:repackage (repackage)
+[DEBUG] Style:         Regular
+[DEBUG] Configuration: <?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <attach default-value="true"/>
+  <excludeDevtools default-value="true">${spring-boot.repackage.excludeDevtools}</excludeDevtools>
+  <excludeGroupIds default-value="">${spring-boot.excludeGroupIds}</excludeGroupIds>
+  <excludes>${spring-boot.excludes}</excludes>
+  <executable default-value="false"/>
+  <finalName default-value="${project.build.finalName}"/>
+  <includeSystemScope default-value="false"/>
+  <includes>${spring-boot.includes}</includes>
+  <layout>${spring-boot.repackage.layout}</layout>
+  <mainClass>${start-class}</mainClass>
+  <outputDirectory default-value="${project.build.directory}"/>
+  <outputTimestamp default-value="${project.build.outputTimestamp}"/>
+  <project default-value="${project}"/>
+  <skip default-value="false">${spring-boot.repackage.skip}</skip>
+</configuration>
+[DEBUG] =======================================================================
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=994680, ConflictMarker.markTime=717291, ConflictMarker.nodeCount=225, ConflictIdSorter.graphTime=554620, ConflictIdSorter.topsortTime=295522, ConflictIdSorter.conflictIdCount=96, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=12159189, ConflictResolver.conflictItemCount=193, DefaultDependencyCollector.collectTime=281728456, DefaultDependencyCollector.transformTime=16154216}
+[DEBUG] com.kankan:kankan-project:jar:0.0.1-SNAPSHOT
+[DEBUG]    org.springframework.boot:spring-boot-starter-actuator:jar:2.3.5.RELEASE:compile
+[DEBUG]       org.springframework.boot:spring-boot-starter:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.springframework.boot:spring-boot-starter-logging:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]             ch.qos.logback:logback-classic:jar:1.2.3:compile (version managed from 1.2.3)
+[DEBUG]                ch.qos.logback:logback-core:jar:1.2.3:compile (version managed from 1.2.3)
+[DEBUG]             org.apache.logging.log4j:log4j-to-slf4j:jar:2.13.3:compile (version managed from 2.13.3)
+[DEBUG]                org.apache.logging.log4j:log4j-api:jar:2.13.3:compile (version managed from 2.13.3)
+[DEBUG]             org.slf4j:jul-to-slf4j:jar:1.7.30:compile (version managed from 1.7.30)
+[DEBUG]          jakarta.annotation:jakarta.annotation-api:jar:1.3.5:compile (version managed from 1.3.5)
+[DEBUG]          org.yaml:snakeyaml:jar:1.26:compile (version managed from 1.26)
+[DEBUG]       org.springframework.boot:spring-boot-actuator-autoconfigure:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.springframework.boot:spring-boot-actuator:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          com.fasterxml.jackson.core:jackson-databind:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]             com.fasterxml.jackson.core:jackson-annotations:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]             com.fasterxml.jackson.core:jackson-core:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]          com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]       io.micrometer:micrometer-core:jar:1.5.6:compile (version managed from 1.5.6)
+[DEBUG]          org.hdrhistogram:HdrHistogram:jar:2.1.12:compile
+[DEBUG]          org.latencyutils:LatencyUtils:jar:2.0.3:runtime
+[DEBUG]    org.springframework.boot:spring-boot-starter-data-mongodb:jar:2.3.5.RELEASE:compile
+[DEBUG]       org.mongodb:mongodb-driver-sync:jar:4.0.5:compile (version managed from 4.0.5)
+[DEBUG]          org.mongodb:bson:jar:4.0.5:compile (version managed from 4.0.5)
+[DEBUG]          org.mongodb:mongodb-driver-core:jar:4.0.5:compile (version managed from 4.0.5)
+[DEBUG]       org.springframework.data:spring-data-mongodb:jar:3.0.5.RELEASE:compile (version managed from 3.0.5.RELEASE)
+[DEBUG]          org.springframework:spring-tx:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-context:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-beans:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-expression:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework.data:spring-data-commons:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.slf4j:slf4j-api:jar:1.7.30:compile (version managed from 1.7.26)
+[DEBUG]    org.springframework.boot:spring-boot-starter-data-redis:jar:2.3.5.RELEASE:compile
+[DEBUG]       org.springframework.data:spring-data-redis:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.springframework.data:spring-data-keyvalue:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.springframework:spring-oxm:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-aop:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-context-support:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]       io.lettuce:lettuce-core:jar:5.3.5.RELEASE:compile (version managed from 5.3.5.RELEASE)
+[DEBUG]          io.netty:netty-common:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]          io.netty:netty-handler:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]             io.netty:netty-resolver:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]             io.netty:netty-buffer:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]             io.netty:netty-codec:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]          io.netty:netty-transport:jar:4.1.53.Final:compile (version managed from 4.1.53.Final)
+[DEBUG]          io.projectreactor:reactor-core:jar:3.3.11.RELEASE:compile (version managed from 3.3.11.RELEASE)
+[DEBUG]             org.reactivestreams:reactive-streams:jar:1.0.3:compile (version managed from 1.0.3)
+[DEBUG]    org.springframework.boot:spring-boot-starter-jdbc:jar:2.3.5.RELEASE:compile
+[DEBUG]       com.zaxxer:HikariCP:jar:3.4.5:compile (version managed from 3.4.5)
+[DEBUG]       org.springframework:spring-jdbc:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]    org.springframework.boot:spring-boot-starter-web:jar:2.3.5.RELEASE:compile
+[DEBUG]       org.springframework.boot:spring-boot-starter-json:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]          com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.11.3:compile (version managed from 2.11.3)
+[DEBUG]       org.springframework.boot:spring-boot-starter-tomcat:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]          org.apache.tomcat.embed:tomcat-embed-core:jar:9.0.39:compile (version managed from 9.0.39)
+[DEBUG]          org.glassfish:jakarta.el:jar:3.0.3:compile (version managed from 3.0.3)
+[DEBUG]          org.apache.tomcat.embed:tomcat-embed-websocket:jar:9.0.39:compile (version managed from 9.0.39)
+[DEBUG]       org.springframework:spring-web:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]       org.springframework:spring-webmvc:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]    org.springframework.boot:spring-boot-devtools:jar:2.3.5.RELEASE:runtime (optional)
+[DEBUG]       org.springframework.boot:spring-boot:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]       org.springframework.boot:spring-boot-autoconfigure:jar:2.3.5.RELEASE:compile (version managed from 2.3.5.RELEASE)
+[DEBUG]    mysql:mysql-connector-java:jar:8.0.22:runtime (exclusions managed)
+[DEBUG]    org.springframework.boot:spring-boot-configuration-processor:jar:2.3.5.RELEASE:compile (optional)
+[DEBUG]    org.projectlombok:lombok:jar:1.18.16:compile (optional)
+[DEBUG]    org.springframework.boot:spring-boot-starter-test:jar:2.3.5.RELEASE:test
+[DEBUG]       org.springframework.boot:spring-boot-test:jar:2.3.5.RELEASE:test (version managed from 2.3.5.RELEASE)
+[DEBUG]       org.springframework.boot:spring-boot-test-autoconfigure:jar:2.3.5.RELEASE:test (version managed from 2.3.5.RELEASE)
+[DEBUG]       com.jayway.jsonpath:json-path:jar:2.4.0:test (version managed from 2.4.0)
+[DEBUG]          net.minidev:json-smart:jar:2.3:test (version managed from 2.3)
+[DEBUG]             net.minidev:accessors-smart:jar:1.2:test
+[DEBUG]                org.ow2.asm:asm:jar:5.0.4:test
+[DEBUG]       jakarta.xml.bind:jakarta.xml.bind-api:jar:2.3.3:test (version managed from 2.3.3)
+[DEBUG]          jakarta.activation:jakarta.activation-api:jar:1.2.2:test (version managed from 1.2.2)
+[DEBUG]       org.assertj:assertj-core:jar:3.16.1:test (version managed from 3.16.1)
+[DEBUG]       org.hamcrest:hamcrest:jar:2.2:test (version managed from 2.2)
+[DEBUG]       org.junit.jupiter:junit-jupiter:jar:5.6.3:test (version managed from 5.6.3)
+[DEBUG]          org.junit.jupiter:junit-jupiter-api:jar:5.6.3:test (version managed from 5.6.3)
+[DEBUG]             org.opentest4j:opentest4j:jar:1.2.0:test
+[DEBUG]             org.junit.platform:junit-platform-commons:jar:1.6.3:test (version managed from 1.6.3)
+[DEBUG]          org.junit.jupiter:junit-jupiter-params:jar:5.6.3:test (version managed from 5.6.3)
+[DEBUG]          org.junit.jupiter:junit-jupiter-engine:jar:5.6.3:test (version managed from 5.6.3)
+[DEBUG]       org.junit.vintage:junit-vintage-engine:jar:5.6.3:test (version managed from 5.6.3)
+[DEBUG]          org.apiguardian:apiguardian-api:jar:1.1.0:test
+[DEBUG]          org.junit.platform:junit-platform-engine:jar:1.6.3:test (version managed from 1.6.3)
+[DEBUG]          junit:junit:jar:4.13.1:test (version managed from 4.13)
+[DEBUG]       org.mockito:mockito-core:jar:3.3.3:test (version managed from 3.3.3)
+[DEBUG]          net.bytebuddy:byte-buddy:jar:1.10.17:test (version managed from 1.10.5)
+[DEBUG]          net.bytebuddy:byte-buddy-agent:jar:1.10.17:test (version managed from 1.10.5)
+[DEBUG]          org.objenesis:objenesis:jar:2.6:test
+[DEBUG]       org.mockito:mockito-junit-jupiter:jar:3.3.3:test (version managed from 3.3.3)
+[DEBUG]       org.skyscreamer:jsonassert:jar:1.5.0:test (version managed from 1.5.0)
+[DEBUG]          com.vaadin.external.google:android-json:jar:0.0.20131108.vaadin1:test
+[DEBUG]       org.springframework:spring-core:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]          org.springframework:spring-jcl:jar:5.2.10.RELEASE:compile (version managed from 5.2.10.RELEASE)
+[DEBUG]       org.springframework:spring-test:jar:5.2.10.RELEASE:test (version managed from 5.2.10.RELEASE)
+[DEBUG]       org.xmlunit:xmlunit-core:jar:2.7.0:test (version managed from 2.7.0)
+[INFO] 
+[INFO] --- maven-clean-plugin:3.1.0:clean (default-clean) @ kankan-project ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=70181, ConflictMarker.markTime=188325, ConflictMarker.nodeCount=14, ConflictIdSorter.graphTime=13011, ConflictIdSorter.topsortTime=11479, ConflictIdSorter.conflictIdCount=12, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=296992, ConflictResolver.conflictItemCount=14, DefaultDependencyCollector.collectTime=57996987, DefaultDependencyCollector.transformTime=649055}
+[DEBUG] org.apache.maven.plugins:maven-clean-plugin:jar:3.1.0:
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-model:jar:3.0:compile
+[DEBUG]          org.codehaus.plexus:plexus-utils:jar:2.0.4:compile
+[DEBUG]       org.apache.maven:maven-artifact:jar:3.0:compile
+[DEBUG]       org.sonatype.sisu:sisu-inject-plexus:jar:1.4.2:compile
+[DEBUG]          org.codehaus.plexus:plexus-component-annotations:jar:1.7.1:compile
+[DEBUG]          org.codehaus.plexus:plexus-classworlds:jar:2.2.3:compile
+[DEBUG]          org.sonatype.sisu:sisu-inject-bean:jar:1.4.2:compile
+[DEBUG]             org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.2.1:compile
+[DEBUG]       commons-io:commons-io:jar:2.5:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.1.0
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.1.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-clean-plugin:3.1.0
+[DEBUG]   Included: org.apache.maven.plugins:maven-clean-plugin:jar:3.1.0
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:2.0.4
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.7.1
+[DEBUG]   Included: org.sonatype.sisu:sisu-inject-bean:jar:1.4.2
+[DEBUG]   Included: org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.2.1
+[DEBUG]   Included: commons-io:commons-io:jar:2.5
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-clean-plugin:3.1.0, parent: sun.misc.Launcher$AppClassLoader@4e25154f]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-clean-plugin:3.1.0:clean' with basic configurator -->
+[DEBUG]   (f) directory = /Users/qiding/qiding-project/java-project/kankan-project/target
+[DEBUG]   (f) excludeDefaultDirectories = false
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) followSymLinks = false
+[DEBUG]   (f) outputDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG]   (f) reportDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG]   (f) retryOnError = true
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) testOutputDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/test-classes
+[DEBUG] -- end configuration --
+[INFO] Deleting /Users/qiding/qiding-project/java-project/kankan-project/target
+[INFO] Deleting file /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+[INFO] Deleting file /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status/maven-compiler-plugin/compile/default-compile
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status/maven-compiler-plugin/compile
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status/maven-compiler-plugin
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/maven-status
+[INFO] Deleting file /Users/qiding/qiding-project/java-project/kankan-project/target/classes/application.properties
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources
+[INFO] Deleting directory /Users/qiding/qiding-project/java-project/kankan-project/target
+[DEBUG] Skipping non-existing directory /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG] Skipping non-existing directory /Users/qiding/qiding-project/java-project/kankan-project/target/test-classes
+[DEBUG] Skipping non-existing directory /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.1.0:resources (default-resources) @ kankan-project ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=289494, ConflictMarker.markTime=98785, ConflictMarker.nodeCount=68, ConflictIdSorter.graphTime=88231, ConflictIdSorter.topsortTime=29914, ConflictIdSorter.conflictIdCount=28, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=824878, ConflictResolver.conflictItemCount=67, DefaultDependencyCollector.collectTime=72613641, DefaultDependencyCollector.transformTime=1352768}
+[DEBUG] org.apache.maven.plugins:maven-resources-plugin:jar:3.1.0:
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-artifact:jar:3.0:compile
+[DEBUG]       org.sonatype.sisu:sisu-inject-plexus:jar:1.4.2:compile
+[DEBUG]          org.sonatype.sisu:sisu-inject-bean:jar:1.4.2:compile
+[DEBUG]             org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7:compile
+[DEBUG]    org.apache.maven:maven-core:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-settings-builder:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-model-builder:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-aether-provider:jar:3.0:runtime
+[DEBUG]       org.sonatype.aether:aether-impl:jar:1.7:compile
+[DEBUG]          org.sonatype.aether:aether-spi:jar:1.7:compile
+[DEBUG]       org.sonatype.aether:aether-api:jar:1.7:compile
+[DEBUG]       org.sonatype.aether:aether-util:jar:1.7:compile
+[DEBUG]       org.codehaus.plexus:plexus-classworlds:jar:2.2.3:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.7.1:compile
+[DEBUG]       org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3:compile
+[DEBUG]          org.sonatype.plexus:plexus-cipher:jar:1.4:compile
+[DEBUG]    org.apache.maven:maven-model:jar:3.0:compile
+[DEBUG]    org.codehaus.plexus:plexus-utils:jar:3.1.0:compile
+[DEBUG]    org.apache.maven.shared:maven-filtering:jar:3.1.1:compile
+[DEBUG]       org.apache.maven.shared:maven-shared-utils:jar:3.0.0:compile
+[DEBUG]          com.google.code.findbugs:jsr305:jar:2.0.1:compile
+[DEBUG]       org.sonatype.plexus:plexus-build-api:jar:0.0.7:compile
+[DEBUG]    commons-io:commons-io:jar:2.5:compile
+[DEBUG]    org.codehaus.plexus:plexus-interpolation:jar:1.24:compile
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.1.0
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.1.0
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-resources-plugin:3.1.0
+[DEBUG]   Included: org.apache.maven.plugins:maven-resources-plugin:jar:3.1.0
+[DEBUG]   Included: org.sonatype.sisu:sisu-inject-bean:jar:1.4.2
+[DEBUG]   Included: org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7
+[DEBUG]   Included: org.sonatype.aether:aether-util:jar:1.7
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.7.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3
+[DEBUG]   Included: org.sonatype.plexus:plexus-cipher:jar:1.4
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:3.1.0
+[DEBUG]   Included: org.apache.maven.shared:maven-filtering:jar:3.1.1
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.0.0
+[DEBUG]   Included: com.google.code.findbugs:jsr305:jar:2.0.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-build-api:jar:0.0.7
+[DEBUG]   Included: commons-io:commons-io:jar:2.5
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.24
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-resources-plugin:3.1.0:resources from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-resources-plugin:3.1.0, parent: sun.misc.Launcher$AppClassLoader@4e25154f]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-resources-plugin:3.1.0:resources' with basic configurator -->
+[DEBUG]   (f) addDefaultExcludes = true
+[DEBUG]   (f) buildFilters = []
+[DEBUG]   (s) delimiters = [@]
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) escapeWindowsPaths = true
+[DEBUG]   (f) fileNameFiltering = false
+[DEBUG]   (s) includeEmptyDirs = false
+[DEBUG]   (s) outputDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG]   (s) overwrite = false
+[DEBUG]   (f) project = MavenProject: com.kankan:kankan-project:0.0.1-SNAPSHOT @ /Users/qiding/qiding-project/java-project/kankan-project/pom.xml
+[DEBUG]   (s) resources = [Resource {targetPath: null, filtering: true, FileSet {directory: /Users/qiding/qiding-project/java-project/kankan-project/src/main/resources, PatternSet [includes: {**/application*.yml, **/application*.yaml, **/application*.properties}, excludes: {}]}}, Resource {targetPath: null, filtering: false, FileSet {directory: /Users/qiding/qiding-project/java-project/kankan-project/src/main/resources, PatternSet [includes: {}, excludes: {**/application*.yml, **/application*.yaml, **/application*.properties}]}}]
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@894858
+[DEBUG]   (f) skip = false
+[DEBUG]   (f) supportMultiLineFiltering = false
+[DEBUG]   (f) useBuildFilters = true
+[DEBUG]   (s) useDefaultDelimiters = false
+[DEBUG] -- end configuration --
+[DEBUG] properties used {project.baseUri=file:/Users/qiding/qiding-project/java-project/kankan-project/, saaj-impl.version=1.5.2, jaxen.version=1.2.0, env.LC_CTYPE=en_US.UTF-8, env.TERM=xterm-256color, byte-buddy.version=1.10.17, janino.version=3.1.2, htmlunit.version=2.40.0, rsocket.version=1.0.3, nio-multipart-parser.version=1.1.0, env.OLDPWD=/Users/qiding/qiding-project/java-project/kankan-project, maven-source-plugin.version=3.2.1, user.dir=/Users/qiding/qiding-project/java-project/kankan-project, java.vm.version=25.271-b09, okhttp3.version=3.14.9, db2-jdbc.version=11.5.4.0, selenium.version=3.141.59, versions-maven-plugin.version=2.7, thymeleaf-extras-java8time.version=3.0.4.RELEASE, sun.os.patch.level=unknown, snakeyaml.version=1.26, javax-validation.version=2.0.1.Final, jetty.version=9.4.33.v20201020, java.vm.specification.name=Java Virtual Machine Specification, httpclient.version=4.5.13, solr.version=8.5.2, tomcat.version=9.0.39, spring-kafka.version=2.5.7.RELEASE, jakarta-xml-bind.version=2.3.3, jakarta-transaction.version=1.3.3, jboss-transaction-spi.version=7.6.0.Final, mimepull.version=1.9.13, influxdb-java.version=2.18, netty.version=4.1.53.Final, jdom2.version=2.0.6, os.name=Mac OS X, rxjava2.version=2.2.20, maven.version=3.5.4, maven-install-plugin.version=2.5.2, env.XPC_FLAGS=0x0, log4j2.version=2.13.3, java.vendor.url.bug=http://bugreport.sun.com/bugreport/, nimbus-jose-jwt.version=8.19, os.arch=x86_64, user.name=qiding, servlet-api.version=4.0.1, activemq.version=5.15.13, aspectj.version=1.9.6, sun.java.command=org.codehaus.plexus.classworlds.launcher.Launcher clean package -X, env.USER=qiding, ehcache.version=2.10.6, env.LOGNAME=qiding, project.reporting.outputEncoding=UTF-8, undertow.version=2.1.4.Final, r2dbc-bom.version=Arabba-SR8, jackson-bom.version=2.11.3, javax-jaxws.version=2.3.1, oracle-database.version=19.3.0.0, querydsl.version=4.3.1, mssql-jdbc.version=7.4.1.jre8, user.country=CN, slf4j.version=1.7.30, java.endorsed.dirs=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/endorsed, jakarta-json-bind.version=1.0.2, maven-dependency-plugin.version=3.1.2, kotlin.version=1.3.72, ehcache3.version=3.8.1, junit.version=4.13.1, java.vm.specification.version=1.8, ftp.nonProxyHosts=local|*.local|169.254/16|*.169.254/16, env.SHLVL=1, kafka.version=2.5.1, spring-data-releasetrain.version=Neumann-SR5, java.vendor=Oracle Corporation, spring-session-bom.version=Dragonfruit-SR1, hamcrest.version=2.2, spring-restdocs.version=2.0.5.RELEASE, file.separator=/, flyway.version=6.4.4, antlr2.version=2.7.7, unboundid-ldapsdk.version=4.0.14, jakarta-xml-soap.version=1.4.2, exec-maven-plugin.version=1.6.0, atomikos.version=4.0.6, glassfish-jaxb.version=2.3.3, jolokia.version=1.6.2, sun.java.launcher=SUN_STANDARD, mockito.version=3.3.3, spring-ldap.version=2.3.3.RELEASE, maven-antrun-plugin.version=1.8, commons-pool2.version=2.8.1, java.library.path=/Users/qiding/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:., glassfish-el.version=3.0.3, env.PYTHON_HOME=/Users/qiding/Library/Python/3.7/bin, classworlds.conf=/Users/qiding/systemtools/apache-maven-3.5.4/bin/m2.conf, jmustache.version=1.15, quartz.version=2.3.2, project.build.sourceEncoding=UTF-8, sun.arch.data.model=64, micrometer.version=1.5.6, junit-jupiter.version=5.6.3, env.TERMINAL_EMULATOR=JetBrains-JediTerm, env.PATH=/Users/qiding/systemtools/redis-5.0.4/src:/Users/qiding/Library/Python/3.7/bin/bin:/Users/qiding/systemtools/kibana-7.5.0-darwin-x86_64/bin:/Users/qiding/systemtools/elasticsearch-7.5.0/bin:/Users/qiding/systemtools/zookeeper-3.5.6/bin:/Users/qiding/systemtools/node-v12.13.0/bin:/Users/qiding/systemtools/proto3/bin:/Users/qiding/systemtools/flutter/bin:/Users/qiding/systemtools/apache-maven-3.5.4/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin, path.separator=:, git-commit-id-plugin.version=3.0.1, sun.io.unicode.encoding=UnicodeBig, maven-invoker-plugin.version=3.2.1, httpcore.version=4.4.13, xml-maven-plugin.version=1.0.2, user.language=en, jaybird.version=3.0.9, johnzon.version=1.2.8, jakarta-persistence.version=2.2.3, appengine-sdk.version=1.9.82, gopherProxySet=false, maven.compiler.source=1.8, java.class.version=52.0, lettuce.version=5.3.5.RELEASE, couchbase-client.version=3.0.9, jakarta-ws-rs.version=2.1.6, jboss-logging.version=3.4.1.Final, maven-javadoc-plugin.version=3.2.0, env.KIBANA_HOME=/Users/qiding/systemtools/kibana-7.5.0-darwin-x86_64, jakarta-servlet.version=4.0.4, mariadb.version=2.6.2, jooq.version=3.13.5, file.encoding.pkg=sun.io, sun.cpu.endian=little, maven.compiler.target=1.8, cassandra-driver.version=4.6.1, jakarta-annotation.version=1.3.5, env.SHELL=/bin/bash, prometheus-pushgateway.version=0.9.0, socksNonProxyHosts=local|*.local|169.254/16|*.169.254/16, groovy.version=2.5.13, java.home=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home, jetty-el.version=8.5.54, spring-batch.version=4.2.4.RELEASE, javax-activation.version=1.2.0, maven.home=/Users/qiding/systemtools/apache-maven-3.5.4, rxjava-adapter.version=1.2.1, jakarta-jms.version=2.0.3, commons-lang3.version=3.10, maven-shade-plugin.version=3.2.4, http.nonProxyHosts=local|*.local|169.254/16|*.169.254/16, maven-enforcer-plugin.version=3.0.0-M3, commons-pool.version=1.6, maven-war-plugin.version=3.2.3, httpasyncclient.version=4.1.4, pooled-jms.version=1.1.2, javax-persistence.version=2.2, rxjava.version=1.3.8, thymeleaf-extras-springsecurity.version=3.0.4.RELEASE, commons-dbcp2.version=2.7.0, maven-failsafe-plugin.version=2.22.2, xmlunit2.version=2.7.0, env.SSH_AUTH_SOCK=/private/tmp/com.apple.launchd.wNu9mEW2ra/Listeners, liquibase.version=3.8.9, sun.management.compiler=HotSpot 64-Bit Tiered Compilers, wsdl4j.version=1.6.3, jakarta-websocket.version=1.1.2, library.jansi.path=/Users/qiding/systemtools/apache-maven-3.5.4/lib/jansi-native, json-path.version=2.4.0, env.XPC_SERVICE_NAME=0, jsonassert.version=1.5.0, hazelcast.version=3.12.10, env.COMMAND_MODE=unix2003, javax-transaction.version=1.3, h2.version=1.4.200, kotlin-coroutines.version=1.3.8, spring-retry.version=1.2.5.RELEASE, maven-clean-plugin.version=3.1.0, java.vm.specification.vendor=Oracle Corporation, dropwizard-metrics.version=4.1.14, java.vm.name=Java HotSpot(TM) 64-Bit Server VM, jakarta-mail.version=1.6.5, java.io.tmpdir=/var/folders/lt/xxkwbl8n1ml4jr4ww34p_7kc0000gp/T/, java.vendor.url=http://java.oracle.com/, lombok.version=1.18.16, javax-jsonb.version=1.0, jakarta-servlet-jsp-jstl.version=1.2.7, sun.boot.library.path=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib, jetty-reactive-httpclient.version=1.1.4, derby.version=10.14.2.0, gson.version=2.8.6, javax-jms.version=2.0.1, env.__CFBundleIdentifier=com.jetbrains.intellij, spring-security.version=5.3.5.RELEASE, java.runtime.name=Java(TM) SE Runtime Environment, javax-websocket.version=1.1, maven-resources-plugin.version=3.1.0, maven.conf=/Users/qiding/systemtools/apache-maven-3.5.4/conf, assertj.version=3.16.1, jakarta-json.version=1.1.6, sun.cpu.isalist=, ojdbc.version=19.3.0.0, spring-amqp.version=2.2.12.RELEASE, hibernate-validator.version=6.1.6.Final, maven.multiModuleProjectDirectory=/Users/qiding/qiding-project/java-project/kankan-project, commons-codec.version=1.14, user.home=/Users/qiding, mongodb.version=4.0.5, java.specification.name=Java Platform API Specification, logback.version=1.2.3, env.ES_HOME=/Users/qiding/systemtools/elasticsearch-7.5.0, java.specification.vendor=Oracle Corporation, maven-help-plugin.version=3.2.0, rabbit-amqp-client.version=5.9.0, java.version=1.8.0_271, thymeleaf.version=3.0.11.RELEASE, embedded-mongo.version=2.2.0, json-smart.version=2.3, postgresql.version=42.2.18, hsqldb.version=2.5.1, hazelcast-hibernate5.version=1.3.2, javax-mail.version=1.6.2, webjars-hal-browser.version=3325375, flatten-maven-plugin.version=1.2.5, env.MAVEN_PROJECTBASEDIR=/Users/qiding/qiding-project/java-project/kankan-project, maven.build.timestamp=2020-11-29T14:34:11Z, jersey.version=2.30.1, jakarta-validation.version=2.0.2, env.PWD=/Users/qiding/qiding-project/java-project/kankan-project, env.TMPDIR=/var/folders/lt/xxkwbl8n1ml4jr4ww34p_7kc0000gp/T/, line.separator=
+, java.specification.version=1.8, java.vm.info=mixed mode, javax-annotation.version=1.3.2, sun.boot.class.path=/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/resources.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/rt.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/sunrsasign.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/jsse.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/jce.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/charsets.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/jfr.jar:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/classes, build-helper-maven-plugin.version=3.1.0, javax-json.version=1.1.4, env.REDIS_HOME=/Users/qiding/systemtools/redis-5.0.4, bitronix.version=2.1.4, maven-deploy-plugin.version=2.8.2, jetty-jsp.version=2.2.0.v201112011158, env.HOME=/Users/qiding, infinispan.version=10.1.8.Final, nekohtml.version=1.9.22, jakarta-activation.version=1.2.2, java.awt.printerjob=sun.lwawt.macosx.CPrinterJob, jstl.version=1.2, sun.jnu.encoding=UTF-8, hibernate.version=5.4.22.Final, javax-money.version=1.0.3, java.runtime.version=1.8.0_271-b09, sendgrid.version=4.4.8, reactive-streams.version=1.0.3, maven.build.version=Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00), user.timezone=, resource.delimiter=@, reactor-bom.version=Dysprosium-SR13, netty-tcnative.version=2.0.34.Final, mysql.version=8.0.22, hikaricp.version=3.4.5, spring-hateoas.version=1.1.2.RELEASE, oauth2-oidc-sdk.version=7.1.1, java.ext.dirs=/Users/qiding/Library/Java/Extensions:/Library/Internet Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java, env.MAVEN_CMD_LINE_ARGS= clean package -X, caffeine.version=2.8.6, awaitility.version=4.0.3, javax-jaxb.version=2.3.1, spring-integration.version=5.3.3.RELEASE, java.class.path=/Users/qiding/systemtools/apache-maven-3.5.4/boot/plexus-classworlds-2.5.2.jar, maven-jar-plugin.version=3.2.0, os.version=10.16, neo4j-ogm.version=3.2.17, rest-assured.version=3.3.0, thymeleaf-layout-dialect.version=2.4.1, sqlite-jdbc.version=3.31.1, classmate.version=1.5.1, javax-cache.version=1.1.1, java.awt.graphicsenv=sun.awt.CGraphicsEnvironment, jedis.version=3.3.0, maven-compiler-plugin.version=3.8.1, java.vm.vendor=Oracle Corporation, maven-assembly-plugin.version=3.3.0, spring-framework.version=5.2.10.RELEASE, elasticsearch.version=7.6.2, freemarker.version=2.3.30, thymeleaf-extras-data-attribute.version=2.0.1, env.JAVA_MAIN_CLASS_8624=org.codehaus.plexus.classworlds.launcher.Launcher, jakarta-xml-ws.version=2.3.3, dependency-management-plugin.version=1.0.10.RELEASE, selenium-htmlunit.version=2.40.0, sun-mail.version=1.6.5, webjars-locator-core.version=0.45, artemis.version=2.12.0, maven-surefire-plugin.version=2.22.2, jtds.version=1.3.1, spring-ws.version=3.0.10.RELEASE, file.encoding=UTF-8, env.__CF_USER_TEXT_ENCODING=0x1F6:0x0:0x0, awt.toolkit=sun.lwawt.macosx.LWCToolkit}
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[DEBUG] resource with targetPath null
+directory /Users/qiding/qiding-project/java-project/kankan-project/src/main/resources
+excludes []
+includes [**/application*.yml, **/application*.yaml, **/application*.properties]
+[DEBUG] ignoreDelta true
+[INFO] Copying 1 resource
+[DEBUG] Copying file application.properties
+[DEBUG] file application.properties has a filtered file extension
+[DEBUG] filtering /Users/qiding/qiding-project/java-project/kankan-project/src/main/resources/application.properties to /Users/qiding/qiding-project/java-project/kankan-project/target/classes/application.properties
+[DEBUG] resource with targetPath null
+directory /Users/qiding/qiding-project/java-project/kankan-project/src/main/resources
+excludes [**/application*.yml, **/application*.yaml, **/application*.properties]
+includes []
+[DEBUG] ignoreDelta true
+[INFO] Copying 0 resource
+[DEBUG] no use filter components
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ kankan-project ---
+[DEBUG] Dependency collection stats: {ConflictMarker.analyzeTime=181677, ConflictMarker.markTime=67618, ConflictMarker.nodeCount=118, ConflictIdSorter.graphTime=96683, ConflictIdSorter.topsortTime=27342, ConflictIdSorter.conflictIdCount=45, ConflictIdSorter.conflictIdCycleCount=0, ConflictResolver.totalTime=765933, ConflictResolver.conflictItemCount=72, DefaultDependencyCollector.collectTime=81527185, DefaultDependencyCollector.transformTime=1152912}
+[DEBUG] org.apache.maven.plugins:maven-compiler-plugin:jar:3.8.1:
+[DEBUG]    org.apache.maven:maven-plugin-api:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-model:jar:3.0:compile
+[DEBUG]       org.sonatype.sisu:sisu-inject-plexus:jar:1.4.2:compile
+[DEBUG]          org.sonatype.sisu:sisu-inject-bean:jar:1.4.2:compile
+[DEBUG]             org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7:compile
+[DEBUG]    org.apache.maven:maven-artifact:jar:3.0:compile
+[DEBUG]       org.codehaus.plexus:plexus-utils:jar:2.0.4:compile
+[DEBUG]    org.apache.maven:maven-core:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-settings:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-settings-builder:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-repository-metadata:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-model-builder:jar:3.0:compile
+[DEBUG]       org.apache.maven:maven-aether-provider:jar:3.0:runtime
+[DEBUG]       org.sonatype.aether:aether-impl:jar:1.7:compile
+[DEBUG]          org.sonatype.aether:aether-spi:jar:1.7:compile
+[DEBUG]       org.sonatype.aether:aether-api:jar:1.7:compile
+[DEBUG]       org.sonatype.aether:aether-util:jar:1.7:compile
+[DEBUG]       org.codehaus.plexus:plexus-interpolation:jar:1.14:compile
+[DEBUG]       org.codehaus.plexus:plexus-classworlds:jar:2.2.3:compile
+[DEBUG]       org.codehaus.plexus:plexus-component-annotations:jar:1.7.1:compile
+[DEBUG]       org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3:compile
+[DEBUG]          org.sonatype.plexus:plexus-cipher:jar:1.4:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-utils:jar:3.2.1:compile
+[DEBUG]       commons-io:commons-io:jar:2.5:compile
+[DEBUG]    org.apache.maven.shared:maven-shared-incremental:jar:1.1:compile
+[DEBUG]    org.codehaus.plexus:plexus-java:jar:0.9.10:compile
+[DEBUG]       org.ow2.asm:asm:jar:6.2:compile
+[DEBUG]       com.thoughtworks.qdox:qdox:jar:2.0-M9:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-api:jar:2.8.4:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-manager:jar:2.8.4:compile
+[DEBUG]    org.codehaus.plexus:plexus-compiler-javac:jar:2.8.4:runtime
+[DEBUG] Created new class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.8.1
+[DEBUG] Importing foreign packages into class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.8.1
+[DEBUG]   Imported:  < maven.api
+[DEBUG] Populating class realm plugin>org.apache.maven.plugins:maven-compiler-plugin:3.8.1
+[DEBUG]   Included: org.apache.maven.plugins:maven-compiler-plugin:jar:3.8.1
+[DEBUG]   Included: org.sonatype.sisu:sisu-inject-bean:jar:1.4.2
+[DEBUG]   Included: org.sonatype.sisu:sisu-guice:jar:noaop:2.1.7
+[DEBUG]   Included: org.codehaus.plexus:plexus-utils:jar:2.0.4
+[DEBUG]   Included: org.sonatype.aether:aether-util:jar:1.7
+[DEBUG]   Included: org.codehaus.plexus:plexus-interpolation:jar:1.14
+[DEBUG]   Included: org.codehaus.plexus:plexus-component-annotations:jar:1.7.1
+[DEBUG]   Included: org.sonatype.plexus:plexus-sec-dispatcher:jar:1.3
+[DEBUG]   Included: org.sonatype.plexus:plexus-cipher:jar:1.4
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-utils:jar:3.2.1
+[DEBUG]   Included: commons-io:commons-io:jar:2.5
+[DEBUG]   Included: org.apache.maven.shared:maven-shared-incremental:jar:1.1
+[DEBUG]   Included: org.codehaus.plexus:plexus-java:jar:0.9.10
+[DEBUG]   Included: org.ow2.asm:asm:jar:6.2
+[DEBUG]   Included: com.thoughtworks.qdox:qdox:jar:2.0-M9
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-api:jar:2.8.4
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-manager:jar:2.8.4
+[DEBUG]   Included: org.codehaus.plexus:plexus-compiler-javac:jar:2.8.4
+[DEBUG] Configuring mojo org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile from plugin realm ClassRealm[plugin>org.apache.maven.plugins:maven-compiler-plugin:3.8.1, parent: sun.misc.Launcher$AppClassLoader@4e25154f]
+[DEBUG] Configuring mojo 'org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile' with basic configurator -->
+[DEBUG]   (f) basedir = /Users/qiding/qiding-project/java-project/kankan-project
+[DEBUG]   (f) buildDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target
+[DEBUG]   (f) compilePath = [/Users/qiding/qiding-project/java-project/kankan-project/target/classes, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-actuator/2.3.5.RELEASE/spring-boot-starter-actuator-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter/2.3.5.RELEASE/spring-boot-starter-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-logging/2.3.5.RELEASE/spring-boot-starter-logging-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-to-slf4j/2.13.3/log4j-to-slf4j-2.13.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/jul-to-slf4j/1.7.30/jul-to-slf4j-1.7.30.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/yaml/snakeyaml/1.26/snakeyaml-1.26.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator-autoconfigure/2.3.5.RELEASE/spring-boot-actuator-autoconfigure-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator/2.3.5.RELEASE/spring-boot-actuator-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.11.3/jackson-datatype-jsr310-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/micrometer/micrometer-core/1.5.6/micrometer-core-1.5.6.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-mongodb/2.3.5.RELEASE/spring-boot-starter-data-mongodb-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-sync/4.0.5/mongodb-driver-sync-4.0.5.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/bson/4.0.5/bson-4.0.5.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-core/4.0.5/mongodb-driver-core-4.0.5.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-mongodb/3.0.5.RELEASE/spring-data-mongodb-3.0.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-tx/5.2.10.RELEASE/spring-tx-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context/5.2.10.RELEASE/spring-context-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-beans/5.2.10.RELEASE/spring-beans-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-expression/5.2.10.RELEASE/spring-expression-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-commons/2.3.5.RELEASE/spring-data-commons-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-redis/2.3.5.RELEASE/spring-boot-starter-data-redis-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-redis/2.3.5.RELEASE/spring-data-redis-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-keyvalue/2.3.5.RELEASE/spring-data-keyvalue-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-oxm/5.2.10.RELEASE/spring-oxm-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-aop/5.2.10.RELEASE/spring-aop-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context-support/5.2.10.RELEASE/spring-context-support-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/lettuce/lettuce-core/5.3.5.RELEASE/lettuce-core-5.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-common/4.1.53.Final/netty-common-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-handler/4.1.53.Final/netty-handler-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-resolver/4.1.53.Final/netty-resolver-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-buffer/4.1.53.Final/netty-buffer-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-codec/4.1.53.Final/netty-codec-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-transport/4.1.53.Final/netty-transport-4.1.53.Final.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/projectreactor/reactor-core/3.3.11.RELEASE/reactor-core-3.3.11.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-jdbc/2.3.5.RELEASE/spring-boot-starter-jdbc-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/zaxxer/HikariCP/3.4.5/HikariCP-3.4.5.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jdbc/5.2.10.RELEASE/spring-jdbc-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-web/2.3.5.RELEASE/spring-boot-starter-web-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-json/2.3.5.RELEASE/spring-boot-starter-json-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.11.3/jackson-datatype-jdk8-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/module/jackson-module-parameter-names/2.11.3/jackson-module-parameter-names-2.11.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-tomcat/2.3.5.RELEASE/spring-boot-starter-tomcat-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-core/9.0.39/tomcat-embed-core-9.0.39.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.39/tomcat-embed-websocket-9.0.39.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-web/5.2.10.RELEASE/spring-web-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-webmvc/5.2.10.RELEASE/spring-webmvc-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot/2.3.5.RELEASE/spring-boot-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-autoconfigure/2.3.5.RELEASE/spring-boot-autoconfigure-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-configuration-processor/2.3.5.RELEASE/spring-boot-configuration-processor-2.3.5.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-core/5.2.10.RELEASE/spring-core-5.2.10.RELEASE.jar, /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jcl/5.2.10.RELEASE/spring-jcl-5.2.10.RELEASE.jar]
+[DEBUG]   (f) compileSourceRoots = [/Users/qiding/qiding-project/java-project/kankan-project/src/main/java]
+[DEBUG]   (f) compilerId = javac
+[DEBUG]   (f) debug = true
+[DEBUG]   (f) encoding = UTF-8
+[DEBUG]   (f) failOnError = true
+[DEBUG]   (f) failOnWarning = false
+[DEBUG]   (f) forceJavacCompilerUse = false
+[DEBUG]   (f) fork = false
+[DEBUG]   (f) generatedSourcesDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations
+[DEBUG]   (f) mojoExecution = org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile {execution: default-compile}
+[DEBUG]   (f) optimize = false
+[DEBUG]   (f) outputDirectory = /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG]   (f) parameters = true
+[DEBUG]   (f) project = MavenProject: com.kankan:kankan-project:0.0.1-SNAPSHOT @ /Users/qiding/qiding-project/java-project/kankan-project/pom.xml
+[DEBUG]   (f) projectArtifact = com.kankan:kankan-project:jar:0.0.1-SNAPSHOT
+[DEBUG]   (f) session = org.apache.maven.execution.MavenSession@894858
+[DEBUG]   (f) showDeprecation = false
+[DEBUG]   (f) showWarnings = false
+[DEBUG]   (f) skipMultiThreadWarning = false
+[DEBUG]   (f) source = 1.8
+[DEBUG]   (f) staleMillis = 0
+[DEBUG]   (s) target = 1.8
+[DEBUG]   (f) useIncrementalCompilation = true
+[DEBUG]   (f) verbose = false
+[DEBUG] -- end configuration --
+[DEBUG] Using compiler 'javac'.
+[DEBUG] Adding /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations to compile source roots:
+  /Users/qiding/qiding-project/java-project/kankan-project/src/main/java
+[DEBUG] New compile source roots:
+  /Users/qiding/qiding-project/java-project/kankan-project/src/main/java
+  /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations
+[DEBUG] CompilerReuseStrategy: reuseCreated
+[DEBUG] useIncrementalCompilation enabled
+[DEBUG] Stale source detected: /Users/qiding/qiding-project/java-project/kankan-project/src/main/java/com/kankan/KankanProjectApplication.java
+[INFO] Changes detected - recompiling the module!
+[DEBUG] Classpath:
+[DEBUG]  /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-actuator/2.3.5.RELEASE/spring-boot-starter-actuator-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter/2.3.5.RELEASE/spring-boot-starter-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-logging/2.3.5.RELEASE/spring-boot-starter-logging-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-to-slf4j/2.13.3/log4j-to-slf4j-2.13.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/jul-to-slf4j/1.7.30/jul-to-slf4j-1.7.30.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/yaml/snakeyaml/1.26/snakeyaml-1.26.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator-autoconfigure/2.3.5.RELEASE/spring-boot-actuator-autoconfigure-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator/2.3.5.RELEASE/spring-boot-actuator-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.11.3/jackson-datatype-jsr310-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/micrometer/micrometer-core/1.5.6/micrometer-core-1.5.6.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-mongodb/2.3.5.RELEASE/spring-boot-starter-data-mongodb-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-sync/4.0.5/mongodb-driver-sync-4.0.5.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/bson/4.0.5/bson-4.0.5.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-core/4.0.5/mongodb-driver-core-4.0.5.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-mongodb/3.0.5.RELEASE/spring-data-mongodb-3.0.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-tx/5.2.10.RELEASE/spring-tx-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context/5.2.10.RELEASE/spring-context-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-beans/5.2.10.RELEASE/spring-beans-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-expression/5.2.10.RELEASE/spring-expression-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-commons/2.3.5.RELEASE/spring-data-commons-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-redis/2.3.5.RELEASE/spring-boot-starter-data-redis-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-redis/2.3.5.RELEASE/spring-data-redis-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-keyvalue/2.3.5.RELEASE/spring-data-keyvalue-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-oxm/5.2.10.RELEASE/spring-oxm-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-aop/5.2.10.RELEASE/spring-aop-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context-support/5.2.10.RELEASE/spring-context-support-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/lettuce/lettuce-core/5.3.5.RELEASE/lettuce-core-5.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-common/4.1.53.Final/netty-common-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-handler/4.1.53.Final/netty-handler-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-resolver/4.1.53.Final/netty-resolver-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-buffer/4.1.53.Final/netty-buffer-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-codec/4.1.53.Final/netty-codec-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-transport/4.1.53.Final/netty-transport-4.1.53.Final.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/projectreactor/reactor-core/3.3.11.RELEASE/reactor-core-3.3.11.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-jdbc/2.3.5.RELEASE/spring-boot-starter-jdbc-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/zaxxer/HikariCP/3.4.5/HikariCP-3.4.5.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jdbc/5.2.10.RELEASE/spring-jdbc-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-web/2.3.5.RELEASE/spring-boot-starter-web-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-json/2.3.5.RELEASE/spring-boot-starter-json-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.11.3/jackson-datatype-jdk8-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/module/jackson-module-parameter-names/2.11.3/jackson-module-parameter-names-2.11.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-tomcat/2.3.5.RELEASE/spring-boot-starter-tomcat-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-core/9.0.39/tomcat-embed-core-9.0.39.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.39/tomcat-embed-websocket-9.0.39.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-web/5.2.10.RELEASE/spring-web-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-webmvc/5.2.10.RELEASE/spring-webmvc-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot/2.3.5.RELEASE/spring-boot-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-autoconfigure/2.3.5.RELEASE/spring-boot-autoconfigure-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-configuration-processor/2.3.5.RELEASE/spring-boot-configuration-processor-2.3.5.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-core/5.2.10.RELEASE/spring-core-5.2.10.RELEASE.jar
+[DEBUG]  /Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jcl/5.2.10.RELEASE/spring-jcl-5.2.10.RELEASE.jar
+[DEBUG] Source roots:
+[DEBUG]  /Users/qiding/qiding-project/java-project/kankan-project/src/main/java
+[DEBUG]  /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations
+[DEBUG] Command line options:
+[DEBUG] -d /Users/qiding/qiding-project/java-project/kankan-project/target/classes -classpath /Users/qiding/qiding-project/java-project/kankan-project/target/classes:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-actuator/2.3.5.RELEASE/spring-boot-starter-actuator-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter/2.3.5.RELEASE/spring-boot-starter-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-logging/2.3.5.RELEASE/spring-boot-starter-logging-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-to-slf4j/2.13.3/log4j-to-slf4j-2.13.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/logging/log4j/log4j-api/2.13.3/log4j-api-2.13.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/jul-to-slf4j/1.7.30/jul-to-slf4j-1.7.30.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/jakarta/annotation/jakarta.annotation-api/1.3.5/jakarta.annotation-api-1.3.5.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/yaml/snakeyaml/1.26/snakeyaml-1.26.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator-autoconfigure/2.3.5.RELEASE/spring-boot-actuator-autoconfigure-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-actuator/2.3.5.RELEASE/spring-boot-actuator-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-databind/2.11.3/jackson-databind-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-annotations/2.11.3/jackson-annotations-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/core/jackson-core/2.11.3/jackson-core-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.11.3/jackson-datatype-jsr310-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/micrometer/micrometer-core/1.5.6/micrometer-core-1.5.6.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-mongodb/2.3.5.RELEASE/spring-boot-starter-data-mongodb-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-sync/4.0.5/mongodb-driver-sync-4.0.5.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/bson/4.0.5/bson-4.0.5.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/mongodb/mongodb-driver-core/4.0.5/mongodb-driver-core-4.0.5.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-mongodb/3.0.5.RELEASE/spring-data-mongodb-3.0.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-tx/5.2.10.RELEASE/spring-tx-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context/5.2.10.RELEASE/spring-context-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-beans/5.2.10.RELEASE/spring-beans-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-expression/5.2.10.RELEASE/spring-expression-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-commons/2.3.5.RELEASE/spring-data-commons-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/slf4j/slf4j-api/1.7.30/slf4j-api-1.7.30.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-data-redis/2.3.5.RELEASE/spring-boot-starter-data-redis-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-redis/2.3.5.RELEASE/spring-data-redis-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/data/spring-data-keyvalue/2.3.5.RELEASE/spring-data-keyvalue-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-oxm/5.2.10.RELEASE/spring-oxm-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-aop/5.2.10.RELEASE/spring-aop-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-context-support/5.2.10.RELEASE/spring-context-support-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/lettuce/lettuce-core/5.3.5.RELEASE/lettuce-core-5.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-common/4.1.53.Final/netty-common-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-handler/4.1.53.Final/netty-handler-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-resolver/4.1.53.Final/netty-resolver-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-buffer/4.1.53.Final/netty-buffer-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-codec/4.1.53.Final/netty-codec-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/netty/netty-transport/4.1.53.Final/netty-transport-4.1.53.Final.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/io/projectreactor/reactor-core/3.3.11.RELEASE/reactor-core-3.3.11.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/reactivestreams/reactive-streams/1.0.3/reactive-streams-1.0.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-jdbc/2.3.5.RELEASE/spring-boot-starter-jdbc-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/zaxxer/HikariCP/3.4.5/HikariCP-3.4.5.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jdbc/5.2.10.RELEASE/spring-jdbc-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-web/2.3.5.RELEASE/spring-boot-starter-web-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-json/2.3.5.RELEASE/spring-boot-starter-json-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/datatype/jackson-datatype-jdk8/2.11.3/jackson-datatype-jdk8-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/com/fasterxml/jackson/module/jackson-module-parameter-names/2.11.3/jackson-module-parameter-names-2.11.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-starter-tomcat/2.3.5.RELEASE/spring-boot-starter-tomcat-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-core/9.0.39/tomcat-embed-core-9.0.39.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/glassfish/jakarta.el/3.0.3/jakarta.el-3.0.3.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.39/tomcat-embed-websocket-9.0.39.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-web/5.2.10.RELEASE/spring-web-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-webmvc/5.2.10.RELEASE/spring-webmvc-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot/2.3.5.RELEASE/spring-boot-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-autoconfigure/2.3.5.RELEASE/spring-boot-autoconfigure-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/boot/spring-boot-configuration-processor/2.3.5.RELEASE/spring-boot-configuration-processor-2.3.5.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-core/5.2.10.RELEASE/spring-core-5.2.10.RELEASE.jar:/Users/qiding/systemtools/apache-maven-3.5.4/jarlib/org/springframework/spring-jcl/5.2.10.RELEASE/spring-jcl-5.2.10.RELEASE.jar: -sourcepath /Users/qiding/qiding-project/java-project/kankan-project/src/main/java:/Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations: -s /Users/qiding/qiding-project/java-project/kankan-project/target/generated-sources/annotations -g -parameters -nowarn -target 1.8 -source 1.8 -encoding UTF-8
+[DEBUG] incrementalBuildHelper#beforeRebuildExecution
+[INFO] Compiling 1 source file to /Users/qiding/qiding-project/java-project/kankan-project/target/classes
+[DEBUG] incrementalBuildHelper#afterRebuildExecution
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1.466 s
+[INFO] Finished at: 2020-11-29T22:34:12+08:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project kankan-project: Compilation failure
+[ERROR] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+[ERROR] 
+[ERROR] -> [Help 1]
+org.apache.maven.lifecycle.LifecycleExecutionException: Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.8.1:compile (default-compile) on project kankan-project: Compilation failure
+No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:213)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:154)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:146)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:954)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:288)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:192)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:498)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:289)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:229)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:415)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:356)
+Caused by: org.apache.maven.plugin.compiler.CompilationFailureException: Compilation failure
+No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?
+
+    at org.apache.maven.plugin.compiler.AbstractCompilerMojo.execute (AbstractCompilerMojo.java:1220)
+    at org.apache.maven.plugin.compiler.CompilerMojo.execute (CompilerMojo.java:187)
+    at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo (DefaultBuildPluginManager.java:137)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:208)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:154)
+    at org.apache.maven.lifecycle.internal.MojoExecutor.execute (MojoExecutor.java:146)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:117)
+    at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject (LifecycleModuleBuilder.java:81)
+    at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build (SingleThreadedBuilder.java:56)
+    at org.apache.maven.lifecycle.internal.LifecycleStarter.execute (LifecycleStarter.java:128)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:305)
+    at org.apache.maven.DefaultMaven.doExecute (DefaultMaven.java:192)
+    at org.apache.maven.DefaultMaven.execute (DefaultMaven.java:105)
+    at org.apache.maven.cli.MavenCli.execute (MavenCli.java:954)
+    at org.apache.maven.cli.MavenCli.doMain (MavenCli.java:288)
+    at org.apache.maven.cli.MavenCli.main (MavenCli.java:192)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0 (Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke (NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke (DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke (Method.java:498)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced (Launcher.java:289)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.launch (Launcher.java:229)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode (Launcher.java:415)
+    at org.codehaus.plexus.classworlds.launcher.Launcher.main (Launcher.java:356)
+[ERROR] 
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

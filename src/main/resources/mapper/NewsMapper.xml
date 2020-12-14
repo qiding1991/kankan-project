@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.NewsMapper">
+
+    <insert id="insert" parameterType="NewsEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into news_info(id,tab_id,resource_id,title,picture,status,create_time,update_time) values (#{id},#{tabId},#{resourceId},#{title},#{picture},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="findNews" resultType="NewsEntity">
+        select  * from news_info where tab_id=#{tabId}  and  id &lt; #{offset}  order by id desc  limit #{size}
+    </select>
+</mapper>

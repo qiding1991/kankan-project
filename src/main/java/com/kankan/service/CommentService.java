@@ -1,0 +1,74 @@
+package com.kankan.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
+
+import com.kankan.dao.entity.CommentEntity;
+import com.kankan.dao.entity.KankanRecommendEntity;
+import com.kankan.dao.mapper.CommentMapper;
+import com.kankan.module.KankanComment;
+import com.kankan.module.KankanRecommend;
+
+/**
+ * @author <qiding@qiding.com>
+ * Created on 2020-12-06
+ */
+@Service
+public class CommentService {
+
+    @Resource
+    private CommentMapper commentMapper;
+
+    public void saveComment(KankanComment comment) {
+        CommentEntity entity = new CommentEntity();
+        BeanUtils.copyProperties(comment, entity);
+        commentMapper.insert(entity);
+    }
+
+    public List<KankanComment> fromMe(KankanComment kankanComment) {
+        List<CommentEntity> entityList = entityList(kankanComment);
+        List<KankanComment> kankanComments = entityList.stream().map(CommentEntity::parse).collect(Collectors.toList());
+        return kankanComments;
+    }
+
+    private CommentEntity toMe(CommentEntity commentEntity) {
+        return CommentEntity.builder().parentId(commentEntity.getId()).resourceId(commentEntity.getResourceId())
+                .build();
+    }
+
+    public List<KankanComment> toMe(KankanComment kankanComment) {
+        //回复我的评论
+        List<CommentEntity> entityList = entityList(kankanComment);
+        List<CommentEntity> condition =
+                entityList.stream().map(commentEntity -> toMe(commentEntity)).collect(Collectors.toList());
+        List<KankanComment> kankanComments = condition.stream().map(CommentEntity::parse).collect(Collectors.toList());
+        return kankanComments;
+    }
+
+    private List<CommentEntity> entityList(KankanComment kankanComment) {
+        List<CommentEntity> infoList = commentMapper.findByUserId(kankanComment.getUserId());
+        return infoList;
+    }
+
+    public List<KankanComment> findComment(List<KankanComment> workCondition) {
+        List<CommentEntity> resultList = commentMapper.findByCondition(workCondition);
+        List<KankanComment> infoList = resultList.stream().map(CommentEntity::parse).collect(Collectors.toList());
+        return infoList;
+    }
+
+    public    List<KankanComment>  findResourceComment(String resourceId) {
+        List<CommentEntity> resultList = commentMapper.findResourceComment(resourceId);
+        List<KankanComment> infoList = resultList.stream().map(CommentEntity::parse).collect(Collectors.toList());
+        return infoList;
+    }
+
+    public void incrementThumpCount(Long id) {
+        commentMapper.incrementThumpCount(id);
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "properties":[
+    {
+      "name": "mail.content.email-template",
+      "type": "java.lang.String",
+      "defaultValue": "your are welcome, %s activeCode is %s"
+    },
+    {
+      "name": "mail.content.active-code-length",
+      "type": "java.lang.String",
+      "defaultValue": 6
+    },
+    {
+      "name": "file-server.base-url",
+      "type": "java.lang.String"
+    }
+  ]
+}
+

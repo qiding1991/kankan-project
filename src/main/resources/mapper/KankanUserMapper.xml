@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.KankanUserMapper">
+
+    <insert id="insert" parameterType="KankanUserEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into kankan_user(id,user_name,user_id,user_type,remark,status,create_time,update_time) values (#{id},#{userName},#{userId}, #{userType},#{remark},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="findByUserId" resultType="KankanUserEntity">
+        select * from kankan_user where user_id=#{userId}
+    </select>
+
+</mapper>

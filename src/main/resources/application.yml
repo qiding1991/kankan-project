@@ -1,0 +1,45 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: kankan-project
+  #发送邮件服务器配置
+  mail:
+    username: qiding_email_test@126.com
+    password: LYIIYWWGIRANQIWT
+    host: smtp.126.com
+  #mongodb配置
+  data:
+    mongodb:
+      uri: mongodb://127.0.0.1:27017/kankan
+      grid-fs-database: kankan-fs
+    #mysql配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/kankan?useUnicode=true&characterEncoding=utf-8&relaxAutoCommit=true&
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #redis配置
+  redis:
+    port: 6379
+    host: 127.0.0.1
+  jackson:
+    default-property-inclusion: non_null
+#日志配置
+logging:
+  pattern:
+    console: "[@project.artifactId@] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%p] => %C.%M\\(%F:%L\\) - %m%n"
+#邮箱模版配置
+mail:
+  content:
+    email-template: "your are welcome, %s activeCode is %s"
+    active-code-length: 6
+#mybatis配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package:  com.kankan.dao.entity
+  mapper-locations: mapper/*.xml
+#文件服务器地址
+fileServer:
+  baseUrl: http://127.0.0.1:${server.port}/

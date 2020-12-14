@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.FavouriteMapper">
+
+    <insert id="insert" parameterType="FavouriteEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into favourite(id,resource_id,user_id,status,create_time,update_time) values (#{id},#{resourceId},#{userId},#{status},#{createTime},#{updateTime})
+    </insert>
+    <select id="findUserFavourite" resultType="FavouriteEntity">
+        select * from favourite where user_id=#{userId}  and id > #{offset} limit #{size}
+    </select>
+
+    <delete id="remove">
+        delete  from favourite where id=#{id}
+    </delete>
+
+</mapper>

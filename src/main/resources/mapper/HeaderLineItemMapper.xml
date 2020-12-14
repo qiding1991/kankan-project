@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.HeaderLineItemMapper">
+
+    <insert id="insert" parameterType="HeaderLineItemEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into header_line_item(id,header_line_id,resource_id,title,status,create_time,update_time) values (#{id},#{headerLineId},#{resourceId},#{title},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="findHeaderLineItem" resultType="HeaderLineItemEntity">
+        select  * from header_line_item where header_line_id=#{headerLineId}
+    </select>
+</mapper>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.KankanAdMapper">
+
+    <insert id="insert" parameterType="AdEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into ad_info(id,resource_id,title,picture,status,create_time,update_time) values (#{id},#{resourceId},#{title},#{picture},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <select id="findById" resultType="AdEntity">
+        select * from ad_info where id=#{id}
+    </select>
+
+</mapper>

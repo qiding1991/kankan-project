@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.UserMapper">
+    <select id="findUserByEmail" resultType="UserEntity">
+        select * from user_info where user_email=#{userEmail}
+    </select>
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="UserEntity">
+        insert into user_info(id,user_email,password,username,user_photo,status,create_time,update_time)
+        values(#{id},#{userEmail},#{password},#{username},#{userPhoto},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <update id="updateUser" parameterType="UserEntity">
+        update user_info set update_time=#{updateTime}
+        <if test="username!=null">
+           , username=#{username}
+        </if>
+
+        <if test="password!=null">
+            ,password=#{password}
+        </if>
+        <if test="userEmail!=null">
+            ,user_email=#{userEmail}
+        </if>
+        <if test="userPhoto!=null">
+           , user_photo=#{userPhoto}
+        </if>
+        where id=#{id}
+    </update>
+
+    <update id="registerUser" parameterType="UserEntity">
+        update user_info set username=#{username}, password=#{password},  update_time=#{updateTime} where id=#{id}
+    </update>
+</mapper>

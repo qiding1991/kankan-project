@@ -1,0 +1,4 @@
+创建看看作者
+ curl -H 'Content-Type:application/json' -X POST -d '{"userId":"1","userType":"1","userName":"老A","remark":"牛逼的开发者"}' "http://127.0.0.1:8081/admin/kankan/user/create"
+
+ curl -X GET "http://127.0.0.1:8081/item/list?offset=2147483647&size=10&tabId=1" -H "accept: */*"

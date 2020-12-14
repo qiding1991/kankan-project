@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.KankanTypeMapper">
+
+    <insert id="insert" parameterType="KankanTypeEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into kankan_type(id,type_desc,type_order,status,create_time,update_time) values (#{id},#{typeDesc},#{typeOrder},#{status},#{createTime},#{updateTime})
+    </insert>
+
+
+    <update id="update" parameterType="KankanTypeEntity">
+        update kankan_type set update_time=#{updateTime}
+        <if test="typeDesc!=null">
+            and type_desc=#{typeDesc}
+        </if>
+        <if test="typeOrder!=null">
+            and type_order=#{typeOrder}
+        </if>
+        where id=#{id}
+    </update>
+
+</mapper>

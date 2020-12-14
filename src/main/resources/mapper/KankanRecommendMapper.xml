@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kankan.dao.mapper.KankanRecommendMapper">
+
+    <insert id="insert" parameterType="KankanRecommendEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into kankan_recommend(id,user_id,recommend_order,status,create_time,update_time) values (#{id},#{userId},#{recommendOrder},#{status},#{createTime},#{updateTime})
+    </insert>
+    <delete id="deleteByUserId" parameterType="KankanRecommendEntity">
+        delete from kankan_recommend where user_id=#{userId}
+    </delete>
+
+    <update id="updateByUserId">
+        update kankan_recommend set update_time= #{updateTime}  ,recommend_order= #{recommendOrder} where user_id=#{userId}
+    </update>
+
+    <select id="findAll" resultType="KankanRecommendEntity">
+        select * from kankan_recommend
+    </select>
+
+</mapper>

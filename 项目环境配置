@@ -1,0 +1,12 @@
+1.启动mysql
+   # 第一次启动
+     docker run  --name mysql  -p 3306:3306  -e MYSQL_ROOT_PASSWORD=123456 -d
+   #第二次启动·
+     docker start mysql
+2.启动mongodb
+   cd /Users/qiding/systemtools/mongodb-macos-x86_64-4.2.0/bin
+   ./mongod -f ../conf/mongo.conf --fork
+
+3.启动redis
+   cd /Users/qiding/systemtools/redis-5.0.4/src
+   nohup ./redis-server &
