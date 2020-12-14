@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  * @author <qiding@qiding.com>
@@ -20,9 +21,15 @@ public class CommentEntity extends BaseEntity {
     private Long parentId = 0L;
     private String commentText;
     private Long userId;
+    private Integer thumpCount=0;
 
     public KankanComment parse() {
-        return KankanComment.builder().commentText(commentText).resourceId(resourceId).parentId(parentId).build();
+        return KankanComment.builder()
+                .userId(userId)
+                .id(this.getId())
+                .createTime(this.getCreateTime())
+                .thumpCount(ObjectUtils.defaultIfNull(this.getThumpCount(),0))
+                .commentText(commentText).resourceId(resourceId).parentId(parentId).build();
     }
 }
 

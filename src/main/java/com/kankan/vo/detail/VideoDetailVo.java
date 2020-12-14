@@ -7,10 +7,12 @@ import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.*;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 @Builder
 public class VideoDetailVo {
     private String resourceId;
@@ -21,6 +23,10 @@ public class VideoDetailVo {
     private String commentTitle = "相关评论";
     private List<KankanCommentVo> commentVoList;
 
+    public void addBaseInfo(){
+        this.videoTitle="相关视频";
+        this.commentTitle="相关评论";
+    }
 
     public void addCommentInfo(CommentService commentService, KankanUserService userService) {
         KankanComment comment = KankanComment.builder().resourceId(resourceId).build();

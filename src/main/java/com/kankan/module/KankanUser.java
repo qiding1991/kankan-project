@@ -49,7 +49,9 @@ public class KankanUser {
     }
 
     public List<KankanUser> commonTypeUser(KankanUserService userService) {
-        return null;
+         List<KankanUser> userEntityList= userService.findUserByType(this.userType);
+
+        return userEntityList;
     }
 
     public List<KankanUser> commonType(KankanUserService userService) {

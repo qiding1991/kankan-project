@@ -84,20 +84,22 @@ public class ItemController extends BaseController {
         switch (enumItem) {
             case NEWS:
                 NewsDetailVo newsDetailVo = NewsDetailVo.builder().resourceId(resourceId).build();
-                newsDetailVo.addBaseInfo(mediaResource);
+                newsDetailVo.addBaseInfo(resource);
                 newsDetailVo.addAdInfo(adService);
                 newsDetailVo.addCommentInfo(commentService, kankanUserService);
-                newsDetailVo.addRelatedNews(mediaResource, resourceService, tabService, newsService);
+                newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
                 return success(newsDetailVo);
             case ARTICLE:
                 ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
+               articleDetailVo.addBaseInfo();
                 articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
                 articleDetailVo.addCommentInfo(commentService, kankanUserService);
                 return success(articleDetailVo);
             case VIDEO:
                 VideoDetailVo videoDetailVo= VideoDetailVo.builder().resourceId(resourceId).build();
+                videoDetailVo.addBaseInfo();
                 videoDetailVo.addCommentInfo(commentService,kankanUserService);
-                videoDetailVo.addRelatedVideos(mediaResource,resourceService,kankanUserService,workService);
+                videoDetailVo.addRelatedVideos(resource,resourceService,kankanUserService,workService);
                 videoDetailVo.addUserVo(kankanUserService,workService);
                 return success(videoDetailVo);
             default:

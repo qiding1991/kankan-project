@@ -1,6 +1,7 @@
 package com.kankan.vo;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -13,5 +14,5 @@ import lombok.Data;
 public class KankanTypeVo {
    private Long id;
    private String typeDesc;
-   List<KankanUserVo>  userVoList;
+   List<KankanUserVo>  userVoList=new ArrayList<>();
 }

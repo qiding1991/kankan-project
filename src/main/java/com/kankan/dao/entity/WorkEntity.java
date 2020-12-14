@@ -20,8 +20,8 @@ public class WorkEntity extends BaseEntity {
     private String picture;
 
     public KankanWork parse() {
-        return KankanWork.builder().type(type).userId(userId).resourceId(resourceId).title(title).picture(picture)
-                .build();
+        return KankanWork.builder().id(this.getId()).type(type).userId(userId).resourceId(resourceId).title(title).picture(picture)
+                .publishTime(this.getCreateTime()).build();
 
     }
 }

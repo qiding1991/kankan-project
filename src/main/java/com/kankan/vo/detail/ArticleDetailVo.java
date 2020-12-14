@@ -12,10 +12,12 @@ import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.AdItemVo;
 import com.kankan.vo.tab.ArticleItemVo;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Data
 @Builder
 public class ArticleDetailVo {
     private String resourceId;
@@ -26,6 +28,11 @@ public class ArticleDetailVo {
     private List<ArticleItemVo> userArticle;
     private String commentTitle = "相关评论";
     private List<KankanCommentVo> commentVoList;
+
+    public void addBaseInfo(){
+        this.newsTitle="作者其它文章";
+        this.commentTitle="相关评论";
+    }
 
 
     public void addCommentInfo(CommentService commentService, KankanUserService userService) {
@@ -40,6 +47,6 @@ public class ArticleDetailVo {
         KankanUser kankanUser = kankanUserService.findUser(workInfo.getUserId());
         this.userVo = kankanUser.toVo();
         List<KankanWork> workList = workService.findUserWork(kankanUser.getUserId(), 0);
-        this.userArticle = workList.stream().map(workItem -> new ArticleItemVo(workInfo, kankanUser, mediaResource)).collect(Collectors.toList());
+        this.userArticle = workList.stream().filter(work -> !work.getId().equals(workInfo.getId())).map(workItem -> new ArticleItemVo(workInfo, kankanUser, mediaResource)).collect(Collectors.toList());
     }
 }

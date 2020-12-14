@@ -9,10 +9,8 @@ import com.kankan.module.resouce.ResourceThump;
 import com.kankan.param.resource.CommentParam;
 import com.kankan.param.resource.FavouriteParam;
 import com.kankan.param.resource.ThumpParam;
-import com.kankan.service.CommentService;
-import com.kankan.service.FavouriteService;
-import com.kankan.service.ResourceService;
-import com.kankan.service.ThumpService;
+import com.kankan.service.*;
+import com.kankan.vo.KankanCommentVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -38,13 +36,16 @@ public class ResourceController extends BaseController {
 
     private FavouriteService favouriteService;
 
+    private KankanUserService userService;
+
 
     public ResourceController(ResourceService resourceService, CommentService commentService,
-            ThumpService thumpService, FavouriteService favouriteService) {
+                              ThumpService thumpService, FavouriteService favouriteService, KankanUserService userService) {
         this.resourceService = resourceService;
         this.commentService = commentService;
         this.thumpService = thumpService;
         this.favouriteService = favouriteService;
+        this.userService = userService;
     }
 
     @ApiOperation("评论新闻、文章、视频")
@@ -103,8 +104,7 @@ public class ResourceController extends BaseController {
     @GetMapping("related")
     public CommonResponse related(@RequestParam(value = "resourceId") String resourceId,
             @RequestParam(value = "mediaType") Integer mediaType) {
-        MediaResource resource =
-                MediaResource.builder().mediaType(mediaType).resourceId(resourceId).build();
+        MediaResource resource = MediaResource.builder().mediaType(mediaType).resourceId(resourceId).build();
         List<MediaResource> infoList = resource.findRelated(resourceService);
         return success(infoList);
     }
@@ -112,10 +112,10 @@ public class ResourceController extends BaseController {
     @ApiOperation("获取所有的评论")
     @GetMapping("comment/list")
     public CommonResponse commentList(@RequestParam(value = "resourceId") String resourceId) {
-        MediaResource resource = MediaResource.builder().resourceId(resourceId).build();
-        List<KankanComment> commentList = resource.allComment(commentService);
-        //组装数据结果
-        //TODO 完善
-        return success(commentList);
+        MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
+        mediaResource.incrementReadCount(resourceService);
+        KankanComment comment=KankanComment.builder().resourceId(resourceId).build();
+        List<KankanCommentVo> commentVoList=comment.resourceCommentInfo(commentService,userService);
+        return success(commentVoList);
     }
 }

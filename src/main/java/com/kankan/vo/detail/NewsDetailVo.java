@@ -32,6 +32,8 @@ public class NewsDetailVo {
      */
     public void addBaseInfo(MediaResource mediaResource){
         this.content=mediaResource.getContent();
+        this.commentTitle = "相关评论";
+        this.newsTitle = "相关信息";
     }
 
     /**

@@ -11,6 +11,8 @@ import com.kankan.vo.KankanTypeVo;
 
 import lombok.Builder;
 import lombok.Data;
+import org.checkerframework.checker.units.qual.K;
+import org.springframework.beans.BeanUtils;
 
 /**
  * @author <qiding@qiding.com>
@@ -41,7 +43,9 @@ public class KankanType {
     }
 
     public KankanTypeVo toVo() {
-        return null;
+        KankanTypeVo kankanTypeVo=new KankanTypeVo();
+        BeanUtils.copyProperties(this,kankanTypeVo);
+        return kankanTypeVo;
     }
 
     public void remove(KankanTypeService typeService) {

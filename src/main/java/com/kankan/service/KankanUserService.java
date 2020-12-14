@@ -42,4 +42,9 @@ public class KankanUserService {
         List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset,size);
         return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     }
+
+    public List<KankanUser> findUserByType(Long userType) {
+        List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
+        return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    }
 }
