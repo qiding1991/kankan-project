@@ -176,6 +176,7 @@ create table kankan_user(
      user_id bigint(20) unsigned not null  default '0' comment '关联的用户信息',
      user_type bigint(20) unsigned not null  default '0' comment '分类表',
      remark  varchar(20)  not null default '' comment '简介',
+     picture varchar(1024) not null default '111' comment '作者头像',
      fans_count bigint(20) unsigned not null  default '0' comment '粉丝数',
      read_count bigint(20) unsigned not null  default '0' comment '阅读数',
      follow_count bigint(20) unsigned not null  default '0' comment '关注数',
