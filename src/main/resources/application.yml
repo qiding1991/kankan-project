@@ -46,4 +46,4 @@ mybatis:
   mapper-locations: mapper/*.xml
 #文件服务器地址
 fileServer:
-  baseUrl: http://127.0.0.1:${server.port}/
+  baseUrl: http://47.94.33.237:${server.port}/
