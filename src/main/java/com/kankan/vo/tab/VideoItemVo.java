@@ -19,13 +19,13 @@ public class VideoItemVo extends TabItemVo {
     private String title;
 
     // 作者名称 | 视频
-    private String subtitle;
+    private String subTitle;
 
     //图片地址
     private String picture;
 
     //视频地址
-    private String video;
+    private String videoUrl;
 
     //评论总数
     private Integer commentCount;
@@ -36,12 +36,13 @@ public class VideoItemVo extends TabItemVo {
     public VideoItemVo(KankanWork video, KankanUser writer, MediaResource resource) {
         this.title = video.getTitle();
         this.picture = video.getPicture();
+        this.videoUrl=video.getVideoUrl();
         this.setResourceId(video.getResourceId());
         this.commentCount = ObjectUtils.defaultIfNull(resource.getCommentCount(),0);
         this.thumbsCount =ObjectUtils.defaultIfNull(resource.getThumpCount(),0);
         this.setItemId(video.getId());
         this.setItemType(EnumItemType.VIDEO.getCode());
-        this.subtitle = writer.getUserName() + "|" + "视频";
+        this.subTitle = writer.getUserName() + "|" + "视频";
         this.setPublishTime(video.getPublishTime());
     }
 }

@@ -20,7 +20,7 @@ public class ArticleItemVo extends TabItemVo {
     private String title;
 
     // 作者名称 | 文章
-    private String subtitle;
+    private String subTitle;
 
     //图片地址
     private String picture;
@@ -30,7 +30,7 @@ public class ArticleItemVo extends TabItemVo {
 
     public ArticleItemVo(KankanWork article, KankanUser writer, MediaResource resource) {
           this.title=article.getTitle();
-          this.subtitle=writer.getUserName()+"|"+"专栏";
+          this.subTitle=writer.getUserName()+"|"+"专栏";
           this.picture=article.getPicture();
           this.readCount= ObjectUtils.defaultIfNull(resource.getReadCount(),0);
           this.setResourceId(article.getResourceId());

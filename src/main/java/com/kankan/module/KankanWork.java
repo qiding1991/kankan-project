@@ -30,6 +30,7 @@ public class KankanWork {
     private Long id;
     private Long userId;
     private String picture;
+    private String videoUrl;
     private String title;
     private String resourceId;
     private Integer type;
