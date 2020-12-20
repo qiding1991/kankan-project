@@ -34,6 +34,6 @@ public class FavouriteService {
     }
 
     public void remove(Favourite favourite) {
-          favouriteMapper.remove(favourite.getId());
+          favouriteMapper.remove(favourite.getResourceId());
     }
 }

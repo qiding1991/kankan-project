@@ -41,7 +41,7 @@ public class FollowController extends BaseController {
   }
 
   @ApiOperation("关注列表")
-  @PostMapping("list")
+  @GetMapping("list")
   public CommonResponse list(
     @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
     @RequestParam(value = "size") Integer size, @RequestParam(value = "userId") Long userId) {

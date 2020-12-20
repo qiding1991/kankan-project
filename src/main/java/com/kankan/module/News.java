@@ -32,7 +32,11 @@ public class News {
     private String resourceId;
     private Long createTime;
 
-    public void create(NewsService newsService) {
+  public static News fromResourceId(String resourceId, NewsService newsService) {
+        return     newsService.findNews(resourceId);
+  }
+
+  public void create(NewsService newsService) {
         newsService.createNews(this);
     }
 

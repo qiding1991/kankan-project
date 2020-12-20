@@ -2,6 +2,7 @@ package com.kankan.param.news;
 
 import java.util.List;
 
+import com.kankan.constant.EnumItemType;
 import com.kankan.module.MediaResource;
 import com.kankan.module.News;
 import com.kankan.service.ResourceService;
@@ -22,7 +23,7 @@ public class NewsAddInfo {
 
 
     public News toNews(ResourceService resourceService) {
-        MediaResource resource = MediaResource.builder().content(content).title(title).keyWords(keyword).build();
+        MediaResource resource = MediaResource.builder().content(content).title(title).mediaType(EnumItemType.NEWS.getCode()).keyWords(keyword).build();
         String resourceId = resourceService.saveResource(resource);
         return News.builder().picture(picture).resourceId(resourceId).title(title).tabId(tabId).build();
     }

@@ -15,7 +15,6 @@ public class FavouriteVo {
     private Long id;
     private String resourceId;
 
-
     public FavouriteVo(Favourite favourite) {
         BeanUtils.copyProperties(favourite,this);
     }

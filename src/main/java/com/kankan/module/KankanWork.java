@@ -36,7 +36,12 @@ public class KankanWork {
     private Integer type;
     private Long publishTime;
 
-    public void addWork(KankanWorkService workService) {
+  public static KankanWork fromResourceId(String resourceId, KankanWorkService workService) {
+     KankanWork kankanWork= workService.findByResourceId(resourceId);
+     return kankanWork;
+  }
+
+  public void addWork(KankanWorkService workService) {
         workService.addWork(this);
     }
 

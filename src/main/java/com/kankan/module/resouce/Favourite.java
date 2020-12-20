@@ -44,8 +44,8 @@ public class Favourite {
 
     }
 
-    public static Favourite fromId(Long id) {
-         return Favourite.builder().id(id).build();
+    public static Favourite fromId(String resourceId) {
+         return Favourite.builder().resourceId(resourceId).build();
     }
 
     public void remove(FavouriteService favouriteService) {

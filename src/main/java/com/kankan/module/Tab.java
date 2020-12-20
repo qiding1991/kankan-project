@@ -18,35 +18,40 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Tab {
-    private Long tabId;
-    private String tabName;
-    private Integer tabType;
-    private Integer tabOrder;
-    public static Tab defaultTab() {
-        return new Tab();
-    }
+  private Long tabId;
+  private String tabName;
+  private Integer tabType;
+  private Integer tabOrder;
 
-    public List<Tab> tabList(TabService tabService) {
-        return tabService.findTab();
-    }
+  public static Tab defaultTab() {
+    return new Tab();
+  }
 
-    public void tabName(String tabName) {
-        this.tabName=tabName;
-    }
+  public static Tab fromTabId(Long tabId, TabService tabService) {
+    return tabService.findTab(tabId);
+  }
 
-    public void tabType(Integer tabType) {
-        this.tabType=tabType;
-    }
+  public List<Tab> tabList(TabService tabService) {
+    return tabService.findTab();
+  }
 
-    public void tabOrder(Integer tabOrder) {
-        this.tabOrder=tabOrder;
-    }
+  public void tabName(String tabName) {
+    this.tabName = tabName;
+  }
 
-    public void save2Db(TabService tabService) {
-        tabService.updateTab(this);
-    }
+  public void tabType(Integer tabType) {
+    this.tabType = tabType;
+  }
 
-    public void insert2Db(TabService tabService) {
-        tabService.createTab(this);
-    }
+  public void tabOrder(Integer tabOrder) {
+    this.tabOrder = tabOrder;
+  }
+
+  public void save2Db(TabService tabService) {
+    tabService.updateTab(this);
+  }
+
+  public void insert2Db(TabService tabService) {
+    tabService.createTab(this);
+  }
 }

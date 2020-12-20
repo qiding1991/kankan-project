@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.mongodb.monitor.BtreeIndexCounters;
 import org.springframework.stereotype.Service;
 
 import com.kankan.dao.entity.KankanTypeEntity;
@@ -71,5 +72,10 @@ public class KankanWorkService {
     public KankanWork resourceWork(String resourceId) {
          WorkEntity workEntity=workMapper.findByResourceId(resourceId);
          return workEntity.parse();
+    }
+
+    public KankanWork findByResourceId(String resourceId) {
+      WorkEntity workEntity= workMapper.findByResourceId(resourceId);
+      return  KankanWork.parseEntity(workEntity);
     }
 }

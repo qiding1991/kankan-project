@@ -14,5 +14,5 @@ import com.kankan.dao.entity.FavouriteEntity;
 public interface FavouriteMapper {
     void insert(FavouriteEntity entity);
     List<FavouriteEntity> findUserFavourite(Long userId, Long offset, Integer size);
-    void remove(Long id);
+    void remove(String resourceId);
 }
