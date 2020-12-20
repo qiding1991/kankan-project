@@ -24,8 +24,7 @@ public class Follow {
     }
 
     public static Follow parseEntity(FollowEntity followEntity) {
-        //TODO
-        return null;
+        return Follow.builder().userId(followEntity.getUserId()).followId(followEntity.getFollowId()).build();
     }
 
     public FollowVo toVo() {
@@ -34,11 +33,11 @@ public class Follow {
     }
 
     public void cancel(FollowService followService) {
-
+       followService.cancel(this);
     }
 
     public void add(FollowService followService) {
-
+      followService.createNew(this);
     }
 
     public Boolean exists(FollowService followService) {

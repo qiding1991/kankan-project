@@ -5,4 +5,6 @@ package com.kankan.vo;
  * Created on 2020-12-08
  */
 public class FollowVo {
+
+
 }

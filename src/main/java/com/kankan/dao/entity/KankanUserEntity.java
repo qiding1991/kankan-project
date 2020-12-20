@@ -12,6 +12,7 @@ public class KankanUserEntity extends BaseEntity {
     private String userName;
     private Long userId;
     private Long userType;
+    private String picture;
     private String remark;
     private Long fansCount;
     private Long followCount;

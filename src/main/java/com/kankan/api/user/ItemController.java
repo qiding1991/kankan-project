@@ -128,11 +128,12 @@ public class ItemController extends BaseController {
         infoList.addAll(findHot(hotPointService, pageInfo));
         break;
       case ARTICLE:
+        //热门看看号
+        infoList.add(findHotUserItemVo());
+
         if (offset == Integer.MAX_VALUE) {
           infoList.add(findHeaderLine(headerLineService, pageInfo));
         }
-        //热门看看号
-        infoList.add(findHotUserItemVo());
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:

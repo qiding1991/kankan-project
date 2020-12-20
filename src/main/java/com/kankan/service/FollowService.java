@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.kankan.dao.entity.BaseEntity;
 import org.springframework.stereotype.Service;
 
 import com.kankan.dao.entity.FollowEntity;
@@ -18,15 +19,24 @@ import com.kankan.module.PageQuery;
  */
 @Service
 public class FollowService {
-    @Resource
-    private FollowMapper followMapper;
+  @Resource
+  private FollowMapper followMapper;
 
-    public List<Follow> findUserFollow(Long userId, PageQuery pageQuery) {
-        List<FollowEntity> followEntityList = followMapper.findUserFollow(userId, pageQuery.getOffset(), pageQuery.getSize());
-        return followEntityList.stream().map(Follow::parseEntity).collect(Collectors.toList());
-    }
+  public List<Follow> findUserFollow(Long userId, PageQuery pageQuery) {
+    List<FollowEntity> followEntityList = followMapper.findUserFollow(userId, pageQuery.getOffset(), pageQuery.getSize());
+    return followEntityList.stream().map(Follow::parseEntity).collect(Collectors.toList());
+  }
 
-    public Boolean exists(Long userId, Long followId) {
-        return 1 == followMapper.findCount(userId, followId);
-    }
+  public Boolean exists(Long userId, Long followId) {
+    return 1 == followMapper.findCount(userId, followId);
+  }
+
+  public void createNew(Follow follow) {
+    FollowEntity followEntity = new FollowEntity(follow);
+    followMapper.insert(followEntity);
+  }
+
+  public void cancel(Follow follow) {
+      followMapper.delete(follow.getUserId(),follow.getFollowId());
+  }
 }

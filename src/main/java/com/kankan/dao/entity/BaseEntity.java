@@ -1,7 +1,9 @@
 package com.kankan.dao.entity;
 
+import com.kankan.module.Follow;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.BeanUtils;
 
 import java.time.Instant;
 
@@ -12,7 +14,8 @@ public class BaseEntity {
     private Long createTime = Instant.now().toEpochMilli();
     private Long updateTime = Instant.now().toEpochMilli();
 
-    public Long getCreateTime(){
+
+  public Long getCreateTime(){
         return ObjectUtils.defaultIfNull(createTime,Instant.now().toEpochMilli());
     }
 
