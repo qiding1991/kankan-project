@@ -71,7 +71,6 @@ create table header_line_item(
       id bigint(20) unsigned not null auto_increment comment '主键id',
       header_line_id bigint(20) unsigned not null default '0' comment '关联的主键',
       resource_id varchar(64) not null default '' comment '资源id',
-      title varchar(64) not null default '' comment '标题',
       status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
       create_time bigint(20) unsigned not null  comment '创建时间',
       update_time bigint(20) unsigned not null  comment '更新时间',

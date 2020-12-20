@@ -57,7 +57,7 @@ public class AdminHeaderLineController {
     @ApiOperation("创建头条item")
     @PostMapping("headerLineItem")
     public CommonResponse  headerLineItem(@Valid @RequestBody HeaderLineItemInfo headerItem){
-        HeaderLineItem headerLine=headerItem.toHeadline(resourceService);
+        HeaderLineItem headerLine=headerItem.toHeadline();
         headerLine.creatHeadItem(headerLineService);
         return CommonResponse.success();
     }

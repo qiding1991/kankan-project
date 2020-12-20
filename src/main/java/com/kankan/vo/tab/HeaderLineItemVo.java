@@ -1,8 +1,6 @@
 package com.kankan.vo.tab;
 
-import com.kankan.constant.EnumItemType;
 import com.kankan.module.HeaderLineItem;
-
 import lombok.Data;
 
 /**
@@ -18,6 +16,6 @@ public class HeaderLineItemVo extends TabItemVo {
         this.title = headerLineItem.getTitle();
         this.resourceId=headerLineItem.getResourceId();
         this.setItemId(headerLineItem.getId());
-        this.setItemType(EnumItemType.HEADER_LINE_ITEM.getCode());
+        this.setItemType(headerLineItem.getItemType());
     }
 }

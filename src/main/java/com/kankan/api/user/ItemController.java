@@ -130,15 +130,14 @@ public class ItemController extends BaseController {
       case ARTICLE:
         //热门看看号
         infoList.add(findHotUserItemVo());
-
         if (offset == Integer.MAX_VALUE) {
-          infoList.add(findHeaderLine(headerLineService, pageInfo));
+          infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
         }
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
         if (offset == Integer.MAX_VALUE) {
-          infoList.add(findHeaderLine(headerLineService, pageInfo));
+          infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
         }
         infoList.addAll(findNews(newsService, pageInfo));
         break;
@@ -151,6 +150,12 @@ public class ItemController extends BaseController {
         break;
     }
     //判断tab类型 （热点、新闻、专栏、视频）
+    TabItemVo itemVo = infoList.get(0);
+
+    //第一个热点新闻，修改为大图
+    if (itemVo.getItemType() == EnumItemType.NEWS.getCode()) {
+      itemVo.setItemType(EnumItemType.HOT_FIRST_NEWS.getCode());
+    }
     PageData pageData = PageData.pageData(infoList, size);
     return success(pageData);
   }
@@ -170,9 +175,14 @@ public class ItemController extends BaseController {
   /**
    * 头条
    */
-  private TabItemVo findHeaderLine(HeaderLineService headerLineService, TabPageInfo pageInfo) {
+  private TabItemVo findHeaderLine(ResourceService resourceService, HeaderLineService headerLineService, TabPageInfo pageInfo) {
     HeaderLine headerLine = headerLineService.findHeaderLineInfo(pageInfo.getTabId());
     List<HeaderLineItem> itemList = headerLineService.findHeaderLineItem(headerLine.getId());
+    itemList.forEach(item -> {
+      MediaResource resource = resourceService.findResource(item.getResourceId());
+      item.setTitle(resource.getTitle());
+      item.setItemType(resource.getMediaType());
+    });
     return new HeaderLineVo(headerLine, itemList);
   }
 

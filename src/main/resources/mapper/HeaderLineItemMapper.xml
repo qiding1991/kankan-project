@@ -3,7 +3,7 @@
 <mapper namespace="com.kankan.dao.mapper.HeaderLineItemMapper">
 
     <insert id="insert" parameterType="HeaderLineItemEntity" useGeneratedKeys="true" keyProperty="id">
-        insert into header_line_item(id,header_line_id,resource_id,title,status,create_time,update_time) values (#{id},#{headerLineId},#{resourceId},#{title},#{status},#{createTime},#{updateTime})
+        insert into header_line_item(id,header_line_id,resource_id,status,create_time,update_time) values (#{id},#{headerLineId},#{resourceId},#{status},#{createTime},#{updateTime})
     </insert>
 
     <select id="findHeaderLineItem" resultType="HeaderLineItemEntity">

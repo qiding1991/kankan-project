@@ -13,7 +13,9 @@ public enum EnumItemType {
     HEADER_LINE_ITEM(5, "头条-item"),
     HEADER_LINE_GROUP(6, "头条组"),
     KAN_KAN_USER(7,"看看号"),
-    HOT_KAN_USER(8,"热热看看号"),;
+    HOT_KAN_USER(8,"热热看看号"),
+    HOT_FIRST_NEWS(9, "新闻第一个新闻"),
+  ;
 
     EnumItemType(int code, String message) {
         this.code = code;
