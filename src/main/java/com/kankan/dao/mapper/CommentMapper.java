@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.kankan.dao.entity.CommentEntity;
 import com.kankan.module.KankanComment;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -14,18 +15,21 @@ import org.apache.ibatis.annotations.Update;
  */
 @Mapper
 public interface CommentMapper {
-    void insert(CommentEntity entity);
+  void insert(CommentEntity entity);
 
-    List<CommentEntity> findByUserId(Long userId);
+  List<CommentEntity> findByUserId(Long userId);
 
-    List<KankanComment> myComment(List<CommentEntity> condition);
+  List<KankanComment> myComment(List<CommentEntity> condition);
 
-    List<CommentEntity> reply(List<CommentEntity> condition);
+  List<CommentEntity> reply(List<CommentEntity> condition);
 
-    List<CommentEntity> findByCondition(List<KankanComment> workCondition);
+  List<CommentEntity> findByCondition(List<KankanComment> workCondition);
 
-    List<CommentEntity> findResourceComment(String resourceId);
+  List<CommentEntity> findResourceComment(String resourceId);
 
-    @Update("update comment set thump_count=thump_count+1 where id=#{id}")
-    void incrementThumpCount(Long id);
+  @Update("update comment set thump_count=thump_count+1 where id=#{id}")
+  void incrementThumpCount(Long id);
+
+  @Select("select * from comment where id=#{id}")
+  CommentEntity findById(Long id);
 }

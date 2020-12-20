@@ -25,6 +25,9 @@ spring:
     host: 127.0.0.1
   jackson:
     default-property-inclusion: non_null
+  servlet:
+    multipart:
+      max-file-size: 500MB
 #日志配置
 logging:
   pattern:
