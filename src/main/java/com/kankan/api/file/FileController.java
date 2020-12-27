@@ -2,15 +2,12 @@ package com.kankan.api.file;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kankan.api.BaseController;
@@ -41,20 +38,20 @@ public class FileController extends BaseController {
     @PostMapping("upload")
     public CommonResponse<String> fileUpload(@RequestParam("file") MultipartFile file) throws IOException {
         String fileId = fileService.storeFile(new FileDocument(file));
-        String downLoadUrl = generateDownloadUrl(fileId);
+        String downLoadUrl = generateDownloadUrl(fileId,file.getOriginalFilename());
         return success(downLoadUrl);
     }
 
-    private String generateDownloadUrl(String fileId) {
+    private String generateDownloadUrl(String fileId,String fileName) {
         if (!serverBaseUrl.endsWith("/")) {
             serverBaseUrl = serverBaseUrl + "/";
         }
-        return serverBaseUrl + "file/download?fileId=" + fileId;
+        return serverBaseUrl + "file/download/"+fileId+"/"+ URLEncoder.encode(fileName);
     }
 
     @ApiOperation("下载图片")
-    @GetMapping("download")
-    public void download(@RequestParam("fileId") String fileId, HttpServletResponse response) throws IOException {
+    @GetMapping("download/{fileId}/{fileName}")
+    public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
         FileDocument fileDocument = fileService.downFile(fileId);
         response.setContentType(fileDocument.getContentType());
         response.setHeader("Content-Disposition", "attachment;filename=" + fileDocument.getFileName());
