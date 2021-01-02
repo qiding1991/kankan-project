@@ -11,4 +11,6 @@ import com.kankan.dao.entity.ThumpEntity;
 @Mapper
 public interface ThumpMapper {
      void insert(ThumpEntity entity);
+
+  void remove(ThumpEntity entity);
 }

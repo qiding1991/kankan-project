@@ -5,6 +5,7 @@ import com.kankan.constant.CommonResponse;
 import com.kankan.constant.EnumItemType;
 import com.kankan.constant.EnumTabType;
 import com.kankan.constant.PageData;
+import com.kankan.dao.entity.FavouriteEntity;
 import com.kankan.module.*;
 import com.kankan.param.tab.TabPageInfo;
 import com.kankan.service.*;
@@ -14,6 +15,8 @@ import com.kankan.vo.detail.VideoDetailVo;
 import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,11 +58,14 @@ public class ItemController extends BaseController {
 
   private CommentService commentService;
 
+  private FavouriteService favouriteService;
+
+
 
   public ItemController(TabService tabService, HotPointService hotPointService,
                         KankanWorkService workService, NewsService newsService, KankanAdService adService,
                         HeaderLineService headerLineService, KankanUserService kankanUserService,
-                        ResourceService resourceService, CommentService commentService) {
+                        ResourceService resourceService, CommentService commentService, FavouriteService favouriteService) {
     this.tabService = tabService;
     this.hotPointService = hotPointService;
     this.workService = workService;
@@ -70,16 +75,22 @@ public class ItemController extends BaseController {
     this.kankanUserService = kankanUserService;
     this.resourceService = resourceService;
     this.commentService = commentService;
+    this.favouriteService = favouriteService;
   }
 
 
   @ApiOperation("获取详情")
   @GetMapping("detail")
-  public CommonResponse detail(@RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
+  public CommonResponse detail(@RequestParam(value = "userId")Long userId,   @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     MediaResource resource = resourceService.findResource(resourceId);
     EnumItemType enumItem = EnumItemType.getItem(itemType);
+    FavouriteEntity favouriteEntity=favouriteService.findFavourite(userId,resourceId);
+
+    Boolean favouriteStatus= favouriteEntity==null?false:true;
+
+
 
     switch (enumItem) {
       case NEWS:
@@ -88,12 +99,14 @@ public class ItemController extends BaseController {
         newsDetailVo.addAdInfo(adService);
         newsDetailVo.addCommentInfo(commentService, kankanUserService);
         newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
+        newsDetailVo.setFavouriteStatus(favouriteStatus);
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
         articleDetailVo.addBaseInfo();
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, kankanUserService);
+        articleDetailVo.setFavouriteStatus(favouriteStatus);
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
@@ -101,6 +114,7 @@ public class ItemController extends BaseController {
         videoDetailVo.addCommentInfo(commentService, kankanUserService);
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
+        videoDetailVo.setFavouriteStatus(favouriteStatus);
         return success(videoDetailVo);
       default:
         break;

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.kankan.service.CommentService;
 
 import com.kankan.service.KankanUserService;
+import com.kankan.service.ResourceService;
 import com.kankan.vo.KankanCommentVo;
 import lombok.Builder;
 import lombok.Data;
@@ -61,7 +62,37 @@ public class KankanComment {
         return rootComment;
     }
 
-    public void incrementThumpCount(CommentService commentService) {
+
+  public KankanCommentVo resourceCommentInfo(CommentService commentService, KankanUserService userService,Long commentId) {
+    //获取当前resource的所有评价
+    List<KankanComment> commentList = commentService.findResourceComment(resourceId);
+    List<KankanCommentVo> voList = commentList.stream().map(kankanComment -> new KankanCommentVo(kankanComment, userService)).collect(Collectors.toList());
+
+    List<KankanCommentVo> rootComment = new ArrayList<>();
+
+    Map<Long, KankanCommentVo> commentVoMap = new HashMap<>();
+    voList.forEach(vo -> commentVoMap.put(vo.getId(),vo));
+
+    voList.forEach(vo->{
+      if (vo.getParentId() == 0) {
+        rootComment.add(vo);
+      } else {
+        commentVoMap.get(vo.getParentId()).getChildren().add(vo);
+      }
+    });
+    return commentVoMap.get(commentId);
+  }
+
+
+
+
+
+
+  public void incrementThumpCount(CommentService commentService) {
         commentService.incrementThumpCount(id);
+    }
+
+  public void decreaseThumpCount(CommentService resourceService) {
+    resourceService.decreaseThumpCount(id);
     }
 }

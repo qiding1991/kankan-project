@@ -32,4 +32,7 @@ public interface CommentMapper {
 
   @Select("select * from comment where id=#{id}")
   CommentEntity findById(Long id);
+
+  @Update("update comment set thump_count=thump_count-1 where id=#{id}")
+  void decreaseThumpCount(Long id);
 }

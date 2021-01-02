@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kankan.api.BaseController;
@@ -50,7 +51,7 @@ public class KankanController extends BaseController {
 
     @ApiOperation("推荐列表")
     @GetMapping("list")
-    public CommonResponse recommendList() {
+    public CommonResponse recommendList(@RequestParam(value = "userId",required = false) Long userId) {
         List<KankanRecommend> recommendList = recommendService.findAll();
         List<KankanUserVo> userList =
                 recommendList.stream()
@@ -67,7 +68,7 @@ public class KankanController extends BaseController {
 
     @ApiOperation("分类+用户列表")
     @GetMapping("userList")
-    public CommonResponse userList() {
+    public CommonResponse userList(@RequestParam(value = "userId",required = false) Long userId) {
         //获取分类
         KankanType kankanType = KankanType.builder().build();
         List<KankanType> typeList = kankanType.findAll(typeService);

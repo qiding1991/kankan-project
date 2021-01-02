@@ -22,51 +22,54 @@ import com.kankan.module.MediaResource;
 @Service
 public class ResourceService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+  @Autowired
+  private MongoTemplate mongoTemplate;
 
-    public String saveResource(MediaResource mediaResource) {
-        MediaResource response = mongoTemplate.insert(mediaResource);
-        return response.getResourceId();
-    }
+  public String saveResource(MediaResource mediaResource) {
+    MediaResource response = mongoTemplate.insert(mediaResource);
+    return response.getResourceId();
+  }
 
-    public MediaResource findResource(String resourceId) {
-        Query query= Query.query(Criteria.where("resourceId").is(resourceId));
-        return mongoTemplate.findOne(query,MediaResource.class);
-    }
+  public MediaResource findResource(String resourceId) {
+    Query query = Query.query(Criteria.where("resourceId").is(resourceId));
+    return mongoTemplate.findOne(query, MediaResource.class);
+  }
 
-    public List<MediaResource> findResource(Set<String> resourceIdSet) {
-        Query query= Query.query(Criteria.where("resourceId").in(resourceIdSet));
-        return mongoTemplate.find(query,MediaResource.class);
-    }
-
-
-
-    public void incrementCommentCount(MediaResource resource) {
-        updateCount(resource.getResourceId(),()->"commentCount",MediaResource::getCommentCount);
-    }
-
-    public void incrementThumpCount(MediaResource resource) {
-        updateCount(resource.getResourceId(),()->"thumpCount",MediaResource::getThumpCount);
-    }
+  public List<MediaResource> findResource(Set<String> resourceIdSet) {
+    Query query = Query.query(Criteria.where("resourceId").in(resourceIdSet));
+    return mongoTemplate.find(query, MediaResource.class);
+  }
 
 
-    public void incrementReadCount(MediaResource resource) {
-        updateCount(resource.getResourceId(),()->"readCount",MediaResource::getReadCount);
-    }
+  public void incrementCommentCount(MediaResource resource) {
+    updateCount(resource.getResourceId(), () -> "commentCount", MediaResource::getCommentCount, () -> 1);
+  }
 
-    private void updateCount(String resourceId,Supplier<String> param, Function<MediaResource,Integer> function){
-        Query query= Query.query(Criteria.where("resourceId").is(resourceId));
-        MediaResource old= mongoTemplate.findOne(query,MediaResource.class);
-        Update update=Update.update(param.get(),ObjectUtils.defaultIfNull(function.apply(old),0)+1);
-        mongoTemplate.updateFirst(query, update,MediaResource.class);
-    }
+  public void incrementThumpCount(MediaResource resource) {
+    updateCount(resource.getResourceId(), () -> "thumpCount", MediaResource::getThumpCount, () -> 1);
+  }
 
-    public  List<MediaResource>  findRelatedResource(MediaResource mediaResource) {
-        Query query=Query.query(Criteria.where("keyWords").elemMatch(new Criteria().in(mediaResource.getKeyWords())));
-        query.addCriteria(Criteria.where("resourceId").nin(mediaResource.getResourceId()));
-        query.addCriteria(Criteria.where("mediaType").is(mediaResource.getMediaType()));
-        return mongoTemplate.find(query,MediaResource.class);
-    }
+  public void decreaseThumpCount(MediaResource resource) {
+    updateCount(resource.getResourceId(), () -> "thumpCount", MediaResource::getThumpCount, () -> -1);
+  }
+
+  public void incrementReadCount(MediaResource resource) {
+    updateCount(resource.getResourceId(), () -> "readCount", MediaResource::getReadCount, () -> 1);
+  }
+
+  private void updateCount(String resourceId, Supplier<String> param, Function<MediaResource, Integer> function, Supplier<Integer> count) {
+    Query query = Query.query(Criteria.where("resourceId").is(resourceId));
+    MediaResource old = mongoTemplate.findOne(query, MediaResource.class);
+    Update update = Update.update(param.get(), ObjectUtils.defaultIfNull(function.apply(old), 0) + count.get());
+    mongoTemplate.updateFirst(query, update, MediaResource.class);
+  }
+
+  public List<MediaResource> findRelatedResource(MediaResource mediaResource) {
+    Query query = Query.query(Criteria.where("keyWords").elemMatch(new Criteria().in(mediaResource.getKeyWords())));
+    query.addCriteria(Criteria.where("resourceId").nin(mediaResource.getResourceId()));
+    query.addCriteria(Criteria.where("mediaType").is(mediaResource.getMediaType()));
+    return mongoTemplate.find(query, MediaResource.class);
+  }
+
 
 }

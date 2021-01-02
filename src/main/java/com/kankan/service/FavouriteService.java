@@ -34,6 +34,11 @@ public class FavouriteService {
     }
 
     public void remove(Favourite favourite) {
-          favouriteMapper.remove(favourite.getResourceId());
+          favouriteMapper.remove(favourite.getUserId(),favourite.getResourceId());
     }
+
+    public FavouriteEntity findFavourite(Long userId,String resourceId){
+      return favouriteMapper.findByUserIdAndResourceId(userId,resourceId);
+    }
+
 }

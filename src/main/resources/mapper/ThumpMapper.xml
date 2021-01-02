@@ -4,4 +4,16 @@
     <insert id="insert" parameterType="ThumpEntity" useGeneratedKeys="true" keyProperty="id">
         insert into thumbs(id,resource_id,comment_id,user_id,status,create_time,update_time) values (#{id},#{resourceId},#{commentId}, #{userId},#{status},#{createTime},#{updateTime})
     </insert>
+
+     <update id="remove"  parameterType="ThumpEntity">
+        delete  from thumbs where user_id=#{userId}
+        <if test="resourceId!=null">
+          and resource_id=#{resourceId}
+        </if>
+        <if test="commentId!=null">
+          and comment_id=#{commentId}
+        </if>
+     </update>
+
+
 </mapper>

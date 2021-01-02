@@ -12,10 +12,15 @@ import lombok.Data;
 @Builder
 @Data
 public class ResourceThump {
-    private String resourceId;
-    private Long commentId;
-    private Long userId;
-    public void save(ThumpService thumpService) {
-         thumpService.saveThump(this);
-    }
+  private String resourceId;
+  private Long commentId;
+  private Long userId;
+
+  public void save(ThumpService thumpService) {
+    thumpService.saveThump(this);
+  }
+
+  public void cancel(ThumpService thumpService) {
+    thumpService.cancelThump(this);
+  }
 }

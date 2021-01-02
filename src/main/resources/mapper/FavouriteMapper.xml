@@ -10,7 +10,7 @@
     </select>
 
     <delete id="remove">
-        delete  from favourite where resource_id=#{resourceId}
+        delete  from favourite where  user_id=#{userId} and  resource_id=#{resourceId}
     </delete>
 
 </mapper>

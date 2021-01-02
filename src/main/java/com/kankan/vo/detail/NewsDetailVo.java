@@ -18,79 +18,83 @@ import java.util.stream.Collectors;
 @Data
 @Builder
 public class NewsDetailVo {
-    private String resourceId;
-    private String content;
-    private AdItemVo adItemVo;
-    private String newsTitle = "相关信息";
-    private List<NewsItemVo> relatedNews;
-    private String commentTitle = "相关评论";
-    private List<KankanCommentVo> commentVoList;
+  private String resourceId;
+  private String content;
+  private AdItemVo adItemVo;
+  private String newsTitle = "相关信息";
+  private List<NewsItemVo> relatedNews;
+  private String commentTitle = "相关评论";
+  private List<KankanCommentVo> commentVoList;
+  private Boolean favouriteStatus;
 
-    /**
-     * 基本信息
-     * @param mediaResource
-     */
-    public void addBaseInfo(MediaResource mediaResource){
-        this.content=mediaResource.getContent();
-        this.commentTitle = "相关评论";
-        this.newsTitle = "相关信息";
-    }
+  /**
+   * 基本信息
+   *
+   * @param mediaResource
+   */
+  public void addBaseInfo(MediaResource mediaResource) {
+    this.content = mediaResource.getContent();
+    this.commentTitle = "相关评论";
+    this.newsTitle = "相关信息";
+  }
 
-    /**
-     * 广告
-     * @param adService
-     */
-    public void addAdInfo(KankanAdService adService){
-       this.adItemVo=findAdItemVo(adService);
-    }
+  /**
+   * 广告
+   *
+   * @param adService
+   */
+  public void addAdInfo(KankanAdService adService) {
+    this.adItemVo = findAdItemVo(adService);
+  }
 
-    /**
-     * 相关信息
-     * @param mediaResource
-     * @param resourceService
-     * @param tabService
-     * @param newsService
-     */
-    public void addRelatedNews(MediaResource mediaResource,  ResourceService resourceService, TabService tabService, NewsService newsService){
-        List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
-        this.relatedNews = relatedNews(mediaResourceList, newsService,tabService,resourceService);
-    }
-
-
-
-    public void  addCommentInfo(CommentService commentService,KankanUserService userService){
-        KankanComment comment=KankanComment.builder().resourceId(resourceId).build();
-       this.commentVoList=comment.resourceCommentInfo(commentService,userService);
-    }
+  /**
+   * 相关信息
+   *
+   * @param mediaResource
+   * @param resourceService
+   * @param tabService
+   * @param newsService
+   */
+  public void addRelatedNews(MediaResource mediaResource, ResourceService resourceService, TabService tabService, NewsService newsService) {
+    List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
+    this.relatedNews = relatedNews(mediaResourceList, newsService, tabService, resourceService);
+  }
 
 
+  public void addCommentInfo(CommentService commentService, KankanUserService userService) {
+    KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
+    this.commentVoList = comment.resourceCommentInfo(commentService, userService);
+  }
 
-    /**
-     * 相关信息
-      * @param mediaResourceList
-     * @param newsService
-     * @param tabService
-     * @param resourceService
-     * @return
-     */
-    private List<NewsItemVo> relatedNews(List<MediaResource> mediaResourceList, NewsService newsService, TabService tabService,ResourceService resourceService) {
-        List<News> newsList = mediaResourceList.stream().map(mediaResource -> newsService.findNews(mediaResource.getResourceId()))
-                .collect(Collectors.toList());
-        return newsList.stream().map(news -> news.toItemVo(tabService,resourceService)).collect(Collectors.toList());
 
-    }
+  /**
+   * 相关信息
+   *
+   * @param mediaResourceList
+   * @param newsService
+   * @param tabService
+   * @param resourceService
+   * @return
+   */
+  private List<NewsItemVo> relatedNews(List<MediaResource> mediaResourceList, NewsService newsService, TabService tabService, ResourceService resourceService) {
+    List<News> newsList = mediaResourceList.stream().map(mediaResource -> newsService.findNews(mediaResource.getResourceId()))
+      .collect(Collectors.toList());
+    return newsList.stream().map(news -> news.toItemVo(tabService, resourceService)).collect(Collectors.toList());
 
-    /**
-     * 随机广告
-     * @param adService
-     * @return
-     */
-    AdItemVo findAdItemVo(KankanAdService adService) {
-        List<KankanAd> adList = adService.findAll();
-        int randomIndex = RandomUtils.nextInt(adList.size() - 1);
-        KankanAd kankanAd = adList.get(randomIndex);
-        return new AdItemVo(kankanAd);
-    }
+  }
+
+  /**
+   * 随机广告
+   *
+   * @param adService
+   * @return
+   */
+  AdItemVo findAdItemVo(KankanAdService adService) {
+    List<KankanAd> adList = adService.findAll();
+    int randomIndex = RandomUtils.nextInt(adList.size() - 1);
+    KankanAd kankanAd = adList.get(randomIndex);
+    return new AdItemVo(kankanAd);
+  }
 
 
 }

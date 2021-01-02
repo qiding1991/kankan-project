@@ -2,6 +2,7 @@ package com.kankan.service;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,11 @@ public class ThumpService {
         ThumpEntity entity = new ThumpEntity();
         BeanUtils.copyProperties(resourceThump, entity);
         thumpMapper.insert(entity);
+    }
+
+    public void cancelThump(ResourceThump resourceThump) {
+      ThumpEntity entity = new ThumpEntity();
+      BeanUtils.copyProperties(resourceThump, entity);
+      thumpMapper.remove(entity);
     }
 }

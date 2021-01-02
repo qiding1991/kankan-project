@@ -28,8 +28,9 @@ public class ArticleDetailVo {
     private List<ArticleItemVo> userArticle;
     private String commentTitle = "相关评论";
     private List<KankanCommentVo> commentVoList;
+  private Boolean favouriteStatus;
 
-    public void addBaseInfo(){
+  public void addBaseInfo(){
         this.newsTitle="作者其它文章";
         this.commentTitle="相关评论";
     }
@@ -49,4 +50,8 @@ public class ArticleDetailVo {
         List<KankanWork> workList = workService.findUserWork(kankanUser.getUserId(), 0);
         this.userArticle = workList.stream().filter(work -> !work.getId().equals(workInfo.getId())).map(workItem -> new ArticleItemVo(workInfo, kankanUser, mediaResource)).collect(Collectors.toList());
     }
+
+  public void setFavouriteStatus(Boolean favouriteStatus) {
+        this.favouriteStatus=favouriteStatus;
+  }
 }

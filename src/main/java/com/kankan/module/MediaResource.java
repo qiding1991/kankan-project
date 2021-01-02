@@ -47,6 +47,9 @@ public class MediaResource {
     resourceService.incrementThumpCount(this);
   }
 
+  public void decreaseThumpCount(ResourceService resourceService){
+    resourceService.decreaseThumpCount(this);
+  }
 
   public List<MediaResource> findRelated(ResourceService resourceService) {
     MediaResource mediaResource = resourceService.findResource(resourceId);

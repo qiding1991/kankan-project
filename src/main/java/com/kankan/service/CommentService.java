@@ -79,4 +79,8 @@ public class CommentService {
   public void incrementThumpCount(Long id) {
     commentMapper.incrementThumpCount(id);
   }
+
+  public void decreaseThumpCount(Long id) {
+    commentMapper.decreaseThumpCount(id);
+  }
 }
