@@ -2,6 +2,7 @@ package com.kankan.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -46,9 +47,8 @@ public class CommentService {
   }
 
 
-
   public List<KankanComment> myComment(KankanComment kankanComment) {
-    List<CommentEntity> entityList= commentMapper.findByUserId(kankanComment.getUserId());
+    List<CommentEntity> entityList = commentMapper.findByUserId(kankanComment.getUserId());
     List<KankanComment> kankanComments = entityList.stream().map(CommentEntity::parse).collect(Collectors.toList());
     return kankanComments;
   }
@@ -76,5 +76,14 @@ public class CommentService {
 
   public void decreaseThumpCount(Long id) {
     commentMapper.decreaseThumpCount(id);
+  }
+
+  public String removeById(Long id) {
+    CommentEntity entity = commentMapper.findById(id);
+    commentMapper.deleteById(id);
+    if(entity.getParentId()!=0){
+       return entity.getResourceId();
+    }
+    return null;
   }
 }

@@ -13,6 +13,7 @@ import com.kankan.service.*;
 import com.kankan.vo.KankanCommentVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,6 +60,21 @@ public class ResourceController extends BaseController {
     resource.incrementCommentCount(resourceService);
     return success();
   }
+
+
+  @ApiOperation("评论新闻、文章、视频")
+  @PostMapping("comment/cancel/{commentId}")
+  public CommonResponse cancelComment(@PathVariable(value = "commentId") Long commentId) {
+    //保存
+    KankanComment comment = KankanComment.builder().id(commentId).build();
+    String resourceId = comment.remove(commentService);
+    if (StringUtils.isNotEmpty(resourceId)) {
+      MediaResource resource = MediaResource.builder().resourceId(resourceId).build();
+      resource.decrCommentCount(resourceService);
+    }
+    return success();
+  }
+
 
   @ApiOperation("评论回复")
   @PostMapping("comment/{commentId}")
@@ -136,7 +152,6 @@ public class ResourceController extends BaseController {
     favourite.remove(favouriteService);
     return success();
   }
-
 
 
   @ApiOperation("相关资源")

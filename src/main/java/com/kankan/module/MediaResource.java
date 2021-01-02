@@ -38,6 +38,10 @@ public class MediaResource {
   public void incrementCommentCount(ResourceService resourceService) {
     resourceService.incrementCommentCount(this);
   }
+  public void decrCommentCount(ResourceService resourceService) {
+    resourceService.decrCommentCount(this);
+  }
+
 
   public void incrementReadCount(ResourceService resourceService) {
     resourceService.incrementReadCount(this);

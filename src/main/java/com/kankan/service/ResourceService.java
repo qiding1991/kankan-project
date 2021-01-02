@@ -41,6 +41,10 @@ public class ResourceService {
   }
 
 
+  public void decrCommentCount(MediaResource resource) {
+    updateCount(resource.getResourceId(), () -> "commentCount", MediaResource::getCommentCount, () ->-1);
+  }
+
   public void incrementCommentCount(MediaResource resource) {
     updateCount(resource.getResourceId(), () -> "commentCount", MediaResource::getCommentCount, () -> 1);
   }

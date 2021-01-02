@@ -94,4 +94,8 @@ public class KankanComment {
   public void decreaseThumpCount(CommentService resourceService) {
     resourceService.decreaseThumpCount(id);
     }
+
+  public String remove(CommentService commentService) {
+      return commentService.removeById(this.getId());
+  }
 }

@@ -38,4 +38,7 @@ public interface CommentMapper {
 
   @Select("select * from comment where parent_id=#{id}")
   List<CommentEntity> findByParentId(Long id);
+
+  @Update("delete from comment where id=#{id}")
+  void deleteById(Long id);
 }
