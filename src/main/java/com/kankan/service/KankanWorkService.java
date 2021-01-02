@@ -64,7 +64,9 @@ public class KankanWorkService {
 
 
 
-    public List<KankanWork> findAllWork() {
+
+
+  public List<KankanWork> findAllWork() {
         List<WorkEntity> infoList= workMapper.findAllWork();
         return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
     }
