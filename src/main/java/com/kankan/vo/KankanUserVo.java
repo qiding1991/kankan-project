@@ -16,4 +16,5 @@ public class KankanUserVo extends TabItemVo {
     private Long fansCount;
     private Long followCount;
     private Long readCount;
+    private boolean followStatus;
 }

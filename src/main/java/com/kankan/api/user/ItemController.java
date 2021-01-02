@@ -61,7 +61,6 @@ public class ItemController extends BaseController {
   private FavouriteService favouriteService;
 
 
-
   public ItemController(TabService tabService, HotPointService hotPointService,
                         KankanWorkService workService, NewsService newsService, KankanAdService adService,
                         HeaderLineService headerLineService, KankanUserService kankanUserService,
@@ -81,17 +80,16 @@ public class ItemController extends BaseController {
 
   @ApiOperation("获取详情")
   @GetMapping("detail")
-  public CommonResponse detail(@RequestParam(value = "userId")Long userId,   @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
+  public CommonResponse detail(@RequestParam(value = "userId", required = false) Long userId, @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     MediaResource resource = resourceService.findResource(resourceId);
     EnumItemType enumItem = EnumItemType.getItem(itemType);
-    FavouriteEntity favouriteEntity=favouriteService.findFavourite(userId,resourceId);
-
-    Boolean favouriteStatus= favouriteEntity==null?false:true;
-
-
-
+    Boolean favouriteStatus = false;
+    if (userId != null) {
+      FavouriteEntity favouriteEntity = favouriteService.findFavourite(userId, resourceId);
+      favouriteStatus = favouriteEntity == null ? false : true;
+    }
     switch (enumItem) {
       case NEWS:
         NewsDetailVo newsDetailVo = NewsDetailVo.builder().resourceId(resourceId).build();

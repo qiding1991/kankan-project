@@ -22,7 +22,7 @@ public class KankanCommentVo {
       private String commentText;
       private Long userId;
       private String userName;
-      private Long creatTime;
+      private Long createTime;
       private List<KankanCommentVo>  children=new ArrayList<>();
 
 

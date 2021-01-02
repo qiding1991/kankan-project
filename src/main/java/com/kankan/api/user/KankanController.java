@@ -1,9 +1,12 @@
 package com.kankan.api.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import com.kankan.module.Follow;
+import com.kankan.service.FollowService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,52 +39,73 @@ import io.swagger.annotations.ApiOperation;
 public class KankanController extends BaseController {
 
 
-    private KankanRecommendService recommendService;
+  private KankanRecommendService recommendService;
 
-    private KankanUserService userService;
+  private KankanUserService userService;
 
-    private KankanTypeService typeService;
+  private KankanTypeService typeService;
 
-    public KankanController(KankanRecommendService recommendService, KankanUserService userService,
-            KankanTypeService typeService) {
-        this.recommendService = recommendService;
-        this.userService = userService;
-        this.typeService = typeService;
+  private FollowService followService;
+
+
+  public KankanController(KankanRecommendService recommendService, KankanUserService userService,
+                          KankanTypeService typeService, FollowService followService) {
+    this.recommendService = recommendService;
+    this.userService = userService;
+    this.typeService = typeService;
+    this.followService = followService;
+  }
+
+  @ApiOperation("推荐列表")
+  @GetMapping("list")
+  public CommonResponse recommendList(@RequestParam(value = "userId", required = false) Long userId) {
+    List<KankanRecommend> recommendList = recommendService.findAll();
+    List<KankanUserVo> userList =
+      recommendList.stream()
+        .map(recommend -> ((Function<KankanRecommend, KankanUserVo>) kankanRecommend -> transform(
+          recommend)).apply(recommend)).collect(Collectors.toList());
+    if (userId != null) {
+      addFollowStatus(userList, userId);
     }
+    return success(userList);
+  }
 
-    @ApiOperation("推荐列表")
-    @GetMapping("list")
-    public CommonResponse recommendList(@RequestParam(value = "userId",required = false) Long userId) {
-        List<KankanRecommend> recommendList = recommendService.findAll();
-        List<KankanUserVo> userList =
-                recommendList.stream()
-                        .map(recommend -> ((Function<KankanRecommend, KankanUserVo>) kankanRecommend -> transform(
-                                recommend)).apply(recommend)).collect(Collectors.toList());
-        return success(userList);
+  private void addFollowStatus(List<KankanUserVo> userList, Long userId) {
+    for (KankanUserVo userVo : userList) {
+      userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
     }
+  }
 
-    private KankanUserVo transform(KankanRecommend recommend) {
-        KankanUser kankanUser = KankanUser.builder().userId(recommend.getUserId()).build();
-        return kankanUser.findUser(userService).toVo();
+  private KankanUserVo transform(KankanRecommend recommend) {
+    KankanUser kankanUser = KankanUser.builder().userId(recommend.getUserId()).build();
+    return kankanUser.findUser(userService).toVo();
+  }
+
+
+  @ApiOperation("分类+用户列表")
+  @GetMapping("userList")
+  public CommonResponse userList(@RequestParam(value = "userId", required = false) Long userId) {
+    //获取分类
+    KankanType kankanType = KankanType.builder().build();
+    List<KankanType> typeList = kankanType.findAll(typeService);
+    //获取分类下的用户
+    List<KankanTypeVo> infoList = typeList.stream().map(KankanType::toVo).collect(Collectors.toList());
+    infoList.forEach(this::addKankanUser);
+
+    //添加关注信息
+    List<KankanUserVo> userVoList = new ArrayList<>();
+    infoList.stream().forEach(info -> userVoList.addAll(info.getUserVoList()));
+
+    if (userId != null) {
+      addFollowStatus(userVoList, userId);
     }
+    return success(infoList);
+  }
 
-
-    @ApiOperation("分类+用户列表")
-    @GetMapping("userList")
-    public CommonResponse userList(@RequestParam(value = "userId",required = false) Long userId) {
-        //获取分类
-        KankanType kankanType = KankanType.builder().build();
-        List<KankanType> typeList = kankanType.findAll(typeService);
-        //获取分类下的用户
-        List<KankanTypeVo> infoList = typeList.stream().map(KankanType::toVo).collect(Collectors.toList());
-        infoList.forEach(this::addKankanUser);
-        return success(infoList);
-    }
-
-    private void addKankanUser(KankanTypeVo kankanTypeVo) {
-        KankanUser user = KankanUser.builder().userType(kankanTypeVo.getId()).build();
-        List<KankanUser> infoList = user.commonTypeUser(userService);
-        List<KankanUserVo> voList = infoList.stream().map(KankanUser::toVo).collect(Collectors.toList());
-        kankanTypeVo.setUserVoList(voList);
-    }
+  private void addKankanUser(KankanTypeVo kankanTypeVo) {
+    KankanUser user = KankanUser.builder().userType(kankanTypeVo.getId()).build();
+    List<KankanUser> infoList = user.commonTypeUser(userService);
+    List<KankanUserVo> voList = infoList.stream().map(KankanUser::toVo).collect(Collectors.toList());
+    kankanTypeVo.setUserVoList(voList);
+  }
 }
