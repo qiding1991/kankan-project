@@ -12,7 +12,7 @@
 
     <select id="findByCondition" parameterType="List" resultType="CommentEntity">
         <foreach collection="list" item="obj" separator=") union (" open="(" close=")">
-            select * from comment where resource_id=#{obj.resourceId} and parent_id =#{parentId}
+            select * from comment where resource_id=#{obj.resourceId} and parent_id =#{obj.parentId}
         </foreach>
     </select>
 

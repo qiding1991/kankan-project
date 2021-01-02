@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import com.kankan.service.CommentService;
 
 import com.kankan.service.KankanUserService;
-import com.kankan.service.ResourceService;
 import com.kankan.vo.KankanCommentVo;
 import lombok.Builder;
 import lombok.Data;
@@ -38,8 +37,8 @@ public class KankanComment {
 
     }
 
-    public List<KankanComment> toMe(CommentService commentService) {
-        return commentService.toMe(this);
+    public List<KankanComment> myComment(CommentService commentService) {
+      return commentService.myComment(this);
     }
 
     public List<KankanCommentVo> resourceCommentInfo(CommentService commentService, KankanUserService userService) {

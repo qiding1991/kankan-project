@@ -45,22 +45,11 @@ public class CommentService {
     return kankanComments;
   }
 
-  private List<CommentEntity> toMe(Long myCommentId) {
-    return commentMapper.findByParentId(myCommentId);
-  }
 
-  public List<KankanComment> toMe(KankanComment kankanComment) {
-    //回复我的评论
-    List<CommentEntity> entityList = entityList(kankanComment);
 
-    List<CommentEntity> toMeList = new ArrayList<>();
-
-    entityList.forEach(entity -> {
-      //获取单条的评论信息
-      List<CommentEntity> idCommentList = toMe(entity.getId());
-      toMeList.addAll(idCommentList);
-    });
-    List<KankanComment> kankanComments = toMeList.stream().map(CommentEntity::parse).collect(Collectors.toList());
+  public List<KankanComment> myComment(KankanComment kankanComment) {
+    List<CommentEntity> entityList= commentMapper.findByUserId(kankanComment.getUserId());
+    List<KankanComment> kankanComments = entityList.stream().map(CommentEntity::parse).collect(Collectors.toList());
     return kankanComments;
   }
 

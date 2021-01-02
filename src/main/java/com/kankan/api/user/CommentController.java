@@ -42,13 +42,14 @@ public class CommentController extends BaseController {
 
 
   public CommentController(CommentService commentService, KankanWorkService workService,
-                           ResourceService resourceService, KankanUserService kankanUserService, NewsService newsService, TabService tabService) {
+                           ResourceService resourceService, KankanUserService kankanUserService, NewsService newsService, TabService tabService, KankanWorkService kankanWorkService) {
     this.commentService = commentService;
     this.workService = workService;
     this.resourceService = resourceService;
     this.kankanUserService = kankanUserService;
     this.newsService = newsService;
     this.tabService = tabService;
+    this.kankanWorkService = kankanWorkService;
   }
 
   @ApiOperation("我评论的")
@@ -88,15 +89,30 @@ public class CommentController extends BaseController {
     List<KankanComment> workCondition = infoList.parallelStream().map(work -> KankanComment.builder().resourceId(work.getResourceId()).parentId(0L).build()).collect(Collectors.toList());
     //2.评论我的回复
     KankanComment comment = KankanComment.builder().userId(userId).build();
-    List<KankanComment> relayCondition = comment.toMe(commentService);
+    List<KankanComment> myComment = comment.myComment(commentService);
+    List<KankanComment> relayCondition=myComment.stream().map(item->KankanComment.builder().resourceId(item.getResourceId()).parentId(item.getId()).build()).collect(Collectors.toList());
     //3.查看所有的评论信息
     workCondition.addAll(relayCondition);
     List<KankanComment> commentList = commentService.findComment(workCondition);
-    //4.获取resource相关的资源
-    Set<String> resourceIdList = commentList.parallelStream().map(KankanComment::getResourceId).collect(Collectors.toSet());
-    List<MediaResource> resourceList = resourceService.findResource(resourceIdList);
-    return success(infoList);
+    //获取用户信息
+    List<BaseCommentVo> resultList = commentList.stream().map(item -> {
+      KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
+      MediaResource resource = resourceService.findResource(item.getResourceId());
+      EnumItemType itemType = EnumItemType.getItem(resource.getMediaType());
+      switch (itemType) {
+        case NEWS:
+          News news = News.fromResourceId(item.getResourceId(), newsService);
+          Tab newTab = Tab.fromTabId(news.getTabId(), tabService);
+          return new NewsCommentVo(newTab, news, kankanUser, item, resource);
+        case VIDEO:
+        case ARTICLE:
+          KankanWork work = KankanWork.fromResourceId(item.getResourceId(), kankanWorkService);
+          return new WorkCommentVo(work, kankanUser, item, resource);
+        default:
+          return null;
+      }
+    }).collect(Collectors.toList());
+
+    return success(resultList);
   }
-
-
 }
