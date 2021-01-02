@@ -35,4 +35,7 @@ public interface CommentMapper {
 
   @Update("update comment set thump_count=thump_count-1 where id=#{id}")
   void decreaseThumpCount(Long id);
+
+  @Select("select * from comment where parent_id=#{id}")
+  List<CommentEntity> findByParentId(Long id);
 }
