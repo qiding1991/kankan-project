@@ -80,4 +80,8 @@ public class KankanWorkService {
       WorkEntity workEntity= workMapper.findByResourceId(resourceId);
       return  KankanWork.parseEntity(workEntity);
     }
+
+  public void updateWork(Long id, Integer status) {
+         workMapper.updateWork(id,status);
+    }
 }

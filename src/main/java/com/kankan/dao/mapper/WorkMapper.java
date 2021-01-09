@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kankan.dao.entity.KankanTypeEntity;
 import com.kankan.dao.entity.WorkEntity;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author <qiding@qiding.com>
@@ -40,4 +41,7 @@ public interface WorkMapper {
 
     @Select("select * from work_info where user_id=#{userId}  and type=#{workType}")
     List<WorkEntity> findUserWorkByType(Long userId, Integer workType);
+
+    @Update("update work_info set status=#{status} where id =#{id}")
+    void updateWork(Long id, Integer status);
 }

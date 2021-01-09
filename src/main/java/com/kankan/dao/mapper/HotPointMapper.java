@@ -30,4 +30,7 @@ public interface HotPointMapper {
 
     @Select("select * from hot_info")
     List<HotPointEntity> findAll();
+
+    @Select("select * from hot_info where item_id=#{itemId} and item_type=#{itemType}")
+    HotPointEntity findByItemTypeAndItemId(int itemType, Long itemId);
 }

@@ -39,4 +39,14 @@ public class UserEntity {
         userEntity.setId(user.getUserId());
         return userEntity;
     }
+
+    public User toUser(){
+      User user= User.builder()
+        .userId(id)
+        .password(password)
+        .userPhoto(userPhoto)
+        .userEmail(userEmail)
+        .build();
+      return user;
+    }
 }

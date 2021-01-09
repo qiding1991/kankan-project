@@ -35,6 +35,7 @@ public class KankanWork {
     private String resourceId;
     private Integer type;
     private Long publishTime;
+    private Integer status;
 
   public static KankanWork fromResourceId(String resourceId, KankanWorkService workService) {
      KankanWork kankanWork= workService.findByResourceId(resourceId);

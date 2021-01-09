@@ -22,38 +22,43 @@ import javax.annotation.Resource;
 @Service
 public class HeaderLineService {
 
-    @Resource
-    HeaderLineInfoMapper headerLineInfoMapper;
+  @Resource
+  HeaderLineInfoMapper headerLineInfoMapper;
 
-    @Resource
-    HeaderLineItemMapper headerLineItemMapper;
+  @Resource
+  HeaderLineItemMapper headerLineItemMapper;
 
-    public void createHeadLine(HeaderLine headerLine) {
-        HeaderLineInfoEntity headerLineInfoEntity = new HeaderLineInfoEntity(headerLine);
-        headerLineInfoMapper.insert(headerLineInfoEntity);
-    }
+  public void createHeadLine(HeaderLine headerLine) {
+    HeaderLineInfoEntity headerLineInfoEntity = new HeaderLineInfoEntity(headerLine);
+    headerLineInfoMapper.insert(headerLineInfoEntity);
+  }
 
-    public void createHeadItem(HeaderLineItem headerLineItem) {
-        HeaderLineItemEntity itemEntity = new HeaderLineItemEntity(headerLineItem);
-        headerLineItemMapper.insert(itemEntity);
-    }
+  public void createHeadItem(HeaderLineItem headerLineItem) {
+    HeaderLineItemEntity itemEntity = new HeaderLineItemEntity(headerLineItem);
+    headerLineItemMapper.insert(itemEntity);
+  }
 
-    public HeaderLine findHeaderLineInfo(Long tabId) {
-        HeaderLineInfoEntity entity = headerLineInfoMapper.findHeaderLineInfo(tabId);
-        return HeaderLine.parseEntity(entity);
-    }
+  public HeaderLine findHeaderLineInfo(Long tabId) {
+    HeaderLineInfoEntity entity = headerLineInfoMapper.findHeaderLineInfo(tabId);
+    return HeaderLine.parseEntity(entity);
+  }
 
-    public List<HeaderLineItem> findHeaderLineItem(Long headerLineId) {
-        List<HeaderLineItemEntity> entity = headerLineItemMapper.findHeaderLineItem(headerLineId);
-        return HeaderLineItem.parseEntity(entity);
-    }
+  public List<HeaderLineItem> findHeaderLineItem(Long headerLineId) {
+    List<HeaderLineItemEntity> entity = headerLineItemMapper.findHeaderLineItem(headerLineId);
+    return HeaderLineItem.parseEntity(entity);
+  }
 
-    public HeaderLine findHeaderLineById(Long itemId) {
-        return headerLineInfoMapper.findHeaderLineById(itemId);
-    }
+  public HeaderLine findHeaderLineById(Long itemId) {
+    return headerLineInfoMapper.findHeaderLineById(itemId);
+  }
 
-    public List<HeaderLine> findHeaderLine() {
-         List<HeaderLineInfoEntity> infoList= headerLineInfoMapper.findHeaderLine();
-         return infoList.stream().map(HeaderLineInfoEntity::parse).collect(Collectors.toList());
-    }
+  public List<HeaderLine> findHeaderLine() {
+    List<HeaderLineInfoEntity> infoList = headerLineInfoMapper.findHeaderLine();
+    return infoList.stream().map(HeaderLineInfoEntity::parse).collect(Collectors.toList());
+  }
+
+  public HeaderLineItem findHeaderLineItem(String resourceId) {
+    HeaderLineItemEntity headerLineItemEntity = headerLineItemMapper.findByResourceId(resourceId);
+    return HeaderLineItem.parseEntity(headerLineItemEntity);
+  }
 }

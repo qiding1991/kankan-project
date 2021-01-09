@@ -36,4 +36,9 @@ public class HotPointService {
         List<HotPointEntity> hotPointEntityList=hotPointMapper.findAll();
         return hotPointEntityList.stream().map(HotPoint::parseEntity).collect(Collectors.toList());
     }
+
+  public HotPoint findHot(int itemType, Long itemId) {
+         HotPointEntity hotPointEntity=hotPointMapper.findByItemTypeAndItemId(itemType,itemId);
+         return HotPoint.parseEntity(hotPointEntity);
+    }
 }

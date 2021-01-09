@@ -22,6 +22,7 @@ public class WorkEntity extends BaseEntity {
     public KankanWork parse() {
         return KankanWork.builder().id(this.getId()).type(type)
           .videoUrl(videoUrl)
+          .status(getStatus())
           .userId(userId).resourceId(resourceId).title(title).picture(picture)
                 .publishTime(this.getCreateTime()).build();
 

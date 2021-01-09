@@ -2,6 +2,8 @@ package com.kankan.api.admin.work;
 
 import javax.validation.Valid;
 
+import com.kankan.service.HeaderLineService;
+import com.kankan.service.HotPointService;
 import com.kankan.vo.KankanWorkVo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,36 +31,54 @@ import java.util.stream.Collectors;
 @RequestMapping("admin/work")
 public class AdminWorkController extends BaseController {
 
-    private ResourceService resourceService;
-    private KankanWorkService workService;
+  private ResourceService resourceService;
+  private KankanWorkService workService;
+  private HotPointService hotPointService;
+  private HeaderLineService headerLineService;
 
-    public AdminWorkController(ResourceService resourceService, KankanWorkService workService) {
-        this.resourceService = resourceService;
-        this.workService = workService;
-    }
+  public AdminWorkController(ResourceService resourceService, KankanWorkService workService, HotPointService hotPointService, HeaderLineService headerLineService) {
+    this.resourceService = resourceService;
+    this.workService = workService;
+    this.hotPointService = hotPointService;
+    this.headerLineService = headerLineService;
+  }
 
 
-    @ApiOperation("发布作品")
-    @PostMapping("create")
-    public CommonResponse createWork(@Valid @RequestBody WorkAddInfo workAddInfo) {
-        KankanWork work = workAddInfo.toWork(resourceService);
-        work.addWork(workService);
-        return success();
-    }
+  @ApiOperation("发布作品")
+  @PostMapping("create")
+  public CommonResponse createWork(@Valid @RequestBody WorkAddInfo workAddInfo) {
+    KankanWork work = workAddInfo.toWork(resourceService);
+    work.addWork(workService);
+    return success();
+  }
 
-    @ApiOperation("作品列表")
-    @GetMapping("list")
-    public CommonResponse listWork() {
-        KankanWork work = KankanWork.builder().build();
-        List<KankanWork> infoList = work.findAllWork(workService);
-        List<KankanWorkVo> voList = infoList.stream().map(kankanWork -> toVo(kankanWork, resourceService)).collect(Collectors.toList());
-        return success(voList);
-    }
-    private KankanWorkVo toVo(KankanWork kankanWork, ResourceService resourceService) {
-        KankanWorkVo kankanWorkVo = new KankanWorkVo(kankanWork);
-        kankanWorkVo.addResource(resourceService);
-        return kankanWorkVo;
-    }
+  @ApiOperation("作品列表")
+  @GetMapping("list")
+  public CommonResponse listWork() {
+    KankanWork work = KankanWork.builder().build();
+    List<KankanWork> infoList = work.findAllWork(workService);
+    List<KankanWorkVo> voList = infoList.stream().map(kankanWork -> toVo(kankanWork,hotPointService,headerLineService, resourceService)).collect(Collectors.toList());
+    return success(voList);
+  }
+
+  @ApiOperation("审核作品")
+  @PostMapping("audit/{id}/{status}")
+  public CommonResponse audit(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
+    workService.updateWork(id, status);
+    return success();
+  }
+
+
+  private KankanWorkVo toVo(KankanWork kankanWork, HotPointService hotPointService, HeaderLineService headerLineService, ResourceService resourceService) {
+    KankanWorkVo kankanWorkVo = new KankanWorkVo(kankanWork);
+    kankanWorkVo.addResource(resourceService);
+
+    kankanWorkVo.addHotStatus(hotPointService);
+
+    kankanWorkVo.addHeadLine(headerLineService);
+
+    return kankanWorkVo;
+  }
 
 
 }

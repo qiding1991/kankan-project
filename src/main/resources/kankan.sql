@@ -237,4 +237,29 @@ create table feedback(
     primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table if exists kankan_apply;
+create table kankan_apply(
+    id bigint(20) unsigned not null auto_increment comment '主键id',
+    user_id bigint(20) unsigned not null  default '0' comment '关联的用户信息',
+    id_url varchar(200) not null default  '' comment '身份证地址',
+    photo varchar(200)  not null default  '' comment '头像地址',
+    username  varchar(200)  not null default  '' comment '用户名',
+    remark varchar(200)  not null default  '' comment '描述信息',
+     email varchar(200)  not null default  '' comment '邮箱地址',
+    status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
+    create_time bigint(20) unsigned not null  comment '创建时间',
+    update_time bigint(20) unsigned not null  comment '更新时间',
+    primary key (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+drop table if  exists kankan_user_role;
+create  table kankan_user_role(
+    id bigint(20) unsigned not null auto_increment comment '主键id',
+    user_id bigint(20) unsigned not null  default '0' comment '关联的用户信息',
+    role_id varchar(30) not null default '' comment '用户的权限',
+    status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
+    create_time bigint(20) unsigned not null  comment '创建时间',
+    update_time bigint(20) unsigned not null  comment '更新时间',
+    primary key (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

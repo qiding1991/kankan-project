@@ -30,4 +30,18 @@
     <update id="registerUser" parameterType="UserEntity">
         update user_info set username=#{username}, password=#{password},  update_time=#{updateTime} where id=#{id}
     </update>
+
+   <select id="findUser" parameterType="UserEntity">
+     select * from user_info
+     <where>
+       status=1
+       <if test="username!=null">
+         or username like concat('%',username,'%')
+       </if>
+       <if test="userEmail!=null">
+         or user_email like concat('%',userEmail,'%')
+       </if>
+     </where>
+   </select>
+
 </mapper>
