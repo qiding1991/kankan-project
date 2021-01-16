@@ -34,7 +34,7 @@ logging:
   pattern:
     console: "[@project.artifactId@] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] [%p] => %C.%M\\(%F:%L\\) - %m%n"
   level:
-     root: debug
+     root: info
 #邮箱模版配置
 mail:
   content:

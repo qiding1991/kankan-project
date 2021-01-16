@@ -15,7 +15,7 @@ public class UserRole {
    @Indexed(unique = true)
    private String roleId;
    private String roleName;
-   private List<Privilege> privilegeId;
+   private List<Privilege> privilegeList;
 
   public void saveToDb(UserRoleService userRoleService) {
       userRoleService.saveToDB(this);

@@ -146,21 +146,6 @@ public class UserController extends BaseController {
     return CommonResponse.success(userBaseInfo);
   }
 
-  @ApiOperation("申请成为看看")
-  @PostMapping("apply")
-  public CommonResponse apply(@RequestBody KankanApply kankanApply) {
-    kankanApply.setCreateTime(Instant.now().toEpochMilli());
-    kankanApply.setUpdateTime(Instant.now().toEpochMilli());
-    kankanApplyMapper.insert(kankanApply);
-    return success();
-  }
-
-  @ApiOperation("获取申请信息")
-  @PostMapping("applyDetail")
-  public CommonResponse applyDetail(@RequestParam(value = "userId") Long userId) {
-    KankanApply kankanApply = kankanApplyMapper.findByUserId(userId);
-    return success(kankanApply);
-  }
 
 
 

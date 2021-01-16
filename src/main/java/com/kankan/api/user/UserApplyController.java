@@ -3,18 +3,22 @@ package com.kankan.api.user;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
+import com.kankan.dao.entity.KankanApply;
 import com.kankan.param.CompanyKankanParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.Instant;
+
+import static com.kankan.constant.ErrorCode.USER_APPLY_REPEATED;
 
 @Api(tags = "用户-企业看看号-申请信息")
-@RequestMapping("user/company")
+@RequestMapping("user")
 @RestController
 public class UserApplyController extends BaseController {
 
@@ -22,11 +26,42 @@ public class UserApplyController extends BaseController {
   MongoTemplate mongoTemplate;
 
   @ApiOperation(value = "企业看看号申请")
-  @PostMapping("apply")
-  public CommonResponse apply(@RequestBody CompanyKankanParam companyKankanParam){
-      companyKankanParam.setId(null);
-      companyKankanParam.setKankanStatus(1);
-      mongoTemplate.insert(companyKankanParam);
-      return success();
+  @PostMapping("/company/apply")
+  public CommonResponse apply(@RequestBody CompanyKankanParam companyKankanParam) {
+    if (getApplyInfo(companyKankanParam.getUserId()) != null) {
+      return CommonResponse.error(USER_APPLY_REPEATED);
+    }
+    companyKankanParam.setId(null);
+    companyKankanParam.setApplyStatus(1);
+    mongoTemplate.insert(companyKankanParam);
+    return success();
   }
+
+
+  @ApiOperation("申请成为看看")
+  @PostMapping("apply")
+  public CommonResponse apply(@RequestBody KankanApply kankanApply) {
+    if (getApplyInfo(kankanApply.getUserId()) != null) {
+      return CommonResponse.error(USER_APPLY_REPEATED);
+    }
+    kankanApply.setApplyStatus(1);
+    mongoTemplate.insert(kankanApply);
+    return success();
+  }
+
+  @ApiOperation("获取申请信息")
+  @PostMapping("applyDetail")
+  public CommonResponse applyDetail(@RequestParam(value = "userId") Long userId) {
+    Object applyInfo = getApplyInfo(userId);
+    return success(applyInfo);
+  }
+
+
+  private Object getApplyInfo(Long userId) {
+    Query query = Query.query(Criteria.where("userId").is(userId));
+    Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
+    return applyInfo;
+  }
+
+
 }

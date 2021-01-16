@@ -8,6 +8,8 @@ public enum  ErrorCode {
     PARAM_CHECK_ERROR(1003,"参数校验不通过"),
     VERIFY_TOKEN_CHECK_ERROR(1004,"verifyToken错误"),
     USER_TOKEN_CHECK_ERROR(1005,"userToken错误"),
+    //申请信息
+    USER_APPLY_REPEATED(2001,"用户申请信息重复"),
     UN_KNOW_ERROR(-1,"服务器未知异常");
 
 

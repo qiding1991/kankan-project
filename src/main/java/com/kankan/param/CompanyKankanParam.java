@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(value = "company_apply")
+@Document(value = "kankan_apply")
 @Data
 public class CompanyKankanParam {
   @Id
@@ -12,7 +12,7 @@ public class CompanyKankanParam {
   private String adminName;
   private String phone;
   private Long userId;
-  private Integer kankanStatus;
+  private Integer applyStatus;
   private String city;
   private String topicPhoto;
   private String applyPhoto;

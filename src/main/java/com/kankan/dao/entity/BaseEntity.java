@@ -1,9 +1,7 @@
 package com.kankan.dao.entity;
 
-import com.kankan.module.Follow;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.BeanUtils;
 
 import java.time.Instant;
 

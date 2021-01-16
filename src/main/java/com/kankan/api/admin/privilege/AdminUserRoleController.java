@@ -37,4 +37,8 @@ public class AdminUserRoleController extends BaseController {
       List<UserRole> infoList=  userRoleService.findAll();
       return success(infoList);
   }
+
+
+
+
 }

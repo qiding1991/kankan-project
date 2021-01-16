@@ -50,13 +50,6 @@ public class AdminKankanUserController extends BaseController {
     this.userService = userService;
   }
 
-//  @ApiOperation("创建一个看看作者")
-//  @PostMapping("create")
-//  public CommonResponse create(@RequestBody KankanUserParam param) {
-//    KankanUser kankanUser = param.toUser();
-//    kankanUser.save(kankanUserService);
-//    return success();
-//  }
 
   @ApiOperation("获取作者列表")
   @PostMapping("list")
