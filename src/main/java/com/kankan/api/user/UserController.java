@@ -161,4 +161,8 @@ public class UserController extends BaseController {
     KankanApply kankanApply = kankanApplyMapper.findByUserId(userId);
     return success(kankanApply);
   }
+
+
+
+
 }

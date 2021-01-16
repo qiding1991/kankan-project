@@ -263,3 +263,17 @@ create  table kankan_user_role(
     primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+drop table  if exists  kankan_company_apply;
+create table kankan_company_apply(
+     id bigint(20) unsigned not null auto_increment comment '主键id',
+     admin_name varchar(30) not null default '' comment '管理员名称',
+     phone varchar(30) not null default '' comment '手机号',
+     city  varchar(30) not null default '' comment '城市',
+     topic_photo varchar(60) not null default '' comment '图片',
+     apply_photo varchar(60) not null default '' comment '图片',
+     other_photo varchar(60) not null default '' comment '图片',
+
+)
+
+
+
