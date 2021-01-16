@@ -40,4 +40,13 @@ public class AdminPrivilegeController extends BaseController {
     List<Privilege> infoList=privilegeService.findAll();
     return success(infoList);
   }
+
+  @ApiOperation("删除权限")
+  @PostMapping("del/{privilegeId}")
+  public CommonResponse delPrivilege(@PathVariable(value = "privilegeId") String privilegeId){
+    privilegeService.delPrivilege(privilegeId);
+    return success();
+  }
+
+
 }

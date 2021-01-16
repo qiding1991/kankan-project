@@ -26,4 +26,9 @@ public class PrivilegeService {
   public void saveToDb(Privilege privilege) {
     mongoTemplate.save(privilege);
   }
+
+  public void delPrivilege(String privilegeId) {
+    Query query = Query.query(Criteria.where("privilegeId").is(privilegeId));
+    mongoTemplate.remove(query, Privilege.class);
+  }
 }
