@@ -29,6 +29,6 @@ public class UserDetailVo {
     this.userPhoto=user.getUserPhoto();
     this.roleId=userRole.getRoleId();
     this.roleName=userRole.getRoleName();
-    this.privilege=userRole.getPrivilegeId();
+    this.privilege=userRole.getPrivilegeList();
   }
 }
