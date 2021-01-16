@@ -31,7 +31,7 @@
         update user_info set username=#{username}, password=#{password},  update_time=#{updateTime} where id=#{id}
     </update>
 
-   <select id="findUser" parameterType="UserEntity">
+   <select id="findUser" parameterType="UserEntity" resultType="UserEntity">
      select * from user_info
      <where>
        status=1

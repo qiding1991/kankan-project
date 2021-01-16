@@ -1,6 +1,7 @@
 package com.kankan.vo;
 
 import com.kankan.dao.entity.UserEntity;
+import com.kankan.module.User;
 import com.kankan.module.privilege.Privilege;
 import com.kankan.module.privilege.UserRole;
 import lombok.AllArgsConstructor;
@@ -27,8 +28,25 @@ public class UserDetailVo {
     this.password=user.getPassword();
     this.username=user.getUsername();
     this.userPhoto=user.getUserPhoto();
-    this.roleId=userRole.getRoleId();
-    this.roleName=userRole.getRoleName();
-    this.privilege=userRole.getPrivilegeList();
+    if(userRole!=null){
+      this.roleId=userRole.getRoleId();
+      this.roleName=userRole.getRoleName();
+      this.privilege=userRole.getPrivilegeList();
+    }
+
   }
+
+  public UserDetailVo(User user, UserRole userRole) {
+    this.userId=user.getUserId();
+    this.userEmail=user.getUserEmail();
+    this.password=user.getPassword();
+    this.username=user.getUsername();
+    this.userPhoto=user.getUserPhoto();
+    if(userRole!=null){
+      this.roleId=userRole.getRoleId();
+      this.roleName=userRole.getRoleName();
+      this.privilege=userRole.getPrivilegeList();
+    }
+  }
+
 }

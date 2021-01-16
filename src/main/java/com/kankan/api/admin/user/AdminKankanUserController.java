@@ -14,6 +14,7 @@ import com.kankan.param.UserRoleParam;
 import com.kankan.service.KankanUserService;
 import com.kankan.service.UserRoleService;
 import com.kankan.service.UserService;
+import com.kankan.util.GsonUtil;
 import com.kankan.util.Md5Util;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
@@ -24,7 +25,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.kankan.constant.ErrorCode.EMAIL_NOT_AVAILABLE_ERROR;
 import static com.kankan.constant.ErrorCode.PARAM_CHECK_ERROR;
@@ -87,10 +92,40 @@ public class AdminKankanUserController extends BaseController {
   @GetMapping("find")
   public CommonResponse findUser(
     @RequestParam(value = "username", required = false) String username,
+    @RequestParam(value = "roleId", required = false) String roleId,
     @RequestParam(value = "userEmail", required = false) String userEmail) {
+
+
     User user = User.builder().userEmail(userEmail).username(username).build();
     List<User> userList = userService.findUser(user);
-    return success(userList);
+    Map<Long, User> userMap = new HashMap<>(userList.size());
+    userList.stream().forEach(userInfo -> userMap.put(userInfo.getUserId(), userInfo));
+    String userIdList = GsonUtil.toGson(userMap.keySet());
+
+
+    userIdList = userIdList.replace("[", "").replace("]", "");
+    List<KankanUserRole> userRoleList = userRoleMapper.batchFindUser(userIdList);
+
+    Map<Long, String> roleIdMap = new HashMap<>();
+    userRoleList.stream().forEach(userRole -> roleIdMap.put(userRole.getUserId(), userRole.getRoleId()));
+
+    List<String> roleIdList = userRoleList.stream().map(KankanUserRole::getRoleId).collect(Collectors.toList());
+    List<UserRole> userRoles = userRoleService.findUserRole(roleIdList);
+
+    Map<String, UserRole> roleMap = new HashMap<>();
+    userRoles.stream().forEach(userRole -> roleMap.put(userRole.getRoleId(), userRole));
+
+    List<UserDetailVo> userDetailVoList = new ArrayList<>();
+
+    for (Map.Entry<Long, User> userEntry : userMap.entrySet()) {
+      Long userId = userEntry.getKey();
+      User userInfo = userEntry.getValue();
+      if (roleId == null || roleId.equalsIgnoreCase( roleIdMap.get(userId))) {
+        UserRole userRole = roleMap.get(roleIdMap.get(userId));
+        userDetailVoList.add(new UserDetailVo(userInfo, userRole));
+      }
+    }
+    return success(userDetailVoList);
   }
 
   @ApiOperation("查看用户信息")

@@ -4,6 +4,9 @@ import com.kankan.dao.entity.KankanUserRole;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
 
 @Mapper
 public interface KankanUserRoleMapper {
@@ -14,5 +17,11 @@ public interface KankanUserRoleMapper {
   void insert(KankanUserRole kankanUserRole);
 
   @Select("select * from kankan_user_role where user_id=#{userId}")
-  KankanUserRole findByUserId(Long id);
+  KankanUserRole findByUserId(Long userId);
+
+  @Select("select * from kankan_user_role where user_id in (${userIdList})")
+  List<KankanUserRole> batchFindUser(String userList);
+
+  @Update("update kankan_user_role set role_id=#{roleId} where user_id=#{userId}")
+  void updateRole(Long userId, String roleId);
 }

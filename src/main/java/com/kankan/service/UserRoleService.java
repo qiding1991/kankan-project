@@ -28,4 +28,8 @@ public class UserRoleService {
     Query query = Query.query(Criteria.where("roleId").is(roleId));
     return mongoTemplate.findOne(query, UserRole.class);
   }
+  public List<UserRole> findUserRole(List<String> roleIdList) {
+    Query query = Query.query(Criteria.where("roleId").in(roleIdList));
+    return mongoTemplate.find(query, UserRole.class);
+  }
 }
