@@ -21,8 +21,8 @@ public class UserService {
     return userMapper.findUserByEmail(userEmail);
   }
 
-  public UserEntity createUser(String userEmail) {
-    UserEntity entity = UserEntity.registerUserEntity(userEmail);
+  public UserEntity createUser(User user) {
+    UserEntity entity = UserEntity.createUser(user);
     userMapper.createUser(entity);
     return entity;
   }

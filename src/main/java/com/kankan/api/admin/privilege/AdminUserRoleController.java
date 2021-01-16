@@ -29,9 +29,9 @@ public class AdminUserRoleController extends BaseController {
   private KankanUserRoleMapper kankanUserRoleMapper;
 
 
-  @ApiOperation("创建角色")
-  @PostMapping("add")
-  public CommonResponse add(@RequestBody UserRole userRole) {
+  @ApiOperation("保存角色， 存在更新/不存在创建")
+  @PostMapping("save")
+  public CommonResponse save(@RequestBody UserRole userRole) {
     userRole.saveToDb(userRoleService);
     return success();
   }

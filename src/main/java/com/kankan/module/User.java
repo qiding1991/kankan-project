@@ -83,7 +83,7 @@ public class User {
      * 存入数据库
      */
     public User create(UserService userService) {
-        UserEntity userEntity = userService.createUser(userEmail);
+        UserEntity userEntity = userService.createUser(this);
         this.userId = userEntity.getId();
         return this;
     }

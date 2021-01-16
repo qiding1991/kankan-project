@@ -68,7 +68,7 @@ public class AdminKankanUserController extends BaseController {
   @PostMapping("create")
   public CommonResponse create(@RequestBody UserRoleParam userRole) {
     User user = User.builder()
-      .userEmail(userRole.getEmail())
+      .userEmail(userRole.getUserEmail())
       .username(userRole.getUsername())
       .userPhoto(userRole.getPhoto())
       .password(Md5Util.md5Hex(userRole.getPassword()))

@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UserRoleParam {
-   private String email;
+   private String userEmail;
    private String roleId;
    private String photo;
    private String username;

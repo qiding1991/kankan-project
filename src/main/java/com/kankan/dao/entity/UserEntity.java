@@ -2,12 +2,16 @@ package com.kankan.dao.entity;
 
 import java.time.Instant;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
 import com.kankan.module.User;
 
 import lombok.Data;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class UserEntity {
     private Long id;
@@ -18,10 +22,17 @@ public class UserEntity {
     private Integer status=1;
     private Long createTime= Instant.now().toEpochMilli();
     private Long updateTime= Instant.now().toEpochMilli();
-    public static UserEntity registerUserEntity(String userEmail) {
-          UserEntity user=new UserEntity();
-          user.userEmail=userEmail;
-          return user;
+
+  public UserEntity(User user) {
+       this.userEmail=user.getUserEmail();
+       this.password=user.getPassword();
+       this.username=user.getUsername();
+       this.userPhoto=user.getUserPhoto();
+  }
+
+  public static UserEntity createUser(User user) {
+      UserEntity userEntity=new UserEntity(user);
+      return userEntity;
     }
 
 
@@ -45,8 +56,10 @@ public class UserEntity {
         .userId(id)
         .password(password)
         .userPhoto(userPhoto)
+        .username(username)
         .userEmail(userEmail)
         .build();
       return user;
     }
+
 }
