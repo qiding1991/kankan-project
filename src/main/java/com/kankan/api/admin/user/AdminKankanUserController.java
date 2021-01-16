@@ -85,7 +85,9 @@ public class AdminKankanUserController extends BaseController {
     kankanUserRole.setRoleId(userRole.getRoleId());
     kankanUserRole.setUserId(user.getUserId());
     userRoleMapper.insert(kankanUserRole);
-    return success();
+    UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
+    UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
+    return success(userDetail);
   }
 
   @ApiOperation("用户列表")
