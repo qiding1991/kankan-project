@@ -10,8 +10,14 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import com.kankan.dao.entity.KankanApply;
+import com.kankan.dao.entity.KankanUserRole;
 import com.kankan.dao.mapper.KankanApplyMapper;
+import com.kankan.dao.mapper.KankanUserRoleMapper;
+import com.kankan.dao.mapper.UserMapper;
+import com.kankan.module.privilege.UserRole;
 import com.kankan.param.UserApplyParam;
+import com.kankan.service.*;
+import com.kankan.vo.UserDetailVo;
 import org.apache.commons.lang.StringUtils;
 import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +33,6 @@ import com.kankan.param.mail.VerifySmsCode;
 import com.kankan.param.user.LoginParam;
 import com.kankan.param.user.RegisterInfo;
 import com.kankan.param.user.UserBaseInfo;
-import com.kankan.service.CacheService;
-import com.kankan.service.MailSender;
-import com.kankan.service.TokenService;
-import com.kankan.service.UserService;
 import com.kankan.util.GsonUtil;
 
 import io.swagger.annotations.Api;
@@ -53,7 +55,10 @@ public class UserController extends BaseController {
   @Autowired
   private TokenService tokenService;
   @Resource
-  private KankanApplyMapper kankanApplyMapper;
+  private KankanUserRoleMapper userRoleMapper;
+
+  @Autowired
+  private UserRoleService userRoleService;
 
 
   @ApiOperation("发送验证码")
@@ -142,12 +147,12 @@ public class UserController extends BaseController {
     if (user.isEmpty()) {
       return error(USER_TOKEN_CHECK_ERROR);
     }
-    UserBaseInfo userBaseInfo = GsonUtil.parseJson(GsonUtil.toGson(user), UserBaseInfo.class);
-    return CommonResponse.success(userBaseInfo);
+    //获取权限信息
+    KankanUserRole kankanUserRole = userRoleMapper.findByUserId(user.getUserId());
+    //获取角色相关
+    UserRole userRole = userRoleService.findUserRole(kankanUserRole.getRoleId());
+    UserDetailVo userDetail = new UserDetailVo(user, userRole);
+
+    return CommonResponse.success(userDetail);
   }
-
-
-
-
-
 }

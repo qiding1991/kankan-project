@@ -74,7 +74,6 @@ public class AdminKankanUserController extends BaseController {
       .userPhoto(userRole.getUserPhoto())
       .password(Md5Util.md5Hex(userRole.getPassword()))
       .build();
-
     Boolean emailExists = user.emailNotExists(userService);
     if (!emailExists) {
       return CommonResponse.error(EMAIL_NOT_AVAILABLE_ERROR, "邮箱重复");
@@ -83,16 +82,52 @@ public class AdminKankanUserController extends BaseController {
     user = user.create(userService);
     // 创建关联表
     KankanUserRole kankanUserRole = new KankanUserRole();
-    if(StringUtils.isNotEmpty(userRole.getRoleId())){
+    if (StringUtils.isNotEmpty(userRole.getRoleId())) {
       kankanUserRole.setRoleId(userRole.getRoleId());
       kankanUserRole.setUserId(user.getUserId());
       userRoleMapper.insert(kankanUserRole);
     }
-
     UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
     UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
     return success(userDetail);
   }
+
+
+  @ApiOperation("更新用户")
+  @PostMapping("update/{userId}")
+  public CommonResponse update(@PathVariable(value = "userId") Long userId, @RequestBody UserRoleParam userRole) {
+    User user = User.builder()
+      .userEmail(userRole.getUserEmail())
+      .username(userRole.getUsername())
+      .userPhoto(userRole.getUserPhoto())
+      .password(Md5Util.md5Hex(userRole.getPassword()))
+      .userId(userId)
+      .build();
+
+
+    if(userRole.getUserEmail()!=null){
+      UserEntity userRecord= userService.findUserByEmail(userRole.getUserEmail());
+      if(!userRecord.getId().equals(userId)){
+        Boolean emailExists = user.emailNotExists(userService);
+        if (!emailExists) {
+          return CommonResponse.error(EMAIL_NOT_AVAILABLE_ERROR, "邮箱重复");
+        }
+      }
+    }
+    //创建用户
+    user.updateUser(userService);
+    // 创建关联表
+    KankanUserRole kankanUserRole = new KankanUserRole();
+    if (StringUtils.isNotEmpty(userRole.getRoleId())) {
+      kankanUserRole.setRoleId(userRole.getRoleId());
+      kankanUserRole.setUserId(user.getUserId());
+      userRoleMapper.updateRole(userId,userRole.getRoleId());
+    }
+    UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
+    UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
+    return success(userDetail);
+  }
+
 
   @ApiOperation("用户列表")
   @GetMapping("find")
@@ -126,7 +161,7 @@ public class AdminKankanUserController extends BaseController {
     for (Map.Entry<Long, User> userEntry : userMap.entrySet()) {
       Long userId = userEntry.getKey();
       User userInfo = userEntry.getValue();
-      if (roleId == null || roleId.equalsIgnoreCase( roleIdMap.get(userId))) {
+      if (roleId == null || roleId.equalsIgnoreCase(roleIdMap.get(userId))) {
         UserRole userRole = roleMap.get(roleIdMap.get(userId));
         userDetailVoList.add(new UserDetailVo(userInfo, userRole));
       }
