@@ -49,6 +49,15 @@ public class UserApplyController extends BaseController {
     return success();
   }
 
+  @ApiOperation("更新申请信息")
+  @PostMapping("apply/update")
+  public CommonResponse update(@RequestBody KankanApply kankanApply) {
+    kankanApply.setApplyStatus(1);
+    mongoTemplate.save(kankanApply);
+    return success();
+  }
+
+
   @ApiOperation("获取申请信息")
   @GetMapping("applyDetail")
   public CommonResponse applyDetail(@RequestParam(value = "userId") Long userId) {

@@ -46,6 +46,8 @@ create  table news_info(
      status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
      create_time bigint(20) unsigned not null  comment '创建时间',
      update_time bigint(20) unsigned not null  comment '更新时间',
+     hot_status tinyint not null default 1 comment '1 非热点 2热点',
+     head_status tinyint not null default 1 comment '1 非头条 2头条',
      primary key (id),
      key idx_tab_id(tab_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -107,6 +109,10 @@ create table work_info(
     status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
     create_time bigint(20) unsigned not null  comment '创建时间',
     update_time bigint(20) unsigned not null  comment '更新时间',
+    audit_status tinyint not null default 1 comment '1 待审核 2 审核通过 3 不通过',
+    hot_status tinyint not null default 1 comment '1 非热点 2热点',
+    head_status tinyint not null default 1 comment '1 非头条 2头条',
+    audit_status tinyint not null default 1 comment '1 待审核 2 审核通过 3 不通过',
     primary key (id),
     key idx_user_id(user_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
