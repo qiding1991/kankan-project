@@ -2,9 +2,11 @@ package com.kankan.api.admin.user;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
+import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.entity.KankanUserRole;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.param.ApplyUpdateParam;
+import com.kankan.param.CompanyKankanParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Validated
 @Api(tags = "管理后台-看看号申请-管理")
@@ -31,11 +35,15 @@ public class AdminApplyController extends BaseController {
   @Resource
   private KankanUserRoleMapper kankanUserRoleMapper;
 
-  @ApiOperation("申请列表")
+  @ApiOperation("申请列表 ,1 个人  2 公司")
   @GetMapping("list")
-  public CommonResponse list() {
+  public CommonResponse list(@RequestParam(value = "applyType") Integer applyType) {
     List<Object> infoList = mongoTemplate.findAll(Object.class, "kankan_apply");
-    return success(infoList);
+    if (applyType == 1) {
+      return success(infoList.stream().filter(o -> o instanceof KankanApply).collect(Collectors.toList()));
+    } else {
+      return success(infoList.stream().filter(o -> o instanceof CompanyKankanParam).collect(Collectors.toList()));
+    }
   }
 
   @ApiOperation("更新审核状态")

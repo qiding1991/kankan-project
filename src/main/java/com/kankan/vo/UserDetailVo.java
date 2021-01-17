@@ -21,7 +21,7 @@ public class UserDetailVo {
   private String userPhoto;
   private String roleId;
   private String roleName;
-  private List<Privilege> privilege;
+  private List<String> privilege;
   public UserDetailVo(UserEntity user, UserRole userRole) {
     this.userId=user.getId();
     this.userEmail=user.getUserEmail();

@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(value = "kankan_apply")
 @Data
 public class CompanyKankanParam {
@@ -14,7 +16,7 @@ public class CompanyKankanParam {
   private Long userId;
   private Integer applyStatus;
   private String city;
-  private String topicPhoto;
-  private String applyPhoto;
-  private String otherPhoto;
+  private List<String> topicPhoto;
+  private List<String> applyPhoto;
+  private List<String> otherPhoto;
 }

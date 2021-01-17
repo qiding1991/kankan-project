@@ -5,6 +5,7 @@ import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanUserRole;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.module.privilege.UserRole;
+import com.kankan.param.GrantUserRoleParam;
 import com.kankan.service.UserRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,23 +39,25 @@ public class AdminUserRoleController extends BaseController {
 
   @ApiOperation("角色列表")
   @PostMapping("list")
-  public CommonResponse list(){
-      List<UserRole> infoList=  userRoleService.findAll();
-      return success(infoList);
+  public CommonResponse list() {
+    List<UserRole> infoList = userRoleService.findAll();
+    return success(infoList);
   }
 
   @ApiOperation("给用户授权")
-  @PostMapping("grantUserRole/{userId}/{roleId}")
+  @PostMapping("grantUserRole")
   public CommonResponse grantUserRole(
-    @PathVariable(value = "userId") Long userId,
-    @PathVariable(value = "roleId") String roleId){
+    @RequestBody GrantUserRoleParam grantUserRoleParam) {
 
-    KankanUserRole kankanUserRole= kankanUserRoleMapper.findByUserId(userId);
-    if(kankanUserRole!=null){
-      kankanUserRoleMapper.updateRole(userId,roleId);
-    }else{
+    Long userId = grantUserRoleParam.getUserId();
+    String roleId = grantUserRoleParam.getRoleId();
 
-      kankanUserRole =new KankanUserRole();
+    KankanUserRole kankanUserRole = kankanUserRoleMapper.findByUserId(userId);
+    if (kankanUserRole != null) {
+      kankanUserRoleMapper.updateRole(userId, roleId);
+    } else {
+
+      kankanUserRole = new KankanUserRole();
       kankanUserRole.setUserId(userId);
       kankanUserRole.setRoleId(roleId);
       kankanUserRole.setCreateTime(System.currentTimeMillis());
@@ -62,10 +65,8 @@ public class AdminUserRoleController extends BaseController {
       kankanUserRole.setStatus(1);
       kankanUserRoleMapper.insert(kankanUserRole);
     }
-    return  success();
+    return success();
   }
-
-
 
 
 }
