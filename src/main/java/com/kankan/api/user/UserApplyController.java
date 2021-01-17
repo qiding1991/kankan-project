@@ -57,6 +57,7 @@ public class UserApplyController extends BaseController {
         return CommonResponse.error(USER_APPLY_REPEATED);
       }
     }
+    kankanApply.setApplyStatus(1);
     mongoTemplate.save(kankanApply);
     return success();
   }
