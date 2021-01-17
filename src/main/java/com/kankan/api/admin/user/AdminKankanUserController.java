@@ -70,7 +70,7 @@ public class AdminKankanUserController extends BaseController {
     User user = User.builder()
       .userEmail(userRole.getUserEmail())
       .username(userRole.getUsername())
-      .userPhoto(userRole.getPhoto())
+      .userPhoto(userRole.getUserPhoto())
       .password(Md5Util.md5Hex(userRole.getPassword()))
       .build();
 

@@ -6,7 +6,7 @@ import lombok.Data;
 public class UserRoleParam {
    private String userEmail;
    private String roleId;
-   private String photo;
+   private String userPhoto;
    private String username;
    private String password;
 }
