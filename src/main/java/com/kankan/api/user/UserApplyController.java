@@ -50,7 +50,7 @@ public class UserApplyController extends BaseController {
   }
 
   @ApiOperation("获取申请信息")
-  @PostMapping("applyDetail")
+  @GetMapping("applyDetail")
   public CommonResponse applyDetail(@RequestParam(value = "userId") Long userId) {
     Object applyInfo = getApplyInfo(userId);
     return success(applyInfo);
