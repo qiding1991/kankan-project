@@ -9,10 +9,10 @@ import java.util.List;
 @Document(value = "kankan_apply")
 @Data
 public class CompanyKankanParam {
-  @Id
-  private String id;
+
   private String adminName;
   private String phone;
+  @Id
   private Long userId;
   private Integer applyStatus;
   private String city;

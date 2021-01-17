@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 
-import static com.kankan.constant.ErrorCode.USER_APPLY_REPEATED;
+import static com.kankan.constant.ErrorCode.*;
 
 @Api(tags = "用户-企业看看号-申请信息")
 @RequestMapping("user")
@@ -28,12 +28,18 @@ public class UserApplyController extends BaseController {
   @ApiOperation(value = "企业看看号申请")
   @PostMapping("/company/apply")
   public CommonResponse apply(@RequestBody CompanyKankanParam companyKankanParam) {
-    if (getApplyInfo(companyKankanParam.getUserId()) != null) {
-      return CommonResponse.error(USER_APPLY_REPEATED);
+    Object applyInfo = getApplyInfo(companyKankanParam.getUserId());
+    if (applyInfo != null && applyInfo instanceof KankanApply) {
+      return CommonResponse.error(USER_APPLY_REPEATED_PERSON);
     }
-    companyKankanParam.setId(null);
+    if (applyInfo != null) {
+      CompanyKankanParam recode = (CompanyKankanParam) applyInfo;
+      if (recode != null || recode.getApplyStatus() == 2) {
+        return CommonResponse.error(USER_APPLY_FORBIDDEN);
+      }
+    }
     companyKankanParam.setApplyStatus(1);
-    mongoTemplate.insert(companyKankanParam);
+    mongoTemplate.save(companyKankanParam);
     return success();
   }
 
@@ -41,11 +47,17 @@ public class UserApplyController extends BaseController {
   @ApiOperation("申请成为看看")
   @PostMapping("apply")
   public CommonResponse apply(@RequestBody KankanApply kankanApply) {
-    if (getApplyInfo(kankanApply.getUserId()) != null) {
-      return CommonResponse.error(USER_APPLY_REPEATED);
+    Object applyInfo = getApplyInfo(kankanApply.getUserId());
+    if (applyInfo != null && applyInfo instanceof CompanyKankanParam) {
+      return CommonResponse.error(USER_APPLY_REPEATED_COMPANY);
     }
-    kankanApply.setApplyStatus(1);
-    mongoTemplate.insert(kankanApply);
+    if (applyInfo != null) {
+      KankanApply recode = (KankanApply) applyInfo;
+      if (recode != null || recode.getApplyStatus() == 2) {
+        return CommonResponse.error(USER_APPLY_REPEATED);
+      }
+    }
+    mongoTemplate.save(kankanApply);
     return success();
   }
 

@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 public class KankanApply{
   @Id
-  private String id;
   private Long userId;
   private String idUrl;
   private String photo;
