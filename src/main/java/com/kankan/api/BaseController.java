@@ -24,7 +24,7 @@ public class BaseController {
     @ResponseBody
     public CommonResponse exception(Throwable throwable) {
         log.error("服务器未知异常", throwable);
-        return CommonResponse.error(ErrorCode.UN_KNOW_ERROR);
+        return CommonResponse.error(ErrorCode.UN_KNOW_ERROR,throwable.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
