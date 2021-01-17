@@ -25,42 +25,45 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class News {
-    private Long id;
-    private Long tabId;
-    private String picture;
-    private String title;
-    private String resourceId;
-    private Long createTime;
+  private Long id;
+  private Long tabId;
+  private String picture;
+  private String title;
+  private String resourceId;
+  private Long createTime;
+  private Integer hotStatus;//是否设置称热点
+  private Integer headStatus;
+
 
   public static News fromResourceId(String resourceId, NewsService newsService) {
-        return     newsService.findNews(resourceId);
+    return newsService.findNews(resourceId);
   }
 
   public void create(NewsService newsService) {
-        newsService.createNews(this);
-    }
+    newsService.createNews(this);
+  }
 
-    public static News parseEntity(NewsEntity newsEntity) {
-        News news = new News();
-        BeanUtils.copyProperties(newsEntity, news);
-        return news;
-    }
+  public static News parseEntity(NewsEntity newsEntity) {
+    News news = new News();
+    BeanUtils.copyProperties(newsEntity, news);
+    return news;
+  }
 
-    public NewsItemVo toItemVo(TabService tabService, ResourceService resourceService) {
-        Tab tab = tabService.findTab(tabId);
-        MediaResource resource = resourceService.findResource(resourceId);
-        return new NewsItemVo(tab, this, resource);
-    }
+  public NewsItemVo toItemVo(TabService tabService, ResourceService resourceService) {
+    Tab tab = tabService.findTab(tabId);
+    MediaResource resource = resourceService.findResource(resourceId);
+    return new NewsItemVo(tab, this, resource);
+  }
 
-    public List<News> findAll(NewsService newsService) {
-        return newsService.findAll();
-    }
+  public List<News> findAll(NewsService newsService) {
+    return newsService.findAll();
+  }
 
-    public NewsVo toItemVo(ResourceService resourceService) {
-        NewsVo newsVo=new NewsVo(this);
-        MediaResource resource= resourceService.findResource(resourceId);
-        newsVo.setContent(resource.getContent());
-        newsVo.setKeyword(resource.getKeyWords());
-        return newsVo;
-    }
+  public NewsVo toItemVo(ResourceService resourceService) {
+    NewsVo newsVo = new NewsVo(this);
+    MediaResource resource = resourceService.findResource(resourceId);
+    newsVo.setContent(resource.getContent());
+    newsVo.setKeyword(resource.getKeyWords());
+    return newsVo;
+  }
 }

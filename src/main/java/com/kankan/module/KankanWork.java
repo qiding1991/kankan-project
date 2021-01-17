@@ -27,53 +27,57 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class KankanWork {
-    private Long id;
-    private Long userId;
-    private String picture;
-    private String videoUrl;
-    private String title;
-    private String resourceId;
-    private Integer type;
-    private Long publishTime;
-    private Integer status;
+  private Long id;
+  private Long userId;
+  private String picture;
+  private String videoUrl;
+  private String title;
+  private String resourceId;
+  private Integer type;
+  private Long publishTime;
+  private Integer hotStatus;//是否设置称热点
+  private Integer headStatus;
+  private Integer auditStatus;
+
 
   public static KankanWork fromResourceId(String resourceId, KankanWorkService workService) {
-     KankanWork kankanWork= workService.findByResourceId(resourceId);
-     return kankanWork;
+    KankanWork kankanWork = workService.findByResourceId(resourceId);
+    return kankanWork;
   }
 
   public void addWork(KankanWorkService workService) {
-        workService.addWork(this);
-    }
+    workService.addWork(this);
+  }
 
-    public static KankanWork parseEntity(WorkEntity workEntity) {
-        KankanWork kankanWork = new KankanWork();
-        BeanUtils.copyProperties(workEntity, kankanWork);
-        kankanWork.publishTime=workEntity.getCreateTime();
-        return kankanWork;
-    }
+  public static KankanWork parseEntity(WorkEntity workEntity) {
+    KankanWork kankanWork = new KankanWork();
+    BeanUtils.copyProperties(workEntity, kankanWork);
+    kankanWork.publishTime = workEntity.getCreateTime();
+    return kankanWork;
+  }
 
-    public ArticleItemVo toArticleItemVo(KankanUserService kankanUserService,
-            ResourceService resourceService) {
-        KankanUser user = kankanUserService.findUser(userId);
-        MediaResource resource = resourceService.findResource(resourceId);
-        return new ArticleItemVo(this, user, resource);
-    }
+  public ArticleItemVo toArticleItemVo(KankanUserService kankanUserService,
+                                       ResourceService resourceService) {
+    KankanUser user = kankanUserService.findUser(userId);
+    MediaResource resource = resourceService.findResource(resourceId);
+    return new ArticleItemVo(this, user, resource);
+  }
 
-    public VideoItemVo toVideoItemVo(KankanUserService kankanUserService, ResourceService resourceService){
-        KankanUser user = kankanUserService.findUser(userId);
-        MediaResource resource = resourceService.findResource(resourceId);
-        return new VideoItemVo(this, user, resource);
-    }
-    public List<KankanWork> findMyWork(KankanWorkService workService) {
-       return  workService.findUserWork(this.userId);
-    }
+  public VideoItemVo toVideoItemVo(KankanUserService kankanUserService, ResourceService resourceService) {
+    KankanUser user = kankanUserService.findUser(userId);
+    MediaResource resource = resourceService.findResource(resourceId);
+    return new VideoItemVo(this, user, resource);
+  }
 
-    public List<KankanWork> findAllWork(KankanWorkService workService) {
-         return  workService.findAllWork();
-    }
+  public List<KankanWork> findMyWork(KankanWorkService workService) {
+    return workService.findUserWork(this.userId);
+  }
 
-    public KankanWork resourceWork(KankanWorkService workService) {
-        return workService.resourceWork(resourceId);
-    }
+  public List<KankanWork> findAllWork(KankanWorkService workService) {
+    return workService.findAllWork();
+  }
+
+  public KankanWork resourceWork(KankanWorkService workService) {
+    return workService.resourceWork(resourceId);
+  }
 }

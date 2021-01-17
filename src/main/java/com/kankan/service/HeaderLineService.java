@@ -61,4 +61,8 @@ public class HeaderLineService {
     HeaderLineItemEntity headerLineItemEntity = headerLineItemMapper.findByResourceId(resourceId);
     return HeaderLineItem.parseEntity(headerLineItemEntity);
   }
+
+    public void delHeadItem(HeaderLineItem item) {
+      headerLineItemMapper.delByHeadLineIdAndResourceId(item.getHeaderLineId(),item.getResourceId());
+    }
 }

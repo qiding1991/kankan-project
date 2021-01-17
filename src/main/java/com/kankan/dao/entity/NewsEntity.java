@@ -12,4 +12,6 @@ public class NewsEntity extends BaseEntity{
     private Long tabId;
     private String title;
     private String picture;
+    private Integer hotStatus;//是否设置称热点
+    private Integer headStatus;
 }

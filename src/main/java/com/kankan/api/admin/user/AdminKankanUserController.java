@@ -19,6 +19,7 @@ import com.kankan.util.Md5Util;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -82,9 +83,12 @@ public class AdminKankanUserController extends BaseController {
     user = user.create(userService);
     // 创建关联表
     KankanUserRole kankanUserRole = new KankanUserRole();
-    kankanUserRole.setRoleId(userRole.getRoleId());
-    kankanUserRole.setUserId(user.getUserId());
-    userRoleMapper.insert(kankanUserRole);
+    if(StringUtils.isNotEmpty(userRole.getRoleId())){
+      kankanUserRole.setRoleId(userRole.getRoleId());
+      kankanUserRole.setUserId(user.getUserId());
+      userRoleMapper.insert(kankanUserRole);
+    }
+
     UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
     UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
     return success(userDetail);

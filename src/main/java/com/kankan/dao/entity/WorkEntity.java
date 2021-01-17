@@ -13,18 +13,23 @@ import lombok.Data;
 @Data
 public class WorkEntity extends BaseEntity {
 
-    private String resourceId;
-    private Long userId;
-    private Integer type;
-    private String title;
-    private String picture;
-    private String videoUrl;
-    public KankanWork parse() {
-        return KankanWork.builder().id(this.getId()).type(type)
-          .videoUrl(videoUrl)
-          .status(getStatus())
-          .userId(userId).resourceId(resourceId).title(title).picture(picture)
-                .publishTime(this.getCreateTime()).build();
+  private String resourceId;
+  private Long userId;
+  private Integer type;
+  private String title;
+  private String picture;
+  private String videoUrl;
+  private Integer hotStatus;//是否设置称热点
+  private Integer headStatus;
+  private Integer auditStatus;
 
-    }
+  public KankanWork parse() {
+    return KankanWork.builder().id(this.getId()).type(type)
+      .videoUrl(videoUrl)
+      .auditStatus(this.auditStatus)
+      .headStatus(this.headStatus)
+      .hotStatus(this.hotStatus)
+      .userId(userId).resourceId(resourceId).title(title).picture(picture)
+      .publishTime(this.getCreateTime()).build();
+  }
 }

@@ -8,15 +8,17 @@ import java.util.List;
 
 @Data
 public class NewsVo {
-    private Long id;
-    private String resourceId;
-    private Long tabId;
-    private String picture;
-    private String title;
-    private String content;
-    private List<String> keyword;
+  private Long id;
+  private String resourceId;
+  private Long tabId;
+  private String picture;
+  private String title;
+  private String content;
+  private Integer hotStatus;//是否设置称热点
+  private Integer headStatus;
+  private List<String> keyword;
 
-    public NewsVo(News news) {
-        BeanUtils.copyProperties(news, this);
-    }
+  public NewsVo(News news) {
+    BeanUtils.copyProperties(news, this);
+  }
 }

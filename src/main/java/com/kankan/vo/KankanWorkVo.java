@@ -33,6 +33,11 @@ public class KankanWorkVo {
   private Integer isHot = 0;
   private Integer isHeaderLine = 0;
 
+  private Integer hotStatus;//是否设置称热点
+  private Integer headStatus;
+  private Integer auditStatus;
+
+
 
   public KankanWorkVo(KankanWork kankanWork) {
     BeanUtils.copyProperties(kankanWork, this);

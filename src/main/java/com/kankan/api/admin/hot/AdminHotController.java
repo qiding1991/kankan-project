@@ -1,5 +1,8 @@
 package com.kankan.api.admin.hot;
 
+import com.kankan.constant.EnumItemType;
+import com.kankan.service.KankanWorkService;
+import com.kankan.service.NewsService;
 import org.springframework.web.bind.annotation.*;
 
 import com.kankan.api.BaseController;
@@ -23,28 +26,54 @@ import java.util.List;
 public class AdminHotController extends BaseController {
 
 
-    private HotPointService hotPointService;
+  private HotPointService hotPointService;
 
-    public AdminHotController(HotPointService hotPointService) {
-        this.hotPointService = hotPointService;
+  private NewsService newsService;
+
+  private KankanWorkService workService;
+
+  public AdminHotController(HotPointService hotPointService, NewsService newsService, KankanWorkService workService) {
+    this.hotPointService = hotPointService;
+    this.newsService = newsService;
+    this.workService = workService;
+  }
+
+  @ApiOperation("创建热点")
+  @PostMapping("create")
+  public CommonResponse createHot(@RequestBody HotInfo hotInfo) {
+    HotPoint hotPoint = hotInfo.toHotPoint();
+    hotPoint.create(hotPointService);
+    EnumItemType itemType = EnumItemType.getItem(hotInfo.getItemType());
+    if (itemType == EnumItemType.NEWS) {
+      newsService.updateHotStatus(hotInfo.getItemId(), 2);
+    } else if (itemType == EnumItemType.VIDEO || itemType == EnumItemType.ARTICLE) {
+      workService.setHot(hotInfo.getItemId(), 2);
     }
+    return success();
+  }
 
-    @ApiOperation("创建热点")
-    @PostMapping("create")
-    public CommonResponse createHot(@RequestBody HotInfo hotInfo){
-          HotPoint hotPoint=hotInfo.toHotPoint();
-          hotPoint.create(hotPointService);
-         return success();
+  @ApiOperation("取消热点")
+  @PostMapping("cancel")
+  public CommonResponse cancelHot(@RequestBody HotInfo hotInfo) {
+    HotPoint hotPoint = hotInfo.toHotPoint();
+    hotPoint.delHotInfo(hotPointService);
+    EnumItemType itemType = EnumItemType.getItem(hotInfo.getItemType());
+    if (itemType == EnumItemType.NEWS) {
+      newsService.updateHotStatus(hotInfo.getItemId(), 2);
+    } else if (itemType == EnumItemType.VIDEO || itemType == EnumItemType.ARTICLE) {
+      workService.setHot(hotInfo.getItemId(), 2);
     }
+    return success();
+  }
 
 
-    @ApiOperation("热点列表")
-    @GetMapping("list")
-    public CommonResponse list(){
-        HotPoint hotPoint= HotPoint.builder().build();
-        List<HotPoint> infoList= hotPoint.listAll(hotPointService);
-        return success(infoList);
-    }
+  @ApiOperation("热点列表")
+  @GetMapping("list")
+  public CommonResponse list() {
+    HotPoint hotPoint = HotPoint.builder().build();
+    List<HotPoint> infoList = hotPoint.listAll(hotPointService);
+    return success(infoList);
+  }
 
 
 }

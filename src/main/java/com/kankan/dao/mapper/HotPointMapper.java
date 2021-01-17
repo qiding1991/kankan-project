@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.kankan.dao.entity.HotPointEntity;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 /**
@@ -33,4 +34,9 @@ public interface HotPointMapper {
 
     @Select("select * from hot_info where item_id=#{itemId} and item_type=#{itemType}")
     HotPointEntity findByItemTypeAndItemId(int itemType, Long itemId);
+
+
+    @Update("delete from hot_info where item_id=#{itemId} and item_type=#{itemType}")
+    void delByItemTypeAndItemId(int itemType, Long itemId);
+
 }

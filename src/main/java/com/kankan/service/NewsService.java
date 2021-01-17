@@ -48,4 +48,15 @@ public class NewsService {
         NewsEntity newsEntity =newsMapper.findNewsByResourceId(resourceId);
         return News.parseEntity(newsEntity);
     }
+
+    public void updateHotStatus(Long userId,Integer hotStatus){
+            newsMapper.setHot(userId,hotStatus);
+    }
+
+    public void updateHeaderStatus(Long userId,Integer headerStatus){
+      newsMapper.setHeader(userId,headerStatus);
+    }
+
+
+
 }

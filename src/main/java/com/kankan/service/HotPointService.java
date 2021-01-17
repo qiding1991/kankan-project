@@ -41,4 +41,9 @@ public class HotPointService {
          HotPointEntity hotPointEntity=hotPointMapper.findByItemTypeAndItemId(itemType,itemId);
          return HotPoint.parseEntity(hotPointEntity);
     }
+
+    public void delHot(int itemType, Long itemId){
+      hotPointMapper.delByItemTypeAndItemId(itemType, itemId);
+    }
+
 }
