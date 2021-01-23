@@ -11,7 +11,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.aggregation.ArrayOperators;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Validated
@@ -51,24 +49,24 @@ public class AdminApplyController extends BaseController {
   public CommonResponse update(@RequestBody ApplyUpdateParam updateParam) {
     Long userId = updateParam.getUserId();
     Integer applyStatus = updateParam.getApplyStatus();
-    String roleId = updateParam.getRoleId();
+//    String roleId = updateParam.getRoleId();
 
     Query query = Query.query(Criteria.where("userId").is(userId));
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
 
-    KankanUserRole kankanUserRole = kankanUserRoleMapper.findByUserId(userId);
-    if (kankanUserRole != null) {
-      kankanUserRoleMapper.updateRole(userId, roleId);
-    } else {
-      kankanUserRole = new KankanUserRole();
-      kankanUserRole.setUserId(userId);
-      kankanUserRole.setRoleId(roleId);
-      kankanUserRole.setCreateTime(System.currentTimeMillis());
-      kankanUserRole.setUpdateTime(System.currentTimeMillis());
-      kankanUserRole.setStatus(1);
-      kankanUserRoleMapper.insert(kankanUserRole);
-    }
+//    KankanUserRole kankanUserRole = kankanUserRoleMapper.findByUserId(userId);
+//    if (kankanUserRole != null) {
+//      kankanUserRoleMapper.updateRole(userId, roleId);
+//    } else {
+//      kankanUserRole = new KankanUserRole();
+//      kankanUserRole.setUserId(userId);
+//      kankanUserRole.setRoleId(roleId);
+//      kankanUserRole.setCreateTime(System.currentTimeMillis());
+//      kankanUserRole.setUpdateTime(System.currentTimeMillis());
+//      kankanUserRole.setStatus(1);
+//      kankanUserRoleMapper.insert(kankanUserRole);
+//    }
 
     return success();
   }

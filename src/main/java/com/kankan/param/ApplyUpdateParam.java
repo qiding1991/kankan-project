@@ -6,5 +6,4 @@ import lombok.Data;
 public class ApplyUpdateParam {
   private Long userId;
   private Integer applyStatus;
-  private String roleId;
 }

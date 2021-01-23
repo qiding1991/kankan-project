@@ -65,10 +65,8 @@ public class FileController extends BaseController {
     if (!serverBaseUrl.endsWith("/")) {
       serverBaseUrl = serverBaseUrl + "/";
     }
-    return serverBaseUrl + "download/video/" + fileId;
+    return serverBaseUrl + "file/download/video/" + fileId;
   }
-
-
 
 
   @ApiOperation("下载图片")
@@ -76,7 +74,6 @@ public class FileController extends BaseController {
   public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
     FileDocument fileDocument = fileService.downFile(fileId);
     response.setContentType(fileDocument.getContentType());
-    response.setHeader("Content-Disposition", "attachment;filename=" + fileDocument.getFileName());
     try (OutputStream outputStream = response.getOutputStream()) {
       outputStream.write(fileDocument.getFileContent());
       response.flushBuffer();
@@ -86,19 +83,17 @@ public class FileController extends BaseController {
     }
   }
 
-
-
-
   @ApiOperation("下载视频")
   @GetMapping("download/video/{fileId}")
   public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
     File file=new File(targetPath+fileId);
-    response.setContentType("video/mpeg4");
-    response.setHeader("Content-Disposition", "attachment;filename=" +fileId);
+    response.setContentType("video/mp4");
     try (OutputStream outputStream = response.getOutputStream()) {
-      byte[]fileContent= IOUtils.toByteArray(new FileInputStream(file));
-      outputStream.write(fileContent);
-      response.flushBuffer();
+      InputStream inputStream=new FileInputStream(file);
+      byte [] bytes=new byte[200];
+      while (inputStream.read(bytes)!=-1){
+        outputStream.write(bytes);
+      }
     } catch (IOException e) {
       log.error("文件下载失败{}", fileId, e);
       throw e;
@@ -132,8 +127,7 @@ public class FileController extends BaseController {
     }
     log.info("执行成功，response={}",sb.toString());
     //4.读取结果文件
-
-    String downLoadUrl = generateVideUrl(fileId);
+    String downLoadUrl = generateVideUrl(realFileName);
     //5.存入到本地库
     return success(downLoadUrl);
   }

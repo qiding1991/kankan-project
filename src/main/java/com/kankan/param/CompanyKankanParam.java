@@ -9,9 +9,9 @@ import java.util.List;
 @Document(value = "kankan_apply")
 @Data
 public class CompanyKankanParam {
-
   private String adminName;
   private String phone;
+  private List<String> privilegeList;
   @Id
   private Long userId;
   private Integer applyStatus;
