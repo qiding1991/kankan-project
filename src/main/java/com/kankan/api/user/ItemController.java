@@ -98,6 +98,9 @@ public class ItemController extends BaseController {
         newsDetailVo.addCommentInfo(commentService, kankanUserService);
         newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
         newsDetailVo.setFavouriteStatus(favouriteStatus);
+        //添加当前用户的评论状态
+        newsDetailVo.addThumpStatus(userId);
+
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
@@ -105,6 +108,7 @@ public class ItemController extends BaseController {
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, kankanUserService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
+        articleDetailVo.addThumpStatus(userId);
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
@@ -113,6 +117,7 @@ public class ItemController extends BaseController {
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
         videoDetailVo.setFavouriteStatus(favouriteStatus);
+        videoDetailVo.addThumpStatus(userId);
         return success(videoDetailVo);
       default:
         break;

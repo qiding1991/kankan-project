@@ -165,24 +165,27 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取所有的评论")
   @GetMapping("comment/list")
-  public CommonResponse commentList(@RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@RequestParam(value = "userId") Long userId, @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     List<KankanCommentVo> commentVoList = comment.resourceCommentInfo(commentService, userService);
+    KankanCommentVo.addThumpStatus(commentVoList, userId);
     return success(commentVoList);
   }
 
 
   @ApiOperation("获取某条评论相关的评论")
   @GetMapping("comment/list/{commentId}")
-  public CommonResponse commentList(@PathVariable(value = "commentId") Long commentId, @RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@PathVariable(value = "commentId") Long commentId, @RequestParam(value = "userId") Long userId, @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     KankanCommentVo commentVo = comment.resourceCommentInfo(commentService, userService, commentId);
+    KankanCommentVo.addThumpStatus(commentVo, userId);
     return success(commentVo);
   }
-
-
 }
+
+
+

@@ -63,4 +63,9 @@ public class VideoDetailVo {
   public void setFavouriteStatus(Boolean favouriteStatus) {
     this.favouriteStatus = favouriteStatus;
   }
+
+  public void  addThumpStatus(Long userId){
+    KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  }
+
 }

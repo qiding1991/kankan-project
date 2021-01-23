@@ -97,4 +97,8 @@ public class NewsDetailVo {
   }
 
 
+  public void  addThumpStatus(Long userId){
+     KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  }
+
 }

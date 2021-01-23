@@ -54,4 +54,10 @@ public class ArticleDetailVo {
   public void setFavouriteStatus(Boolean favouriteStatus) {
         this.favouriteStatus=favouriteStatus;
   }
+
+  public void  addThumpStatus(Long userId){
+    KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  }
+
+
 }

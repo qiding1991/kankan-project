@@ -15,21 +15,33 @@ import org.springframework.beans.BeanUtils;
  */
 @Data
 public class KankanCommentVo {
-      private Long id;
-      private Long parentId;
-      private String resourceId;
-      private Integer thumpCount;
-      private String commentText;
-      private Long userId;
-      private String userName;
-      private Long createTime;
-      private List<KankanCommentVo>  children=new ArrayList<>();
+  private Long id;
+  private Long parentId;
+  private String resourceId;
+  private Integer thumpCount;
+  private String commentText;
+  private Long userId;
+  private String userName;
+  private Long createTime;
+  private Boolean thumpStatus;//当前用户是否 false 未点赞 true
+
+  private List<KankanCommentVo> children = new ArrayList<>();
 
 
+  public KankanCommentVo(KankanComment kankanComment, KankanUserService userService) {
+    BeanUtils.copyProperties(kankanComment, this);
+    KankanUser user = userService.findUser(userId);
+    this.userName = user.getUserName();
+  }
 
-      public KankanCommentVo(KankanComment kankanComment, KankanUserService userService) {
-            BeanUtils.copyProperties(kankanComment,this);
-            KankanUser user= userService.findUser(userId);
-            this.userName=user.getUserName();
-      }
+  public static void addThumpStatus(List<KankanCommentVo> infoList, Long currentUserId) {
+    for (KankanCommentVo item : infoList) {
+      item.thumpStatus = currentUserId.equals(item.userId);
+    }
+  }
+
+  public static void addThumpStatus(KankanCommentVo commentVo, Long currentUserId) {
+    commentVo.thumpStatus = currentUserId.equals(commentVo.userId);
+  }
+
 }
