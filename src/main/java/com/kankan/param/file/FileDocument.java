@@ -1,9 +1,13 @@
 package com.kankan.param.file;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.UUID;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,25 +25,36 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Document("file-info")
 public class FileDocument {
-    @Id
-    private String fileId;
-    private String fileName;
-    private String contentType;
-    private Long fileSize;
-    private String md5;
-    private byte[]fileContent;
-    private Long createTime = Instant.now().toEpochMilli();
+  @Id
+  private String fileId;
+  private String fileName;
+  private String contentType;
+  private Long fileSize;
+  private String md5;
+  private byte[] fileContent;
+  private Long createTime = Instant.now().toEpochMilli();
 
-    public FileDocument(MultipartFile file) throws IOException {
-        this.fileId= UUID.randomUUID().toString();
-        this.contentType = file.getContentType();
-        this.fileName = file.getOriginalFilename();
-        this.fileSize = file.getSize();
-        this.fileContent=file.getBytes();
-        this.md5 = Md5Util.md5Hex(this.fileContent);
-    }
+  public FileDocument(MultipartFile file) throws IOException {
+    this.fileId = UUID.randomUUID().toString();
+    this.contentType = file.getContentType();
+    this.fileName = file.getOriginalFilename();
+    this.fileSize = file.getSize();
+    this.fileContent = file.getBytes();
+    this.md5 = Md5Util.md5Hex(this.fileContent);
+  }
 
-    public static  boolean isNotNull(FileDocument fileDocument){
-        return fileDocument!=null && fileDocument.fileId!=null;
-    }
+  public FileDocument(String fileId, File file, MultipartFile originFile) throws IOException {
+    byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
+    this.fileId = fileId;
+    this.contentType = originFile.getContentType();
+    this.fileName = originFile.getOriginalFilename();
+    this.fileSize = Long.valueOf(fileBytes.length);
+    this.fileContent = fileBytes;
+    this.md5 = Md5Util.md5Hex(fileBytes);
+  }
+
+
+  public static boolean isNotNull(FileDocument fileDocument) {
+    return fileDocument != null && fileDocument.fileId != null;
+  }
 }

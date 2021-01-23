@@ -2,6 +2,7 @@ package com.kankan.api.user;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
+import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.KankanComment;
 import com.kankan.module.MediaResource;
 import com.kankan.module.resouce.Favourite;
@@ -17,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -39,6 +41,8 @@ public class ResourceController extends BaseController {
 
   private KankanUserService userService;
 
+  @Resource
+  private ThumpMapper thumpMapper;
 
   public ResourceController(ResourceService resourceService, CommentService commentService,
                             ThumpService thumpService, FavouriteService favouriteService, KankanUserService userService) {
@@ -47,6 +51,7 @@ public class ResourceController extends BaseController {
     this.thumpService = thumpService;
     this.favouriteService = favouriteService;
     this.userService = userService;
+
   }
 
   @ApiOperation("评论新闻、文章、视频")
@@ -171,7 +176,7 @@ public class ResourceController extends BaseController {
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     List<KankanCommentVo> commentVoList = comment.resourceCommentInfo(commentService, userService);
-    KankanCommentVo.addThumpStatus(commentVoList, userId);
+    KankanCommentVo.addThumpStatus(commentVoList, userId, thumpMapper);
     return success(commentVoList);
   }
 
@@ -184,7 +189,7 @@ public class ResourceController extends BaseController {
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     KankanCommentVo commentVo = comment.resourceCommentInfo(commentService, userService, commentId);
-    KankanCommentVo.addThumpStatus(commentVo, userId);
+    KankanCommentVo.addThumpStatus(commentVo, userId,thumpMapper);
     return success(commentVo);
   }
 }

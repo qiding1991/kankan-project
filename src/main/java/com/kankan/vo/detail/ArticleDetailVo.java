@@ -1,5 +1,6 @@
 package com.kankan.vo.detail;
 
+import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.KankanComment;
 import com.kankan.module.KankanUser;
 import com.kankan.module.KankanWork;
@@ -55,8 +56,8 @@ public class ArticleDetailVo {
         this.favouriteStatus=favouriteStatus;
   }
 
-  public void  addThumpStatus(Long userId){
-    KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  public void  addThumpStatus(Long userId, ThumpMapper thumpMapper){
+    KankanCommentVo.addThumpStatus(this.commentVoList,userId, thumpMapper);
   }
 
 

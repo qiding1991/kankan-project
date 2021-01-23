@@ -6,6 +6,7 @@ import com.kankan.constant.EnumItemType;
 import com.kankan.constant.EnumTabType;
 import com.kankan.constant.PageData;
 import com.kankan.dao.entity.FavouriteEntity;
+import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.*;
 import com.kankan.param.tab.TabPageInfo;
 import com.kankan.service.*;
@@ -15,14 +16,13 @@ import com.kankan.vo.detail.VideoDetailVo;
 import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.ObjectUtils;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -60,6 +60,9 @@ public class ItemController extends BaseController {
 
   private FavouriteService favouriteService;
 
+  @Resource
+  private ThumpMapper thumpMapper;
+
 
   public ItemController(TabService tabService, HotPointService hotPointService,
                         KankanWorkService workService, NewsService newsService, KankanAdService adService,
@@ -75,6 +78,7 @@ public class ItemController extends BaseController {
     this.resourceService = resourceService;
     this.commentService = commentService;
     this.favouriteService = favouriteService;
+
   }
 
 
@@ -99,7 +103,7 @@ public class ItemController extends BaseController {
         newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
         newsDetailVo.setFavouriteStatus(favouriteStatus);
         //添加当前用户的评论状态
-        newsDetailVo.addThumpStatus(userId);
+        newsDetailVo.addThumpStatus(userId,thumpMapper);
 
         return success(newsDetailVo);
       case ARTICLE:
@@ -108,7 +112,7 @@ public class ItemController extends BaseController {
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, kankanUserService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
-        articleDetailVo.addThumpStatus(userId);
+        articleDetailVo.addThumpStatus(userId,thumpMapper);
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
@@ -117,7 +121,7 @@ public class ItemController extends BaseController {
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
         videoDetailVo.setFavouriteStatus(favouriteStatus);
-        videoDetailVo.addThumpStatus(userId);
+        videoDetailVo.addThumpStatus(userId,thumpMapper);
         return success(videoDetailVo);
       default:
         break;

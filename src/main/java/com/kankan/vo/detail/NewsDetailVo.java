@@ -1,5 +1,6 @@
 package com.kankan.vo.detail;
 
+import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.KankanAd;
 import com.kankan.module.KankanComment;
 import com.kankan.module.MediaResource;
@@ -97,8 +98,8 @@ public class NewsDetailVo {
   }
 
 
-  public void  addThumpStatus(Long userId){
-     KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  public void  addThumpStatus(Long userId,  ThumpMapper thumpMapper){
+     KankanCommentVo.addThumpStatus(this.commentVoList,userId,thumpMapper);
   }
 
 }

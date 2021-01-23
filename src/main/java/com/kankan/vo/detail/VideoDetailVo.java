@@ -1,7 +1,7 @@
 package com.kankan.vo.detail;
 
+import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.*;
-import com.kankan.param.tab.TabPageInfo;
 import com.kankan.service.*;
 import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.KankanUserVo;
@@ -64,8 +64,8 @@ public class VideoDetailVo {
     this.favouriteStatus = favouriteStatus;
   }
 
-  public void  addThumpStatus(Long userId){
-    KankanCommentVo.addThumpStatus(this.commentVoList,userId);
+  public void  addThumpStatus(Long userId, ThumpMapper thumpMapper){
+    KankanCommentVo.addThumpStatus(this.commentVoList,userId, thumpMapper);
   }
 
 }
