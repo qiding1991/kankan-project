@@ -1,5 +1,6 @@
 package com.kankan.vo.tab;
 
+import com.kankan.constant.EnumItemType;
 import com.kankan.module.KankanUser;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -16,5 +17,7 @@ public class UserItemVo  extends TabItemVo{
 
     public UserItemVo(KankanUser user){
         BeanUtils.copyProperties(user,this);
+        this.setItemType(EnumItemType.KAN_KAN_USER.getCode());
+        this.setItemId(userId);
     }
 }
