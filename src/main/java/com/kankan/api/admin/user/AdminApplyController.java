@@ -4,9 +4,11 @@ import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
+import com.kankan.module.KankanUser;
 import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.ApplyUpdateParam;
 import com.kankan.param.KankanCompanyApply;
+import com.kankan.service.KankanUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class AdminApplyController extends BaseController {
   @Autowired
   private MongoTemplate mongoTemplate;
 
+  @Autowired
+  private KankanUserService userService;
+
   @Resource
   private KankanUserRoleMapper kankanUserRoleMapper;
 
@@ -52,10 +57,18 @@ public class AdminApplyController extends BaseController {
     Query query = Query.query(Criteria.where("_id").is(userId));
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
-    Object applyInfo= getApplyInfo(mongoTemplate,userId);
-    if(updateParam.getApplyStatus()==2){
-      UserPrivilege userPrivilege=UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
+    Object applyInfo = getApplyInfo(mongoTemplate, userId);
+    if (updateParam.getApplyStatus() == 2) {
+      UserPrivilege userPrivilege = UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
       mongoTemplate.save(userPrivilege);
+      //数据写入到kankan用户表
+      KankanUser user = KankanUser.builder()
+        .userId(updateParam.getUserId())
+        .userName(getUsername(applyInfo))
+        .userType(0L)
+        .remark(getRemark(applyInfo))
+        .build();
+      userService.createUser(user);
     }
     return success();
   }

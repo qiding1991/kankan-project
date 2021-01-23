@@ -40,7 +40,10 @@ public class HeaderLineService {
 
   public HeaderLine findHeaderLineInfo(Long tabId) {
     HeaderLineInfoEntity entity = headerLineInfoMapper.findHeaderLineInfo(tabId);
-    return HeaderLine.parseEntity(entity);
+    if(entity!=null){
+      return HeaderLine.parseEntity(entity);
+    }
+    return  null;
   }
 
   public List<HeaderLineItem> findHeaderLineItem(Long headerLineId) {

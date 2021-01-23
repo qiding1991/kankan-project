@@ -66,6 +66,25 @@ public class BaseController {
     return applyInfo;
   }
 
+  public String getUsername( Object applyInfo){
+    if (applyInfo instanceof KankanApply) {
+      return ((KankanApply) applyInfo).getUsername();
+    } else {
+      return ((KankanCompanyApply) applyInfo).getAdminName();
+    }
+  }
+
+
+  public String getRemark( Object applyInfo){
+    if (applyInfo instanceof KankanApply) {
+      return ((KankanApply) applyInfo).getRemark();
+    } else {
+      return ((KankanCompanyApply) applyInfo).getCity();
+    }
+  }
+
+
+
 
   public UserPrivilege getUserPrivilege(MongoTemplate mongoTemplate, Long userId) {
     Query query = Query.query(Criteria.where("_id").is(userId));
