@@ -4,6 +4,7 @@ import java.time.Instant;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 
 import com.kankan.module.User;
@@ -24,10 +25,10 @@ public class UserEntity {
     private Long updateTime= Instant.now().toEpochMilli();
 
   public UserEntity(User user) {
-       this.userEmail=user.getUserEmail();
-       this.password=user.getPassword();
-       this.username=user.getUsername();
-       this.userPhoto=user.getUserPhoto();
+       this.userEmail= ObjectUtils.defaultIfNull(user.getUserEmail(),"");
+       this.password= ObjectUtils.defaultIfNull(user.getPassword(),"");
+       this.username= ObjectUtils.defaultIfNull(user.getUsername(),"");;
+       this.userPhoto= ObjectUtils.defaultIfNull(user.getUserPhoto(),"");
   }
 
   public static UserEntity createUser(User user) {
