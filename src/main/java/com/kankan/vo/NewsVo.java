@@ -17,6 +17,7 @@ public class NewsVo {
   private Integer hotStatus;//是否设置称热点
   private Integer headStatus;
   private List<String> keyword;
+  private Long createTime;
 
   public NewsVo(News news) {
     BeanUtils.copyProperties(news, this);

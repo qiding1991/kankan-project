@@ -4,6 +4,7 @@ import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
+import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.ApplyUpdateParam;
 import com.kankan.param.KankanCompanyApply;
 import io.swagger.annotations.Api;
@@ -51,6 +52,11 @@ public class AdminApplyController extends BaseController {
     Query query = Query.query(Criteria.where("_id").is(userId));
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
+    Object applyInfo= getApplyInfo(mongoTemplate,userId);
+    if(updateParam.getApplyStatus()==2){
+      UserPrivilege userPrivilege=UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
+      mongoTemplate.save(userPrivilege);
+    }
     return success();
   }
 }

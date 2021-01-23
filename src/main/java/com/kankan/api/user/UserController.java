@@ -5,6 +5,7 @@ import com.kankan.constant.CommonResponse;
 import com.kankan.constant.ErrorCode;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.module.User;
+import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.KankanCompanyApply;
 import com.kankan.param.mail.SendSmsCode;
 import com.kankan.param.mail.VerifySmsCode;
@@ -136,16 +137,14 @@ public class UserController extends BaseController {
     if (user.isEmpty()) {
       return error(USER_TOKEN_CHECK_ERROR);
     }
+    UserPrivilege userPrivilege=getUserPrivilege(mongoTemplate, user.getUserId());
+    UserDetailVo userDetail = new UserDetailVo(user, userPrivilege);
+    Object applyInfo = getApplyInfo(mongoTemplate,user.getUserId());
 
-    Object applyInfo = getApplyInfo(user.getUserId());
-    UserDetailVo userDetail = new UserDetailVo(user, applyInfo);
+
     return CommonResponse.success(userDetail);
   }
 
 
-  private Object getApplyInfo(Long userId) {
-    Query query = Query.query(Criteria.where("_id").is(userId));
-    Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
-    return applyInfo;
-  }
+
 }

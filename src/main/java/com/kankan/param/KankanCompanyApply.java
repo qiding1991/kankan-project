@@ -11,7 +11,7 @@ import java.util.List;
 public class KankanCompanyApply {
   private String adminName;
   private String phone;
-  private List<String> privilegeList;
+  private List<String> privilege;
   @Id
   private Long userId;
   private Integer applyStatus;
