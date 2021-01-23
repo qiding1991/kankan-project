@@ -49,7 +49,8 @@ mybatis:
 #文件服务器地址
 fileServer:
   baseUrl: http://47.94.33.237:${server.port}/
-  videoLocalPath:  /home/video-resource/origin/
-  targetPath: /home/video-resource/new/
+  ffmpeg-path:  /home/video-resource/path1/
+  fast-path: /home/video-resource/path1/
+  result-path: /home/video-resource/path3/
   shellPath: /home/video-resource/transform-video.sh
 

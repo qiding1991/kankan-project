@@ -31,11 +31,14 @@ public class FileController extends BaseController {
   @Value("${fileServer.baseUrl}")
   private String serverBaseUrl;
 
-  @Value("${fileServer.videoLocalPath}")
-  private String videoLocalPath;
+  @Value("${fileServer.ffmpeg-path}")
+  private String ffmpegPath;
 
-  @Value("${fileServer.targetPath}")
-  private String targetPath;
+  @Value("${fileServer.fast-path}")
+  private String fastPath;
+
+  @Value("${fileServer.result-path}")
+  private String resultPath;
 
   @Value("${fileServer.shellPath}")
   private String shellPath;
@@ -87,7 +90,7 @@ public class FileController extends BaseController {
   @ApiOperation("下载视频")
   @GetMapping("download/video/{fileId}")
   public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
-    String filePath = targetPath + fileId;
+    String filePath = resultPath + fileId;
     log.info("downLoadPath={}", filePath);
     File file = new File(filePath);
     response.setContentType("video/mp4");
@@ -108,17 +111,23 @@ public class FileController extends BaseController {
   @PostMapping("upload/video")
   public CommonResponse<String> uploadVideo(@RequestParam("file") MultipartFile file) throws IOException, InterruptedException {
     //1生成随机文件名
-    String fileId = UUID.randomUUID().toString().replace("-", "");
+
     String fileName = file.getOriginalFilename();
     String suffixName = fileName.substring(fileName.indexOf("."));
     //2保存到指定目录
-    String realFileName = fileId + suffixName;
-    String storeFileName = videoLocalPath + realFileName;
-    String targetFileName = targetPath + realFileName;
-    File storePath = new File(storeFileName);
+    String fileId = UUID.randomUUID().toString().replace("-", "");
+    final String realFileName = fileId + suffixName;
+
+    String ffmpegFileName = ffmpegPath + realFileName;
+    String fastStartFileName = fastPath + realFileName;
+    String resultFileName = resultPath + realFileName;
+    File storePath = new File(ffmpegFileName);
     file.transferTo(storePath);
     //3.调用本地脚本
-    StringBuilder command = new StringBuilder(shellPath).append(" ").append(storeFileName).append(" ").append(targetFileName);
+    StringBuilder command = new StringBuilder(shellPath)
+      .append(" ").append(ffmpegFileName)
+      .append(" ").append(fastStartFileName)
+      .append(" ").append(resultFileName);
     log.info("执行的命令={}", command);
     Process process = Runtime.getRuntime().exec(command.toString());
     process.waitFor();
