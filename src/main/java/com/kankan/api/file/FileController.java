@@ -83,15 +83,18 @@ public class FileController extends BaseController {
     }
   }
 
+
   @ApiOperation("下载视频")
   @GetMapping("download/video/{fileId}")
   public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
-    File file=new File(targetPath+fileId);
+    String filePath = targetPath + fileId;
+    log.info("downLoadPath={}", filePath);
+    File file = new File(filePath);
     response.setContentType("video/mp4");
     try (OutputStream outputStream = response.getOutputStream()) {
-      InputStream inputStream=new FileInputStream(file);
-      byte [] bytes=new byte[200];
-      while (inputStream.read(bytes)!=-1){
+      InputStream inputStream = new FileInputStream(file);
+      byte[] bytes = new byte[200];
+      while (inputStream.read(bytes) != -1) {
         outputStream.write(bytes);
       }
     } catch (IOException e) {
@@ -105,11 +108,11 @@ public class FileController extends BaseController {
   @PostMapping("upload/video")
   public CommonResponse<String> uploadVideo(@RequestParam("file") MultipartFile file) throws IOException, InterruptedException {
     //1生成随机文件名
-    String fileId= UUID.randomUUID().toString().replace("-", "");
+    String fileId = UUID.randomUUID().toString().replace("-", "");
     String fileName = file.getOriginalFilename();
     String suffixName = fileName.substring(fileName.indexOf("."));
     //2保存到指定目录
-    String realFileName =fileId + suffixName;
+    String realFileName = fileId + suffixName;
     String storeFileName = videoLocalPath + realFileName;
     String targetFileName = targetPath + realFileName;
     File storePath = new File(storeFileName);
@@ -125,8 +128,9 @@ public class FileController extends BaseController {
     while ((line = br.readLine()) != null) {
       sb.append(line);
     }
-    log.info("执行成功，response={}",sb.toString());
+    log.info("执行成功，response={}", sb.toString());
     //4.读取结果文件
+
     String downLoadUrl = generateVideUrl(realFileName);
     //5.存入到本地库
     return success(downLoadUrl);
