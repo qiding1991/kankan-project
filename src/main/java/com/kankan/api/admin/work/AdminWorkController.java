@@ -3,6 +3,7 @@ package com.kankan.api.admin.work;
 import javax.validation.Valid;
 
 import com.kankan.module.HotPoint;
+import com.kankan.param.AuditParam;
 import com.kankan.service.HeaderLineService;
 import com.kankan.service.HotPointService;
 import com.kankan.vo.KankanWorkVo;
@@ -63,9 +64,9 @@ public class AdminWorkController extends BaseController {
   }
 
   @ApiOperation("审核作品")
-  @PostMapping("audit/{id}/{status}")
-  public CommonResponse audit(@PathVariable(value = "id") Long id, @PathVariable(value = "status") Integer status) {
-    workService.auditWork(id, status);
+  @PostMapping("audit")
+  public CommonResponse audit(@RequestBody AuditParam auditParam) {
+    workService.auditWork(auditParam.getId(), auditParam.getAuditStatus());
     return success();
   }
 
@@ -79,6 +80,4 @@ public class AdminWorkController extends BaseController {
 
     return kankanWorkVo;
   }
-
-
 }
