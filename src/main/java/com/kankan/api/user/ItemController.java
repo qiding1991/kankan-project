@@ -178,6 +178,7 @@ public class ItemController extends BaseController {
       default:
         break;
     }
+    log.info("itemList response={}",infoList);
     //判断tab类型 （热点、新闻、专栏、视频）
     TabItemVo itemVo = infoList.get(0);
 
