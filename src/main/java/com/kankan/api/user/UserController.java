@@ -138,13 +138,18 @@ public class UserController extends BaseController {
       return error(USER_TOKEN_CHECK_ERROR);
     }
     UserPrivilege userPrivilege=getUserPrivilege(mongoTemplate, user.getUserId());
-    UserDetailVo userDetail = new UserDetailVo(user, userPrivilege);
-    Object applyInfo = getApplyInfo(mongoTemplate,user.getUserId());
-
-
+    UserDetailVo userDetail=new UserDetailVo(user);
+    if(userPrivilege!=null){
+       userDetail = new UserDetailVo(user, userPrivilege);
+    }else {
+      Object applyInfo = getApplyInfo(mongoTemplate,user.getUserId());
+      if(applyInfo!=null &&applyInfo instanceof  KankanApply){
+        userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
+      }
+      if(applyInfo!=null &&applyInfo instanceof  KankanCompanyApply){
+        userDetail = new UserDetailVo(user, (KankanCompanyApply) applyInfo);
+      }
+    }
     return CommonResponse.success(userDetail);
   }
-
-
-
 }
