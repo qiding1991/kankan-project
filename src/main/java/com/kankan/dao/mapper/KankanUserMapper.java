@@ -17,7 +17,7 @@ public interface KankanUserMapper {
     @Select("select * from kankan_user")
     List<KankanUserEntity> findAll();
 
-    @Select("select * from kankan_user where id > #{offset} limit #{size}")
+    @Select("select * from kankan_user where id < #{offset} limit #{size}")
     List<KankanUserEntity> findByPage(Long offset, Integer size);
 
 
