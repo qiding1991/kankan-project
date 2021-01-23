@@ -59,7 +59,11 @@ public class HeaderLineService {
 
   public HeaderLineItem findHeaderLineItem(String resourceId) {
     HeaderLineItemEntity headerLineItemEntity = headerLineItemMapper.findByResourceId(resourceId);
-    return HeaderLineItem.parseEntity(headerLineItemEntity);
+    if(headerLineItemEntity!=null){
+
+      return HeaderLineItem.parseEntity(headerLineItemEntity);
+    }
+    return null;
   }
 
     public void delHeadItem(HeaderLineItem item) {
