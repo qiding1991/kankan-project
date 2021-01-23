@@ -18,16 +18,11 @@ public class UserDetailVo {
   private Long userId;
   private String userEmail;
   private String password;
-  ;
+
   private String username;
-  ;
   private String userPhoto;
   private Integer applyStatus;
   private Boolean isKankan;
-
-  public Boolean getIsKankan() {
-    return applyStatus == 2;
-  }
 
   private List<String> privilege;
 
@@ -47,6 +42,7 @@ public class UserDetailVo {
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
+    this.isKankan=true;
   }
 
   public UserDetailVo(User user, UserPrivilege userPrivilege) {
@@ -56,6 +52,7 @@ public class UserDetailVo {
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
+    this.isKankan=true;
   }
 
 
@@ -67,6 +64,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = companyApply.getPrivilege();
     this.applyStatus=companyApply.getApplyStatus();
+    this.isKankan=this.applyStatus==2;
   }
 
 
@@ -78,6 +76,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = kankanApply.getPrivilege();
     this.applyStatus =kankanApply.getApplyStatus();
+    this.isKankan=this.applyStatus==2;
   }
 
   public UserDetailVo(User user, KankanCompanyApply companyApply) {
@@ -105,10 +104,12 @@ public class UserDetailVo {
 
   public void addApplyStatus(KankanCompanyApply kankanCompanyApply) {
     this.applyStatus = kankanCompanyApply.getApplyStatus();
+    this.isKankan=this.applyStatus==2;
   }
 
   public void addApplyStatus(KankanApply kankanApply) {
     this.applyStatus = kankanApply.getApplyStatus();
+    this.isKankan=this.applyStatus==2;
   }
 
   public void addApplyStatus(Object applyInfo) {
