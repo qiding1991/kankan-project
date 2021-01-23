@@ -147,10 +147,13 @@ public class UserController extends BaseController {
     if (user.isEmpty()) {
       return error(USER_TOKEN_CHECK_ERROR);
     }
+    UserRole userRole = null;
     //获取权限信息
     KankanUserRole kankanUserRole = userRoleMapper.findByUserId(user.getUserId());
     //获取角色相关
-    UserRole userRole = userRoleService.findUserRole(kankanUserRole.getRoleId());
+    if (kankanUserRole != null) {
+      userRole = userRoleService.findUserRole(kankanUserRole.getRoleId());
+    }
     UserDetailVo userDetail = new UserDetailVo(user, userRole);
 
     return CommonResponse.success(userDetail);

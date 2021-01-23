@@ -43,9 +43,9 @@ public class FileDocument {
     this.md5 = Md5Util.md5Hex(this.fileContent);
   }
 
-  public FileDocument(String fileId, File file, MultipartFile originFile) throws IOException {
+  public FileDocument(File file, MultipartFile originFile) throws IOException {
     byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
-    this.fileId = fileId;
+    this.fileId = UUID.randomUUID().toString();
     this.contentType = "video/mpeg4";
     this.fileName = originFile.getOriginalFilename();
     this.fileSize = Long.valueOf(fileBytes.length);

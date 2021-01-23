@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,6 +60,17 @@ public class FileController extends BaseController {
     return serverBaseUrl + "file/download/" + fileId + "/" + URLEncoder.encode(fileName);
   }
 
+
+  private String generateVideUrl(String fileId) {
+    if (!serverBaseUrl.endsWith("/")) {
+      serverBaseUrl = serverBaseUrl + "/";
+    }
+    return serverBaseUrl + "download/video/" + fileId;
+  }
+
+
+
+
   @ApiOperation("下载图片")
   @GetMapping("download/{fileId}/{fileName}")
   public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
@@ -75,15 +87,34 @@ public class FileController extends BaseController {
   }
 
 
+
+
+  @ApiOperation("下载视频")
+  @GetMapping("download/video/{fileId}")
+  public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
+    File file=new File(targetPath+fileId);
+    response.setContentType("video/mpeg4");
+    response.setHeader("Content-Disposition", "attachment;filename=" +fileId);
+    try (OutputStream outputStream = response.getOutputStream()) {
+      byte[]fileContent= IOUtils.toByteArray(new FileInputStream(file));
+      outputStream.write(fileContent);
+      response.flushBuffer();
+    } catch (IOException e) {
+      log.error("文件下载失败{}", fileId, e);
+      throw e;
+    }
+  }
+
+
   @ApiOperation("上传视频")
   @PostMapping("upload/video")
   public CommonResponse<String> uploadVideo(@RequestParam("file") MultipartFile file) throws IOException, InterruptedException {
     //1生成随机文件名
-    String fileId = UUID.randomUUID().toString().replace("-", "");
+    String fileId= UUID.randomUUID().toString().replace("-", "");
     String fileName = file.getOriginalFilename();
     String suffixName = fileName.substring(fileName.indexOf("."));
     //2保存到指定目录
-    String realFileName = fileId + suffixName;
+    String realFileName =fileId + suffixName;
     String storeFileName = videoLocalPath + realFileName;
     String targetFileName = targetPath + realFileName;
     File storePath = new File(storeFileName);
@@ -101,9 +132,8 @@ public class FileController extends BaseController {
     }
     log.info("执行成功，response={}",sb.toString());
     //4.读取结果文件
-    File targetFile = new File(targetFileName);
-    fileService.storeFile(new FileDocument(fileId,targetFile,file));
-    String downLoadUrl = generateDownloadUrl(fileId, file.getOriginalFilename());
+
+    String downLoadUrl = generateVideUrl(fileId);
     //5.存入到本地库
     return success(downLoadUrl);
   }
