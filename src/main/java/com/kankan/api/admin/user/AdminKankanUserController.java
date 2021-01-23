@@ -175,6 +175,11 @@ public class AdminKankanUserController extends BaseController {
   public List<UserDetailVo> findApplyInfo(Map<Long, User> userMap, String privilege) {
 
     List<UserDetailVo> userDetailVoList = new ArrayList<>();
+    Map<Long,UserDetailVo> userDetailVoMap=new HashMap<>();
+
+    userMap.values().forEach((user)->{
+      userDetailVoMap.put(user.getUserId(),new UserDetailVo(user));
+    });
 
     Query query = new Query(Criteria.where("_id").in(userMap.keySet()));
     if (privilege != null) {
@@ -183,16 +188,22 @@ public class AdminKankanUserController extends BaseController {
     }
     List<KankanApply> userApplyList = mongoTemplate.find(query, KankanApply.class);
     List<KankanCompanyApply> companyApplyList = mongoTemplate.find(query, KankanCompanyApply.class);
+    List<UserPrivilege> userPrivilegeList=mongoTemplate.find(query,UserPrivilege.class);
+    userPrivilegeList.forEach(userPrivilege -> {
+      Long userId=userPrivilege.getUserId();
+      userDetailVoMap.put(userId,new UserDetailVo(userMap.get(userId),userPrivilege));
+    });
 
     userApplyList.forEach(kankanApply -> {
       UserDetailVo userDetailVo = new UserDetailVo(userMap.get(kankanApply.getUserId()), kankanApply);
-      userDetailVoList.add(userDetailVo);
+      userDetailVoMap.put(kankanApply.getUserId(),userDetailVo);
     });
     companyApplyList.forEach(kankanApply -> {
       UserDetailVo userDetailVo = new UserDetailVo(userMap.get(kankanApply.getUserId()), kankanApply);
-      userDetailVoList.add(userDetailVo);
+      userDetailVoMap.put(kankanApply.getUserId(),userDetailVo);
     });
-    return userDetailVoList;
+     userDetailVoList.addAll(userDetailVoMap.values());
+     return userDetailVoList;
   }
 
 

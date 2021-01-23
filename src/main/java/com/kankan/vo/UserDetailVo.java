@@ -34,6 +34,16 @@ public class UserDetailVo {
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
   }
+  public UserDetailVo(User user) {
+    this.userId = user.getUserId();
+    this.userEmail = user.getUserEmail();
+    this.password = user.getPassword();
+    this.username = user.getUsername();
+    this.userPhoto = user.getUserPhoto();
+  }
+
+
+
 
   public UserDetailVo(UserEntity user, UserPrivilege userPrivilege) {
     this.userId = user.getId();
