@@ -1,5 +1,6 @@
 package com.kankan.api.user;
 
+import com.google.common.collect.ImmutableMap;
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.constant.EnumItemType;
@@ -95,6 +96,7 @@ public class ItemController extends BaseController {
       favouriteStatus = favouriteEntity == null ? false : true;
     }
     switch (enumItem) {
+      case HOT_FIRST_NEWS:
       case NEWS:
         NewsDetailVo newsDetailVo = NewsDetailVo.builder().resourceId(resourceId).build();
         newsDetailVo.addBaseInfo(resource);
@@ -108,7 +110,7 @@ public class ItemController extends BaseController {
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
-        articleDetailVo.addBaseInfo();
+        articleDetailVo.addBaseInfo(resource);
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, kankanUserService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
@@ -116,7 +118,7 @@ public class ItemController extends BaseController {
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
-        videoDetailVo.addBaseInfo();
+        videoDetailVo.addBaseInfo(resource);
         videoDetailVo.addCommentInfo(commentService, kankanUserService);
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
@@ -126,7 +128,7 @@ public class ItemController extends BaseController {
       default:
         break;
     }
-    return success(resource.getContent());
+    return success(ImmutableMap.of("content",resource.getContent()));
   }
 
 

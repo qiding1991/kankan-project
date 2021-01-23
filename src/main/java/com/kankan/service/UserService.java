@@ -45,4 +45,11 @@ public class UserService {
     List<UserEntity> infoList = userMapper.findUser(userEntity);
     return infoList.stream().map(UserEntity::toUser).collect(Collectors.toList());
   }
+
+  public User getUser(Long userId){
+    UserEntity userEntity= userMapper.findUserById(userId);
+    return userEntity.toUser();
+  }
+
+
 }

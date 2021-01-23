@@ -22,8 +22,6 @@ import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -137,16 +135,17 @@ public class UserController extends BaseController {
     if (user.isEmpty()) {
       return error(USER_TOKEN_CHECK_ERROR);
     }
-    UserPrivilege userPrivilege=getUserPrivilege(mongoTemplate, user.getUserId());
-    UserDetailVo userDetail=new UserDetailVo(user);
-    if(userPrivilege!=null){
-       userDetail = new UserDetailVo(user, userPrivilege);
-    }else {
-      Object applyInfo = getApplyInfo(mongoTemplate,user.getUserId());
-      if(applyInfo!=null &&applyInfo instanceof  KankanApply){
+    user = userService.getUser(user.getUserId());
+    UserPrivilege userPrivilege = getUserPrivilege(mongoTemplate, user.getUserId());
+    UserDetailVo userDetail = new UserDetailVo(user);
+    if (userPrivilege != null) {
+      userDetail = new UserDetailVo(user, userPrivilege);
+    } else {
+      Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());
+      if (applyInfo != null && applyInfo instanceof KankanApply) {
         userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
       }
-      if(applyInfo!=null &&applyInfo instanceof  KankanCompanyApply){
+      if (applyInfo != null && applyInfo instanceof KankanCompanyApply) {
         userDetail = new UserDetailVo(user, (KankanCompanyApply) applyInfo);
       }
     }

@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,6 +21,7 @@ import com.kankan.module.MediaResource;
  * @author <qiding@qiding.com>
  * Created on 2020-12-03
  */
+@Log4j2
 @Service
 public class ResourceService {
 
@@ -62,8 +65,11 @@ public class ResourceService {
   }
 
   private void updateCount(String resourceId, Supplier<String> param, Function<MediaResource, Integer> function, Supplier<Integer> count) {
+
+    log.info("");
     Query query = Query.query(Criteria.where("resourceId").is(resourceId));
     MediaResource old = mongoTemplate.findOne(query, MediaResource.class);
+
     Update update = Update.update(param.get(), ObjectUtils.defaultIfNull(function.apply(old), 0) + count.get());
     mongoTemplate.updateFirst(query, update, MediaResource.class);
   }

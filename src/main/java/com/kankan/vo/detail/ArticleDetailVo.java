@@ -31,9 +31,10 @@ public class ArticleDetailVo {
     private List<KankanCommentVo> commentVoList;
   private Boolean favouriteStatus;
 
-  public void addBaseInfo(){
+  public void addBaseInfo(MediaResource resource){
         this.newsTitle="作者其它文章";
         this.commentTitle="相关评论";
+        this.content=resource.getContent();
     }
 
 

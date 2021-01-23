@@ -24,9 +24,10 @@ public class VideoDetailVo {
   private List<KankanCommentVo> commentVoList;
   private Boolean favouriteStatus;
 
-  public void addBaseInfo() {
+  public void addBaseInfo(MediaResource resource) {
     this.videoTitle = "相关视频";
     this.commentTitle = "相关评论";
+    this.content=resource.getContent();
   }
 
   public void addCommentInfo(CommentService commentService, KankanUserService userService) {
