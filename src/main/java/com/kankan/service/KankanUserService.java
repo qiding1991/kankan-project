@@ -2,6 +2,7 @@ package com.kankan.service;
 
 import com.kankan.dao.entity.KankanUserEntity;
 import com.kankan.dao.mapper.KankanUserMapper;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import com.kankan.module.KankanUser;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * @author <qiding@qiding.com>
  * Created on 2020-12-05
  */
+@Log4j2
 @Service
 public class KankanUserService {
 
@@ -39,6 +41,7 @@ public class KankanUserService {
     }
 
     public  List<KankanUser>  findUserByPageInfo(Long offset, Integer size) {
+      log.info("查询的用户列表返回，offset={},size={}",offset,size);
         List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset,size);
         return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     }
