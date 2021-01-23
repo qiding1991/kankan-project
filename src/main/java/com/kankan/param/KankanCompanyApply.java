@@ -8,7 +8,7 @@ import java.util.List;
 
 @Document(value = "kankan_apply")
 @Data
-public class CompanyKankanParam {
+public class KankanCompanyApply {
   private String adminName;
   private String phone;
   private List<String> privilegeList;

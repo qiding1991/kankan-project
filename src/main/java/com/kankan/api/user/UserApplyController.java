@@ -4,7 +4,7 @@ package com.kankan.api.user;
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanApply;
-import com.kankan.param.CompanyKankanParam;
+import com.kankan.param.KankanCompanyApply;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.Instant;
 
 import static com.kankan.constant.ErrorCode.*;
 
@@ -27,19 +25,19 @@ public class UserApplyController extends BaseController {
 
   @ApiOperation(value = "企业看看号申请")
   @PostMapping("/company/apply")
-  public CommonResponse apply(@RequestBody CompanyKankanParam companyKankanParam) {
-    Object applyInfo = getApplyInfo(companyKankanParam.getUserId());
+  public CommonResponse apply(@RequestBody KankanCompanyApply kankanCompanyApply) {
+    Object applyInfo = getApplyInfo(kankanCompanyApply.getUserId());
     if (applyInfo != null && applyInfo instanceof KankanApply) {
       return CommonResponse.error(USER_APPLY_REPEATED_PERSON);
     }
     if (applyInfo != null) {
-      CompanyKankanParam recode = (CompanyKankanParam) applyInfo;
+      KankanCompanyApply recode = (KankanCompanyApply) applyInfo;
       if (recode != null || recode.getApplyStatus() == 2) {
         return CommonResponse.error(USER_APPLY_FORBIDDEN);
       }
     }
-    companyKankanParam.setApplyStatus(1);
-    mongoTemplate.save(companyKankanParam);
+    kankanCompanyApply.setApplyStatus(1);
+    mongoTemplate.save(kankanCompanyApply);
     return success();
   }
 
@@ -48,7 +46,7 @@ public class UserApplyController extends BaseController {
   @PostMapping("apply")
   public CommonResponse apply(@RequestBody KankanApply kankanApply) {
     Object applyInfo = getApplyInfo(kankanApply.getUserId());
-    if (applyInfo != null && applyInfo instanceof CompanyKankanParam) {
+    if (applyInfo != null && applyInfo instanceof KankanCompanyApply) {
       return CommonResponse.error(USER_APPLY_REPEATED_COMPANY);
     }
     if (applyInfo != null) {

@@ -59,9 +59,9 @@ public class AdminHotController extends BaseController {
     hotPoint.delHotInfo(hotPointService);
     EnumItemType itemType = EnumItemType.getItem(hotInfo.getItemType());
     if (itemType == EnumItemType.NEWS) {
-      newsService.updateHotStatus(hotInfo.getItemId(), 2);
+      newsService.updateHotStatus(hotInfo.getItemId(), 1);
     } else if (itemType == EnumItemType.VIDEO || itemType == EnumItemType.ARTICLE) {
-      workService.setHot(hotInfo.getItemId(), 2);
+      workService.setHot(hotInfo.getItemId(), 1);
     }
     return success();
   }

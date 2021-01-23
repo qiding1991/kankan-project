@@ -2,6 +2,8 @@ package com.kankan.param;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class UserRoleParam {
    private String userEmail;
@@ -9,4 +11,5 @@ public class UserRoleParam {
    private String userPhoto;
    private String username;
    private String password;
+   private List<String> privilege;
 }

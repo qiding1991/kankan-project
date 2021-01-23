@@ -1,9 +1,9 @@
 package com.kankan.vo;
 
+import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.entity.UserEntity;
 import com.kankan.module.User;
-import com.kankan.module.privilege.Privilege;
-import com.kankan.module.privilege.UserRole;
+import com.kankan.param.KankanCompanyApply;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,33 +19,49 @@ public class UserDetailVo {
   private String password;;
   private String username;;
   private String userPhoto;
-  private String roleId;
-  private String roleName;
+  private Integer applyStatus;
+
+
   private List<String> privilege;
-  public UserDetailVo(UserEntity user, UserRole userRole) {
+  public UserDetailVo(UserEntity user,Object applyInfo) {
     this.userId=user.getId();
     this.userEmail=user.getUserEmail();
     this.password=user.getPassword();
     this.username=user.getUsername();
     this.userPhoto=user.getUserPhoto();
-    if(userRole!=null){
-      this.roleId=userRole.getRoleId();
-      this.roleName=userRole.getRoleName();
-      this.privilege=userRole.getPrivilegeList();
+    if(applyInfo==null){
+      return;
+
+    }
+    if(applyInfo instanceof KankanApply){
+      this.privilege=((KankanApply) applyInfo).getPrivilegeList();
+      this.applyStatus=((KankanApply) applyInfo).getApplyStatus();
     }
 
+    if(applyInfo instanceof KankanCompanyApply){
+      this.privilege=((KankanCompanyApply) applyInfo).getPrivilegeList();
+      this.applyStatus=((KankanCompanyApply) applyInfo).getApplyStatus();
+    }
   }
 
-  public UserDetailVo(User user, UserRole userRole) {
+  public UserDetailVo(User user,Object applyInfo) {
     this.userId=user.getUserId();
     this.userEmail=user.getUserEmail();
     this.password=user.getPassword();
     this.username=user.getUsername();
     this.userPhoto=user.getUserPhoto();
-    if(userRole!=null){
-      this.roleId=userRole.getRoleId();
-      this.roleName=userRole.getRoleName();
-      this.privilege=userRole.getPrivilegeList();
+    if(applyInfo==null){
+      return;
+
+    }
+    if(applyInfo instanceof KankanApply){
+      this.privilege=((KankanApply) applyInfo).getPrivilegeList();
+      this.applyStatus=((KankanApply) applyInfo).getApplyStatus();
+    }
+
+    if(applyInfo instanceof KankanCompanyApply){
+      this.privilege=((KankanCompanyApply) applyInfo).getPrivilegeList();
+      this.applyStatus=((KankanCompanyApply) applyInfo).getApplyStatus();
     }
   }
 

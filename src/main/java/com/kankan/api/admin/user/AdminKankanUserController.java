@@ -2,38 +2,30 @@ package com.kankan.api.admin.user;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
-import com.kankan.dao.entity.KankanUserRole;
+import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.entity.UserEntity;
-import com.kankan.dao.mapper.KankanUserMapper;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.module.KankanUser;
 import com.kankan.module.User;
-import com.kankan.module.privilege.UserRole;
-import com.kankan.param.KankanUserParam;
+import com.kankan.param.KankanCompanyApply;
 import com.kankan.param.UserRoleParam;
 import com.kankan.service.KankanUserService;
-import com.kankan.service.UserRoleService;
 import com.kankan.service.UserService;
-import com.kankan.util.GsonUtil;
 import com.kankan.util.Md5Util;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 import static com.kankan.constant.ErrorCode.EMAIL_NOT_AVAILABLE_ERROR;
-import static com.kankan.constant.ErrorCode.PARAM_CHECK_ERROR;
 
 @Validated
 @Api(tags = "管理后台-用户管理-管理")
@@ -49,7 +41,7 @@ public class AdminKankanUserController extends BaseController {
   private KankanUserRoleMapper userRoleMapper;
 
   @Autowired
-  private UserRoleService userRoleService;
+  MongoTemplate mongoTemplate;
 
   public AdminKankanUserController(KankanUserService kankanUserService, UserService userService) {
     this.kankanUserService = kankanUserService;
@@ -80,15 +72,17 @@ public class AdminKankanUserController extends BaseController {
     }
     //创建用户
     user = user.create(userService);
-    // 创建关联表
-    KankanUserRole kankanUserRole = new KankanUserRole();
-    if (StringUtils.isNotEmpty(userRole.getRoleId())) {
-      kankanUserRole.setRoleId(userRole.getRoleId());
-      kankanUserRole.setUserId(user.getUserId());
-      userRoleMapper.insert(kankanUserRole);
-    }
-    UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
-    UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
+    //保存到数据库
+    KankanApply kankanApply = KankanApply.builder()
+      .userId(user.getUserId())
+      .applyStatus(2)
+      .email(userRole.getUserEmail())
+      .photo(userRole.getUserPhoto())
+      .username(userRole.getUsername())
+      .privilegeList(userRole.getPrivilege())
+      .build();
+    mongoTemplate.save(kankanApply);
+    UserDetailVo userDetail = new UserDetailVo(user, kankanApply);
     return success(userDetail);
   }
 
@@ -104,10 +98,9 @@ public class AdminKankanUserController extends BaseController {
       .userId(userId)
       .build();
 
-
-    if(userRole.getUserEmail()!=null){
-      UserEntity userRecord= userService.findUserByEmail(userRole.getUserEmail());
-      if(!userRecord.getId().equals(userId)){
+    if (userRole.getUserEmail() != null) {
+      UserEntity userRecord = userService.findUserByEmail(userRole.getUserEmail());
+      if (!userRecord.getId().equals(userId)) {
         Boolean emailExists = user.emailNotExists(userService);
         if (!emailExists) {
           return CommonResponse.error(EMAIL_NOT_AVAILABLE_ERROR, "邮箱重复");
@@ -116,15 +109,20 @@ public class AdminKankanUserController extends BaseController {
     }
     //创建用户
     user.updateUser(userService);
-    // 创建关联表
-    KankanUserRole kankanUserRole = new KankanUserRole();
-    if (StringUtils.isNotEmpty(userRole.getRoleId())) {
-      kankanUserRole.setRoleId(userRole.getRoleId());
-      kankanUserRole.setUserId(user.getUserId());
-      userRoleMapper.updateRole(userId,userRole.getRoleId());
-    }
-    UserRole userRoleInfo = userRoleService.findUserRole(kankanUserRole.getRoleId());
-    UserDetailVo userDetail = new UserDetailVo(user, userRoleInfo);
+
+
+    //保存到数据库
+    KankanApply kankanApply = KankanApply.builder()
+      .userId(user.getUserId())
+      .applyStatus(2)
+      .email(userRole.getUserEmail())
+      .photo(userRole.getUserPhoto())
+      .username(userRole.getUsername())
+      .privilegeList(userRole.getPrivilege())
+      .build();
+    mongoTemplate.save(kankanApply);
+
+    UserDetailVo userDetail = new UserDetailVo(user, kankanApply);
     return success(userDetail);
   }
 
@@ -134,37 +132,22 @@ public class AdminKankanUserController extends BaseController {
   public CommonResponse findUser(
     @RequestParam(value = "username", required = false) String username,
     @RequestParam(value = "roleId", required = false) String roleId,
+    @RequestParam(value = "privilege", required = false) String privilege,
     @RequestParam(value = "userEmail", required = false) String userEmail) {
-
-
     User user = User.builder().userEmail(userEmail).username(username).build();
     List<User> userList = userService.findUser(user);
     Map<Long, User> userMap = new HashMap<>(userList.size());
     userList.stream().forEach(userInfo -> userMap.put(userInfo.getUserId(), userInfo));
-    String userIdList = GsonUtil.toGson(userMap.keySet());
 
-
-    userIdList = userIdList.replace("[", "").replace("]", "");
-    List<KankanUserRole> userRoleList = userRoleMapper.batchFindUser(userIdList);
-
-    Map<Long, String> roleIdMap = new HashMap<>();
-    userRoleList.stream().forEach(userRole -> roleIdMap.put(userRole.getUserId(), userRole.getRoleId()));
-
-    List<String> roleIdList = userRoleList.stream().map(KankanUserRole::getRoleId).collect(Collectors.toList());
-    List<UserRole> userRoles = userRoleService.findUserRole(roleIdList);
-
-    Map<String, UserRole> roleMap = new HashMap<>();
-    userRoles.stream().forEach(userRole -> roleMap.put(userRole.getRoleId(), userRole));
+    Map<Long, Object> applyMap = findApplyInfo(userMap.keySet(), privilege);
 
     List<UserDetailVo> userDetailVoList = new ArrayList<>();
 
     for (Map.Entry<Long, User> userEntry : userMap.entrySet()) {
       Long userId = userEntry.getKey();
       User userInfo = userEntry.getValue();
-      if (roleId == null || roleId.equalsIgnoreCase(roleIdMap.get(userId))) {
-        UserRole userRole = roleMap.get(roleIdMap.get(userId));
-        userDetailVoList.add(new UserDetailVo(userInfo, userRole));
-      }
+      Object applyInfo = applyMap.get(userId);
+      userDetailVoList.add(new UserDetailVo(userInfo, applyInfo));
     }
     return success(userDetailVoList);
   }
@@ -174,11 +157,27 @@ public class AdminKankanUserController extends BaseController {
   public CommonResponse getUser(@RequestParam(value = "userEmail", required = false) String userEmail) {
     //获取用户信息
     UserEntity user = userService.findUserByEmail(userEmail);
-    //获取权限信息
-    KankanUserRole kankanUserRole = userRoleMapper.findByUserId(user.getId());
-    //获取角色相关
-    UserRole userRole = userRoleService.findUserRole(kankanUserRole.getRoleId());
-    UserDetailVo userDetail = new UserDetailVo(user, userRole);
+    Object applyInfo=getApplyInfo(mongoTemplate,user.getId());
+    UserDetailVo userDetail = new UserDetailVo(user, applyInfo);
     return success(userDetail);
   }
+
+
+  public Map<Long, Object> findApplyInfo(Set<Long> userId, String privilege) {
+    Query query = new Query(Criteria.where("_id").in(userId));
+    if (privilege != null) {
+      //TODO 添加权限选择
+//          query.addCriteria(Criteria.where("privilegeList").)
+    }
+    List<KankanApply> userApplyList = mongoTemplate.find(query, KankanApply.class);
+    List<KankanCompanyApply> companyApplyList = mongoTemplate.find(query, KankanCompanyApply.class);
+
+    Map<Long, Object> userPrivilege = new HashMap<>();
+
+    userApplyList.forEach(applyInfo -> userPrivilege.put(applyInfo.getUserId(), applyInfo));
+    companyApplyList.forEach(applyInfo -> userPrivilege.put(applyInfo.getUserId(), applyInfo));
+    return userPrivilege;
+  }
+
+
 }

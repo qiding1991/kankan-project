@@ -1,44 +1,35 @@
 package com.kankan.api.user;
 
-import static com.kankan.constant.CommonResponse.error;
-import static com.kankan.constant.ErrorCode.EMAIL_NOT_AVAILABLE_ERROR;
-import static com.kankan.constant.ErrorCode.PASSWORD_USE_NAME_ERROR;
-import static com.kankan.constant.ErrorCode.USER_TOKEN_CHECK_ERROR;
-import static com.kankan.constant.ErrorCode.VERIFY_TOKEN_CHECK_ERROR;
-
-import javax.annotation.Resource;
-import javax.validation.Valid;
-
-import com.kankan.dao.entity.KankanApply;
-import com.kankan.dao.entity.KankanUserRole;
-import com.kankan.dao.mapper.KankanApplyMapper;
-import com.kankan.dao.mapper.KankanUserRoleMapper;
-import com.kankan.dao.mapper.UserMapper;
-import com.kankan.module.privilege.UserRole;
-import com.kankan.param.UserApplyParam;
-import com.kankan.service.*;
-import com.kankan.vo.UserDetailVo;
-import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.units.qual.K;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.constant.ErrorCode;
+import com.kankan.dao.entity.KankanApply;
 import com.kankan.module.User;
+import com.kankan.param.KankanCompanyApply;
 import com.kankan.param.mail.SendSmsCode;
 import com.kankan.param.mail.VerifySmsCode;
 import com.kankan.param.user.LoginParam;
 import com.kankan.param.user.RegisterInfo;
 import com.kankan.param.user.UserBaseInfo;
-import com.kankan.util.GsonUtil;
-
+import com.kankan.service.CacheService;
+import com.kankan.service.MailSender;
+import com.kankan.service.TokenService;
+import com.kankan.service.UserService;
+import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
+import javax.validation.Valid;
+
+import static com.kankan.constant.CommonResponse.error;
+import static com.kankan.constant.ErrorCode.*;
 
 @Validated
 @Api(tags = "用户接口")
@@ -54,11 +45,9 @@ public class UserController extends BaseController {
   private CacheService cacheService;
   @Autowired
   private TokenService tokenService;
-  @Resource
-  private KankanUserRoleMapper userRoleMapper;
 
   @Autowired
-  private UserRoleService userRoleService;
+  private MongoTemplate mongoTemplate;
 
 
   @ApiOperation("发送验证码")
@@ -147,15 +136,16 @@ public class UserController extends BaseController {
     if (user.isEmpty()) {
       return error(USER_TOKEN_CHECK_ERROR);
     }
-    UserRole userRole = null;
-    //获取权限信息
-    KankanUserRole kankanUserRole = userRoleMapper.findByUserId(user.getUserId());
-    //获取角色相关
-    if (kankanUserRole != null) {
-      userRole = userRoleService.findUserRole(kankanUserRole.getRoleId());
-    }
-    UserDetailVo userDetail = new UserDetailVo(user, userRole);
 
+    Object applyInfo = getApplyInfo(user.getUserId());
+    UserDetailVo userDetail = new UserDetailVo(user, applyInfo);
     return CommonResponse.success(userDetail);
+  }
+
+
+  private Object getApplyInfo(Long userId) {
+    Query query = Query.query(Criteria.where("_id").is(userId));
+    Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
+    return applyInfo;
   }
 }

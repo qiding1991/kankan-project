@@ -3,10 +3,9 @@ package com.kankan.api.admin.user;
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanApply;
-import com.kankan.dao.entity.KankanUserRole;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.param.ApplyUpdateParam;
-import com.kankan.param.CompanyKankanParam;
+import com.kankan.param.KankanCompanyApply;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class AdminApplyController extends BaseController {
     if (applyType == 1) {
       return success(infoList.stream().filter(o -> o instanceof KankanApply).collect(Collectors.toList()));
     } else {
-      return success(infoList.stream().filter(o -> o instanceof CompanyKankanParam).collect(Collectors.toList()));
+      return success(infoList.stream().filter(o -> o instanceof KankanCompanyApply).collect(Collectors.toList()));
     }
   }
 
@@ -49,26 +48,9 @@ public class AdminApplyController extends BaseController {
   public CommonResponse update(@RequestBody ApplyUpdateParam updateParam) {
     Long userId = updateParam.getUserId();
     Integer applyStatus = updateParam.getApplyStatus();
-//    String roleId = updateParam.getRoleId();
-
-    Query query = Query.query(Criteria.where("userId").is(userId));
+    Query query = Query.query(Criteria.where("_id").is(userId));
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
-
-//    KankanUserRole kankanUserRole = kankanUserRoleMapper.findByUserId(userId);
-//    if (kankanUserRole != null) {
-//      kankanUserRoleMapper.updateRole(userId, roleId);
-//    } else {
-//      kankanUserRole = new KankanUserRole();
-//      kankanUserRole.setUserId(userId);
-//      kankanUserRole.setRoleId(roleId);
-//      kankanUserRole.setCreateTime(System.currentTimeMillis());
-//      kankanUserRole.setUpdateTime(System.currentTimeMillis());
-//      kankanUserRole.setStatus(1);
-//      kankanUserRoleMapper.insert(kankanUserRole);
-//    }
-
     return success();
   }
-
 }

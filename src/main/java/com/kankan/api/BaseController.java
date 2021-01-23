@@ -7,6 +7,9 @@ import com.kankan.constant.ErrorCode;
 
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -51,4 +54,10 @@ public class BaseController {
     public <T> CommonResponse success() {
         return CommonResponse.success();
     }
+
+  public Object getApplyInfo(MongoTemplate mongoTemplate, Long userId) {
+    Query query = Query.query(Criteria.where("_id").is(userId));
+    Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
+    return applyInfo;
+  }
 }
