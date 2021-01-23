@@ -165,7 +165,8 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取所有的评论")
   @GetMapping("comment/list")
-  public CommonResponse commentList(@RequestParam(value = "userId") Long userId, @RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@RequestParam(value = "userId",required = false) Long userId,
+                                    @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
@@ -177,7 +178,8 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取某条评论相关的评论")
   @GetMapping("comment/list/{commentId}")
-  public CommonResponse commentList(@PathVariable(value = "commentId") Long commentId, @RequestParam(value = "userId") Long userId, @RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@PathVariable(value = "commentId") Long commentId,
+                                    @RequestParam(value = "userId",required = false) Long userId, @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();

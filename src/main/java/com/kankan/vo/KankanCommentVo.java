@@ -7,6 +7,7 @@ import com.kankan.module.KankanComment;
 import com.kankan.module.KankanUser;
 import com.kankan.service.KankanUserService;
 import lombok.Data;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 
 /**
@@ -41,6 +42,7 @@ public class KankanCommentVo {
   }
 
   public static void addThumpStatus(KankanCommentVo commentVo, Long currentUserId) {
+    currentUserId=ObjectUtils.defaultIfNull(currentUserId,0L);
     commentVo.thumpStatus = currentUserId.equals(commentVo.userId);
   }
 
