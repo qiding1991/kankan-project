@@ -52,5 +52,5 @@ fileServer:
   ffmpeg-path:  /home/video-resource/path1/
   fast-path: /home/video-resource/path2/
   result-path: /home/video-resource/path3/
-  shellPath: /home/video-resource/transform-video.sh
+  shell-path: /home/video-resource/transform-video.sh
 

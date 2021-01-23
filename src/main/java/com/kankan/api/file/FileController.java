@@ -40,7 +40,7 @@ public class FileController extends BaseController {
   @Value("${fileServer.result-path}")
   private String resultPath;
 
-  @Value("${fileServer.shellPath}")
+  @Value("${fileServer.shell-path}")
   private String shellPath;
 
 
@@ -63,16 +63,16 @@ public class FileController extends BaseController {
     return serverBaseUrl + "file/download/" + fileId + "/" + URLEncoder.encode(fileName);
   }
 
+//
+//  private String generateVideUrl(String fileId) {
+//    if (!serverBaseUrl.endsWith("/")) {
+//      serverBaseUrl = serverBaseUrl + "/";
+//    }
+//    return serverBaseUrl + "file/download/video/" + fileId;
+//  }
 
-  private String generateVideUrl(String fileId) {
-    if (!serverBaseUrl.endsWith("/")) {
-      serverBaseUrl = serverBaseUrl + "/";
-    }
-    return serverBaseUrl + "file/download/video/" + fileId;
-  }
 
-
-  @ApiOperation("下载图片")
+  @ApiOperation("下载资源")
   @GetMapping("download/{fileId}/{fileName}")
   public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
     FileDocument fileDocument = fileService.downFile(fileId);
@@ -86,25 +86,24 @@ public class FileController extends BaseController {
     }
   }
 
-
-  @ApiOperation("下载视频")
-  @GetMapping("download/video/{fileId}")
-  public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
-    String filePath = resultPath + fileId;
-    log.info("downLoadPath={}", filePath);
-    File file = new File(filePath);
-    response.setContentType("video/mp4");
-    try (OutputStream outputStream = response.getOutputStream()) {
-      InputStream inputStream = new FileInputStream(file);
-      byte[] bytes = new byte[200];
-      while (inputStream.read(bytes) != -1) {
-        outputStream.write(bytes);
-      }
-    } catch (IOException e) {
-      log.error("文件下载失败{}", fileId, e);
-      throw e;
-    }
-  }
+//  @ApiOperation("下载视频")
+//  @GetMapping("download/video/{fileId}")
+//  public void downloadVideo(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
+//    String filePath = resultPath + fileId;
+//    log.info("downLoadPath={}", filePath);
+//    File file = new File(filePath);
+//    response.setContentType("video/mp4");
+//    try (OutputStream outputStream = response.getOutputStream()) {
+//      InputStream inputStream = new FileInputStream(file);
+//      byte[] bytes = new byte[200];
+//      while (inputStream.read(bytes) != -1) {
+//        outputStream.write(bytes);
+//      }
+//    } catch (IOException e) {
+//      log.error("文件下载失败{}", fileId, e);
+//      throw e;
+//    }
+//  }
 
 
   @ApiOperation("上传视频")
@@ -139,8 +138,9 @@ public class FileController extends BaseController {
     }
     log.info("执行成功，response={}", sb.toString());
     //4.读取结果文件
-
-    String downLoadUrl = generateVideUrl(realFileName);
+    File resultFile = new File(resultPath + realFileName);
+    String  storeFileId= fileService.storeFile(new FileDocument(resultFile,file));
+    String downLoadUrl = generateDownloadUrl(storeFileId,file.getOriginalFilename());
     //5.存入到本地库
     return success(downLoadUrl);
   }

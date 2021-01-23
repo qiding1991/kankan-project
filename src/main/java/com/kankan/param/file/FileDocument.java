@@ -46,7 +46,7 @@ public class FileDocument {
   public FileDocument(File file, MultipartFile originFile) throws IOException {
     byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
     this.fileId = UUID.randomUUID().toString();
-    this.contentType = "video/mpeg4";
+    this.contentType = originFile.getContentType();
     this.fileName = originFile.getOriginalFilename();
     this.fileSize = Long.valueOf(fileBytes.length);
     this.fileContent = fileBytes;
