@@ -17,6 +17,7 @@ import com.kankan.vo.detail.VideoDetailVo;
 import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
  * @author <qiding@qiding.com>
  * Created on 2020-12-04
  */
+@Log4j2
 @Validated
 @Api(tags = "用户-主页-新闻")
 @RestController
@@ -148,10 +150,11 @@ public class ItemController extends BaseController {
     //获取tab详情
     switch (tabType) {
       case HOT:
+        log.info("---开始查询热点--HOT");
         infoList.addAll(findHot(hotPointService, pageInfo));
         break;
       case ARTICLE:
-        //热门看看号
+        log.info("---开始查询文章--ARTICLE");
         infoList.add(findHotUserItemVo());
         if (offset == Integer.MAX_VALUE) {
           infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
@@ -159,15 +162,18 @@ public class ItemController extends BaseController {
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
+        log.info("---开始查询新闻--NEWS");
         if (offset == Integer.MAX_VALUE) {
           infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
         }
         infoList.addAll(findNews(newsService, pageInfo));
         break;
       case VIDEO:
+        log.info("---开始查询视频--VIDEO");
         infoList.addAll(findVideo(workService, pageInfo));
         break;
       case KANKAN_USER:
+        log.info("---开始查询用户--KANKAN_USER");
         infoList.addAll(findKankanUser(kankanUserService, pageInfo));
       default:
         break;
@@ -192,6 +198,7 @@ public class ItemController extends BaseController {
   private List<UserItemVo> findKankanUser(KankanUserService kankanUserService, TabPageInfo pageInfo) {
     KankanUser kankanUser = KankanUser.builder().build();
     List<KankanUser> kankanUserList = kankanUser.findByPageInfo(kankanUserService, pageInfo);
+    log.info("查询的用户列表返回，参数={},response={}",pageInfo,kankanUserList);
     return kankanUserList.stream().map(UserItemVo::new).collect(Collectors.toList());
   }
 
