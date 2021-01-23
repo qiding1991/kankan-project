@@ -41,7 +41,7 @@ public class KankanUserService {
     }
 
     public  List<KankanUser>  findUserByPageInfo(Long offset, Integer size) {
-      log.info("查询的用户列表返回，offset={},size={}",offset,size);
+        log.info("参数，offset={},size={}",offset,size);
         List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset,size);
         return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     }
