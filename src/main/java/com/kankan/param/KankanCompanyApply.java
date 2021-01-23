@@ -16,6 +16,7 @@ public class KankanCompanyApply {
   private Long userId;
   private Integer applyStatus;
   private String city;
+  private Integer applyType;
   private List<String> topicPhoto;
   private List<String> applyPhoto;
   private List<String> otherPhoto;

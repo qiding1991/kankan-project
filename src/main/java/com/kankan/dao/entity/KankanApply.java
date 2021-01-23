@@ -20,4 +20,5 @@ public class KankanApply{
   private String remark;
   private String email;
   private Integer applyStatus;
+  private Integer applyType;
 }
