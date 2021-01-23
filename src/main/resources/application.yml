@@ -50,7 +50,7 @@ mybatis:
 fileServer:
   baseUrl: http://47.94.33.237:${server.port}/
   ffmpeg-path:  /home/video-resource/path1/
-  fast-path: /home/video-resource/path1/
+  fast-path: /home/video-resource/path2/
   result-path: /home/video-resource/path3/
   shellPath: /home/video-resource/transform-video.sh
 
