@@ -25,6 +25,7 @@ public class KankanUserService {
 
 
     public KankanUser findUser(Long userId) {
+        log.info("获取用户信息，userId={}",userId);
         KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
         final KankanUser user = new KankanUser(userEntity);
         return user;
