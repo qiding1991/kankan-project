@@ -5,6 +5,7 @@ import com.kankan.module.KankanUser;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface KankanUserMapper {
 
     @Select("select * from kankan_user where user_type=#{userType}")
     List<KankanUserEntity> findByType(Long userType);
+
+    @Update("update kankan_user set user_type=#{userType} where user_id=#{userId}")
+    void updateUserType(Long userId, Long userType);
 }

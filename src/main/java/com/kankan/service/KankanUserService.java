@@ -20,35 +20,39 @@ import java.util.stream.Collectors;
 @Service
 public class KankanUserService {
 
-    @Resource
-    private KankanUserMapper kankanUserMapper;
+  @Resource
+  private KankanUserMapper kankanUserMapper;
 
 
-    public KankanUser findUser(Long userId) {
-        log.info("获取用户信息，userId={}",userId);
-        KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
-        final KankanUser user = new KankanUser(userEntity);
-        return user;
-    }
+  public KankanUser findUser(Long userId) {
+    log.info("获取用户信息，userId={}", userId);
+    KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
+    final KankanUser user = new KankanUser(userEntity);
+    return user;
+  }
 
-    public void createUser(KankanUser kankanUser) {
-        KankanUserEntity entity = new KankanUserEntity(kankanUser);
-        kankanUserMapper.insert(entity);
-    }
+  public void createUser(KankanUser kankanUser) {
+    KankanUserEntity entity = new KankanUserEntity(kankanUser);
+    kankanUserMapper.insert(entity);
+  }
 
-    public List<KankanUser> findAll() {
-        List<KankanUserEntity> userEntityList = kankanUserMapper.findAll();
-        return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
-    }
+  public List<KankanUser> findAll() {
+    List<KankanUserEntity> userEntityList = kankanUserMapper.findAll();
+    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+  }
 
-    public  List<KankanUser>  findUserByPageInfo(Long offset, Integer size) {
-        log.info("参数，offset={},size={}",offset,size);
-        List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset,size);
-        return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
-    }
+  public List<KankanUser> findUserByPageInfo(Long offset, Integer size) {
+    log.info("参数，offset={},size={}", offset, size);
+    List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset, size);
+    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+  }
 
-    public List<KankanUser> findUserByType(Long userType) {
-        List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
-        return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
-    }
+  public List<KankanUser> findUserByType(Long userType) {
+    List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
+    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+  }
+
+  public void updateUserType(Long userId, Long userType) {
+       kankanUserMapper.updateUserType(userId,userType);
+  }
 }
