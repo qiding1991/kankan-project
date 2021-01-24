@@ -27,6 +27,7 @@ public class NewsService {
         NewsEntity entity = new NewsEntity();
         BeanUtils.copyProperties(news, entity);
         newsMapper.insert(entity);
+        news.setId(entity.getId());
     }
 
     public List<News> findNews(TabPageInfo pageInfo) {

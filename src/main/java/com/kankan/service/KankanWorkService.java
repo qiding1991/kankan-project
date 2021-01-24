@@ -30,6 +30,7 @@ public class KankanWorkService {
     WorkEntity workEntity = new WorkEntity();
     BeanUtils.copyProperties(kankanWork, workEntity);
     workMapper.insert(workEntity);
+    kankanWork.setId(workEntity.getId());
   }
 
   public List<KankanWork> findArticle(TabPageInfo pageInfo) {

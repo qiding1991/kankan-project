@@ -31,11 +31,13 @@ public class HeaderLineService {
   public void createHeadLine(HeaderLine headerLine) {
     HeaderLineInfoEntity headerLineInfoEntity = new HeaderLineInfoEntity(headerLine);
     headerLineInfoMapper.insert(headerLineInfoEntity);
+    headerLine.setId(headerLineInfoEntity.getId());
   }
 
   public void createHeadItem(HeaderLineItem headerLineItem) {
     HeaderLineItemEntity itemEntity = new HeaderLineItemEntity(headerLineItem);
     headerLineItemMapper.insert(itemEntity);
+    headerLineItem.setId(itemEntity.getId());
   }
 
   public HeaderLine findHeaderLineInfo(Long tabId) {

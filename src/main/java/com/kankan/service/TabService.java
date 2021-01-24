@@ -42,6 +42,7 @@ public class TabService {
         TabEntity entity=new TabEntity();
         BeanUtils.copyProperties(tab,entity);
         tabMapper.addTab(entity);
+        tab.setTabId(entity.getId());
     }
 
     public Tab findTab(Long tabId) {

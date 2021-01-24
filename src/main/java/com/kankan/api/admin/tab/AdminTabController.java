@@ -56,6 +56,6 @@ public class AdminTabController extends BaseController {
     public CommonResponse add(@Valid @RequestBody TabAdd request) {
         Tab tab = request.toTab();
         tab.insert2Db(tabService);
-        return success();
+        return success(tab.getTabId());
     }
 }

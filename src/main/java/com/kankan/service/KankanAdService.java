@@ -26,6 +26,7 @@ public class KankanAdService {
         AdEntity adEntity = new AdEntity();
         BeanUtils.copyProperties(kankanAd, adEntity);
         kankanAdMapper.insert(adEntity);
+        kankanAd.setId(adEntity.getId());
     }
 
     public KankanAd findAd(Long itemId) {

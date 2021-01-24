@@ -51,7 +51,7 @@ public class AdminWorkController extends BaseController {
   public CommonResponse createWork(@Valid @RequestBody WorkAddInfo workAddInfo) {
     KankanWork work = workAddInfo.toWork(resourceService);
     work.addWork(workService);
-    return success();
+    return success(work.getId());
   }
 
   @ApiOperation("作品列表")

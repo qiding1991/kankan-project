@@ -45,7 +45,7 @@ public class AdminNewsController extends BaseController {
     public CommonResponse createNews(@Valid @RequestBody NewsAddInfo newsAddInfo){
         News news=newsAddInfo.toNews(resourceService);
         news.create(newsService);
-        return success();
+        return success(news.getId());
     }
 
     @ApiOperation("新闻列表")

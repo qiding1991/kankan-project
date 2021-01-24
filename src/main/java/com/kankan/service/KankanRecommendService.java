@@ -31,6 +31,7 @@ public class KankanRecommendService {
     public void addRecommend(KankanRecommend kankanRecommend) {
         KankanRecommendEntity entity=new KankanRecommendEntity(kankanRecommend);
         recommendMapper.insert(entity);
+        kankanRecommend.setId(entity.getId());
     }
 
     public void remove(KankanRecommend kankanRecommend) {

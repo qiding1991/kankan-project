@@ -49,7 +49,7 @@ public class AdminHotController extends BaseController {
     } else if (itemType == EnumItemType.VIDEO || itemType == EnumItemType.ARTICLE) {
       workService.setHot(hotInfo.getItemId(), 2);
     }
-    return success();
+    return success(hotPoint.getId());
   }
 
   @ApiOperation("取消热点")

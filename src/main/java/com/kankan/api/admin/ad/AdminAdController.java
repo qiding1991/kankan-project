@@ -47,7 +47,7 @@ public class AdminAdController extends BaseController {
     public CommonResponse createAd(@Valid @RequestBody AdWithTitle adparam) {
         KankanAd kankanAd = adparam.toAd(resourceService);
         kankanAd.create(kankanAdService);
-        return success();
+        return success(kankanAd.getId());
     }
 
     @ApiOperation("创建ad无标题")
@@ -55,7 +55,7 @@ public class AdminAdController extends BaseController {
     public CommonResponse createAd2(@Valid @RequestBody AdNoTtitle adNoTtitle) {
         KankanAd kankanAd = adNoTtitle.toAd(resourceService);
         kankanAd.create(kankanAdService);
-        return success();
+        return success(kankanAd.getId());
     }
 
     @ApiOperation("广告列表")

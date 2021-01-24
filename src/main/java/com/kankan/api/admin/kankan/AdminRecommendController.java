@@ -48,7 +48,7 @@ public class AdminRecommendController extends BaseController {
     public CommonResponse add(@RequestBody KankanRecommendParam param) {
         KankanRecommend recommend = param.toRecommend();
         recommend.add(recommendService);
-        return success();
+        return success(recommend.getId());
     }
 
     @ApiOperation("去掉推荐")

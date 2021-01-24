@@ -14,6 +14,7 @@ import lombok.Data;
 @Builder
 public class KankanRecommend {
 
+   private Long id;
     private Long userId;
     private Integer recommendOrder;
 

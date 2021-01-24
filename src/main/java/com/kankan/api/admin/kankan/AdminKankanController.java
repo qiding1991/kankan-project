@@ -34,7 +34,7 @@ public class AdminKankanController extends BaseController {
     public CommonResponse addType(@RequestBody KankanTypeParam param) {
         KankanType kankanType = param.toType();
         kankanType.addType(typeService);
-        return success();
+        return success(kankanType.getId());
     }
 
     @ApiOperation("更新-分类")

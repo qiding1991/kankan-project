@@ -51,7 +51,7 @@ public class AdminHeaderLineController {
   public CommonResponse headerLineInfo(@Valid @RequestBody HeaderLineInfo headerLineInfo) {
     HeaderLine headerLine = headerLineInfo.toHeadline();
     headerLine.creatHeaderLine(headerLineService);
-    return CommonResponse.success();
+    return CommonResponse.success(headerLine.getId());
   }
 
   @ApiOperation("头条信息列表")
@@ -79,8 +79,7 @@ public class AdminHeaderLineController {
       KankanWork work = workService.findByResourceId(headerItem.getResourceId());
       workService.updateHeaderStatus(work.getId(), 2);
     }
-
-    return CommonResponse.success();
+    return CommonResponse.success(headerLine.getId());
   }
 
 

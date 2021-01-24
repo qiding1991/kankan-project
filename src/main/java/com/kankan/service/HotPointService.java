@@ -25,6 +25,7 @@ public class HotPointService {
     public void createHotPoint(HotPoint hotPoint) {
         HotPointEntity hotPointEntity=new HotPointEntity(hotPoint);
         hotPointMapper.insert(hotPointEntity);
+        hotPoint.setId(hotPointEntity.getId());
     }
 
     public List<HotPoint> findHot(TabPageInfo pageInfo) {
