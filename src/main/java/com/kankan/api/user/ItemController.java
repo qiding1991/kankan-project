@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -178,6 +179,8 @@ public class ItemController extends BaseController {
       default:
         break;
     }
+    //过滤掉空的数据
+    infoList=infoList.stream().filter(Objects::nonNull).collect(Collectors.toList());
     log.info("itemList response={}",infoList);
     //判断tab类型 （热点、新闻、专栏、视频）
     TabItemVo itemVo = infoList.get(0);
@@ -208,6 +211,9 @@ public class ItemController extends BaseController {
    */
   private TabItemVo findHeaderLine(ResourceService resourceService, HeaderLineService headerLineService, TabPageInfo pageInfo) {
     HeaderLine headerLine = headerLineService.findHeaderLineInfo(pageInfo.getTabId());
+    if(headerLine==null){
+      return null;
+    }
     List<HeaderLineItem> itemList = headerLineService.findHeaderLineItem(headerLine.getId());
     itemList.forEach(item -> {
       MediaResource resource = resourceService.findResource(item.getResourceId());
