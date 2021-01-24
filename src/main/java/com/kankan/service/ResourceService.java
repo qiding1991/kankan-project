@@ -45,7 +45,7 @@ public class ResourceService {
 
 
   public void decrCommentCount(MediaResource resource) {
-    updateCount(resource.getResourceId(), () -> "commentCount", MediaResource::getCommentCount, () ->-1);
+    updateCount(resource.getResourceId(), () -> "commentCount", MediaResource::getCommentCount, () -> -1);
   }
 
   public void incrementCommentCount(MediaResource resource) {
@@ -65,13 +65,15 @@ public class ResourceService {
   }
 
   private void updateCount(String resourceId, Supplier<String> param, Function<MediaResource, Integer> function, Supplier<Integer> count) {
-
-    log.info("");
-    Query query = Query.query(Criteria.where("resourceId").is(resourceId));
-    MediaResource old = mongoTemplate.findOne(query, MediaResource.class);
-
-    Update update = Update.update(param.get(), ObjectUtils.defaultIfNull(function.apply(old), 0) + count.get());
-    mongoTemplate.updateFirst(query, update, MediaResource.class);
+    try {
+      log.info("请求参数 resourceId={},param={}", resourceId, param.get());
+      Query query = Query.query(Criteria.where("resourceId").is(resourceId));
+      MediaResource old = mongoTemplate.findOne(query, MediaResource.class);
+      Update update = Update.update(param.get(), ObjectUtils.defaultIfNull(function.apply(old), 0) + count.get());
+      mongoTemplate.updateFirst(query, update, MediaResource.class);
+    } catch (Exception e) {
+      log.error("请求参数 resourceId={},param={}", resourceId, param.get(), e);
+    }
   }
 
   public List<MediaResource> findRelatedResource(MediaResource mediaResource) {
