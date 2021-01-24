@@ -278,8 +278,10 @@ create table kankan_company_apply(
      topic_photo varchar(60) not null default '' comment '图片',
      apply_photo varchar(60) not null default '' comment '图片',
      other_photo varchar(60) not null default '' comment '图片',
-
-)
+    status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
+    create_time bigint(20) unsigned not null  comment '创建时间',
+    update_time bigint(20) unsigned not null  comment '更新时间',
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 

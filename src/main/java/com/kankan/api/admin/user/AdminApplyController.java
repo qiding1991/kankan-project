@@ -5,6 +5,7 @@ import com.kankan.constant.CommonResponse;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.module.KankanUser;
+import com.kankan.module.UserMessage;
 import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.ApplyUpdateParam;
 import com.kankan.param.KankanCompanyApply;
@@ -20,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +71,18 @@ public class AdminApplyController extends BaseController {
         .remark(getRemark(applyInfo))
         .build();
       userService.createUser(user);
+      //发送站内信
+      sendInnerMessage(userId, getUsername(applyInfo), "看看号审核通过");
     }
+    sendInnerMessage(userId, getUsername(applyInfo), "看看号审核不通过");
     return success();
   }
+
+  public void sendInnerMessage(Long userId, String username, String message) {
+    UserMessage userMessage = UserMessage.builder().userId(userId).content(username + "," + message).build();
+    userMessage.setCreateTime(Instant.now().toEpochMilli());
+    userMessage.setRead(false);
+    mongoTemplate.save(userMessage);
+  }
+
 }
