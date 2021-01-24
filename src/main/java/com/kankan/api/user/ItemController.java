@@ -65,6 +65,9 @@ public class ItemController extends BaseController {
 
   private FavouriteService favouriteService;
 
+  private FollowService followService;
+
+
   @Resource
   private ThumpMapper thumpMapper;
 
@@ -72,7 +75,7 @@ public class ItemController extends BaseController {
   public ItemController(TabService tabService, HotPointService hotPointService,
                         KankanWorkService workService, NewsService newsService, KankanAdService adService,
                         HeaderLineService headerLineService, KankanUserService kankanUserService,
-                        ResourceService resourceService, CommentService commentService, FavouriteService favouriteService) {
+                        ResourceService resourceService, CommentService commentService, FavouriteService favouriteService, FollowService followService) {
     this.tabService = tabService;
     this.hotPointService = hotPointService;
     this.workService = workService;
@@ -84,6 +87,7 @@ public class ItemController extends BaseController {
     this.commentService = commentService;
     this.favouriteService = favouriteService;
 
+    this.followService = followService;
   }
 
 
@@ -142,6 +146,7 @@ public class ItemController extends BaseController {
                              @NotNull(message = "不能为空") @RequestParam(value = "tabId") Long tabId,
                              @NotNull(message = "不能为空")
                              @RequestParam(value = "offset", required = false, defaultValue = Integer.MAX_VALUE + "") Long offset,
+                             @RequestParam(value = "userId", required = false) Long userId,
                              @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
     TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
@@ -176,7 +181,11 @@ public class ItemController extends BaseController {
         break;
       case KANKAN_USER:
         log.info("---开始查询用户--KANKAN_USER");
-        infoList.addAll(findKankanUser(kankanUserService, pageInfo));
+        List<UserItemVo> userList = findKankanUser(kankanUserService, pageInfo);
+        if (userId != null) {
+          itemAddFollowStatus(followService, userList, userId);
+        }
+        infoList.addAll(userList);
       default:
         break;
     }

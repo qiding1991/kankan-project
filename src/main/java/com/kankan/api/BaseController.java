@@ -8,6 +8,9 @@ import com.kankan.constant.ErrorCode;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.KankanCompanyApply;
+import com.kankan.service.FollowService;
+import com.kankan.vo.KankanUserVo;
+import com.kankan.vo.tab.UserItemVo;
 import lombok.extern.log4j.Log4j2;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -99,5 +102,19 @@ public class BaseController {
       return ((KankanCompanyApply) applyInfo).getPrivilege();
     }
   }
+
+
+  protected void addFollowStatus(FollowService followService, List<KankanUserVo> userList, Long userId) {
+    for (KankanUserVo userVo : userList) {
+      userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
+    }
+  }
+
+  protected void itemAddFollowStatus(FollowService followService, List<UserItemVo> userList, Long userId) {
+    for (UserItemVo userVo : userList) {
+      userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
+    }
+  }
+
 
 }

@@ -65,15 +65,9 @@ public class KankanController extends BaseController {
         .map(recommend -> ((Function<KankanRecommend, KankanUserVo>) kankanRecommend -> transform(
           recommend)).apply(recommend)).collect(Collectors.toList());
     if (userId != null) {
-      addFollowStatus(userList, userId);
+      addFollowStatus(followService, userList, userId);
     }
     return success(userList);
-  }
-
-  private void addFollowStatus(List<KankanUserVo> userList, Long userId) {
-    for (KankanUserVo userVo : userList) {
-      userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
-    }
   }
 
   private KankanUserVo transform(KankanRecommend recommend) {
@@ -97,7 +91,7 @@ public class KankanController extends BaseController {
     infoList.stream().forEach(info -> userVoList.addAll(info.getUserVoList()));
 
     if (userId != null) {
-      addFollowStatus(userVoList, userId);
+      addFollowStatus(followService, userVoList, userId);
     }
     return success(infoList);
   }

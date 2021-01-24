@@ -6,18 +6,19 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 @Data
-public class UserItemVo  extends TabItemVo{
-    private String userName;
-    private Long userId;
-    private String remark;
-    private String picture;
-    private Long fansCount;
-    private Long followCount;
-    private Long readCount;
+public class UserItemVo extends TabItemVo {
+  private String userName;
+  private Long userId;
+  private String remark;
+  private String picture;
+  private Long fansCount;
+  private Long followCount;
+  private Long readCount;
+  private boolean followStatus;
 
-    public UserItemVo(KankanUser user){
-        BeanUtils.copyProperties(user,this);
-        this.setItemType(EnumItemType.KAN_KAN_USER.getCode());
-        this.setItemId(userId);
-    }
+  public UserItemVo(KankanUser user) {
+    BeanUtils.copyProperties(user, this);
+    this.setItemType(EnumItemType.KAN_KAN_USER.getCode());
+    this.setItemId(userId);
+  }
 }
