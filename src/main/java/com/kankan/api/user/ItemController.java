@@ -18,6 +18,7 @@ import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -108,7 +109,7 @@ public class ItemController extends BaseController {
         newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
         newsDetailVo.setFavouriteStatus(favouriteStatus);
         //添加当前用户的评论状态
-        newsDetailVo.addThumpStatus(userId,thumpMapper);
+        newsDetailVo.addThumpStatus(userId, thumpMapper);
 
         return success(newsDetailVo);
       case ARTICLE:
@@ -117,7 +118,7 @@ public class ItemController extends BaseController {
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, kankanUserService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
-        articleDetailVo.addThumpStatus(userId,thumpMapper);
+        articleDetailVo.addThumpStatus(userId, thumpMapper);
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
@@ -126,12 +127,12 @@ public class ItemController extends BaseController {
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
         videoDetailVo.setFavouriteStatus(favouriteStatus);
-        videoDetailVo.addThumpStatus(userId,thumpMapper);
+        videoDetailVo.addThumpStatus(userId, thumpMapper);
         return success(videoDetailVo);
       default:
         break;
     }
-    return success(ImmutableMap.of("content",resource.getContent()));
+    return success(ImmutableMap.of("content", resource.getContent()));
   }
 
 
@@ -180,14 +181,15 @@ public class ItemController extends BaseController {
         break;
     }
     //过滤掉空的数据
-    infoList=infoList.stream().filter(Objects::nonNull).collect(Collectors.toList());
-    log.info("itemList response={}",infoList);
+    infoList = infoList.stream().filter(Objects::nonNull).collect(Collectors.toList());
+    log.info("itemList response={}", infoList);
     //判断tab类型 （热点、新闻、专栏、视频）
-    TabItemVo itemVo = infoList.get(0);
-
-    //第一个热点新闻，修改为大图
-    if (itemVo.getItemType() == EnumItemType.NEWS.getCode()) {
-      itemVo.setItemType(EnumItemType.HOT_FIRST_NEWS.getCode());
+    if (!CollectionUtils.isEmpty(infoList)) {
+      TabItemVo itemVo = infoList.get(0);
+      //第一个热点新闻，修改为大图
+      if (itemVo.getItemType() == EnumItemType.NEWS.getCode()) {
+        itemVo.setItemType(EnumItemType.HOT_FIRST_NEWS.getCode());
+      }
     }
     PageData pageData = PageData.pageData(infoList, size);
     return success(pageData);
@@ -202,7 +204,7 @@ public class ItemController extends BaseController {
   private List<UserItemVo> findKankanUser(KankanUserService kankanUserService, TabPageInfo pageInfo) {
     KankanUser kankanUser = KankanUser.builder().build();
     List<KankanUser> kankanUserList = kankanUser.findByPageInfo(kankanUserService, pageInfo);
-    log.info("查询的用户列表返回，参数={},response={}",pageInfo,kankanUserList);
+    log.info("查询的用户列表返回，参数={},response={}", pageInfo, kankanUserList);
     return kankanUserList.stream().map(UserItemVo::new).collect(Collectors.toList());
   }
 
@@ -211,7 +213,7 @@ public class ItemController extends BaseController {
    */
   private TabItemVo findHeaderLine(ResourceService resourceService, HeaderLineService headerLineService, TabPageInfo pageInfo) {
     HeaderLine headerLine = headerLineService.findHeaderLineInfo(pageInfo.getTabId());
-    if(headerLine==null){
+    if (headerLine == null) {
       return null;
     }
     List<HeaderLineItem> itemList = headerLineService.findHeaderLineItem(headerLine.getId());
