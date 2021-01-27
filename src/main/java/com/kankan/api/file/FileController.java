@@ -76,7 +76,7 @@ public class FileController extends BaseController {
   @GetMapping("download/{fileId}/{fileName}")
   public void download(@PathVariable("fileId") String fileId, HttpServletResponse response) throws IOException {
     FileDocument fileDocument = fileService.downFile(fileId);
-    response.setContentType(fileDocument.getContentType());
+    response.setHeader("Content-Type",fileDocument.getContentType());
     try (OutputStream outputStream = response.getOutputStream()) {
       outputStream.write(fileDocument.getFileContent());
       response.flushBuffer();
