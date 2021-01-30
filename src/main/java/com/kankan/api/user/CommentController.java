@@ -10,6 +10,7 @@ import com.kankan.service.*;
 import com.kankan.vo.comment.BaseCommentVo;
 import com.kankan.vo.comment.NewsCommentVo;
 import com.kankan.vo.comment.WorkCommentVo;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,7 @@ import io.swagger.annotations.ApiOperation;
  * @author <qiding@qiding.com>
  * Created on 2020-12-06
  */
+@Log4j2
 @Validated
 @Api(tags = "回复、评论")
 @RestController
@@ -57,6 +59,7 @@ public class CommentController extends BaseController {
   public CommonResponse from(@RequestParam(value = "userId") Long userId) {
     KankanComment comment = KankanComment.builder().userId(userId).build();
     List<KankanComment> infoList = comment.fromMe(commentService);
+    log.info("comment by userId={},infoList={}",userId,infoList);
     //获取用户信息
     List<BaseCommentVo> resultList = infoList.stream().map(item -> {
       KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
@@ -86,14 +89,20 @@ public class CommentController extends BaseController {
     //1.获取我所有的作品的评论
     KankanWork kankanWork = KankanWork.builder().userId(userId).build();
     List<KankanWork> infoList = kankanWork.findMyWork(workService);
+    log.info("user_id={},myWorkList={}",userId,infoList);
     List<KankanComment> workCondition = infoList.parallelStream().map(work -> KankanComment.builder().resourceId(work.getResourceId()).parentId(0L).build()).collect(Collectors.toList());
+    log.info("resource commentList={}",workCondition);
+
     //2.评论我的回复
     KankanComment comment = KankanComment.builder().userId(userId).build();
     List<KankanComment> myComment = comment.myComment(commentService);
+    log.info("my userId={}, comment={}",userId,myComment);
     List<KankanComment> relayCondition=myComment.stream().map(item->KankanComment.builder().resourceId(item.getResourceId()).parentId(item.getId()).build()).collect(Collectors.toList());
+    log.info("my userId={}, comment={},relayCondition={}",userId,myComment,relayCondition);
     //3.查看所有的评论信息
     workCondition.addAll(relayCondition);
     List<KankanComment> commentList = commentService.findComment(workCondition);
+    log.info("find commentList, userid={},workCondition={},commentList={}",userId,workCondition,commentList);
     //获取用户信息
     List<BaseCommentVo> resultList = commentList.stream().map(item -> {
       KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
