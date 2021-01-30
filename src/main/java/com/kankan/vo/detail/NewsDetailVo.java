@@ -63,7 +63,7 @@ public class NewsDetailVo {
   }
 
 
-  public void addCommentInfo(CommentService commentService, KankanUserService userService) {
+  public void addCommentInfo(CommentService commentService, UserService userService) {
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     this.commentVoList = comment.resourceCommentInfo(commentService, userService);
   }

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import com.kankan.service.CommentService;
 
 import com.kankan.service.KankanUserService;
+import com.kankan.service.UserService;
 import com.kankan.vo.KankanCommentVo;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +42,7 @@ public class KankanComment {
       return commentService.myComment(this);
     }
 
-    public List<KankanCommentVo> resourceCommentInfo(CommentService commentService, KankanUserService userService) {
+    public List<KankanCommentVo> resourceCommentInfo(CommentService commentService, UserService userService) {
         //获取当前resource的所有评价
         List<KankanComment> commentList = commentService.findResourceComment(resourceId);
         List<KankanCommentVo> voList = commentList.stream().map(kankanComment -> new KankanCommentVo(kankanComment, userService)).collect(Collectors.toList());
@@ -62,7 +63,7 @@ public class KankanComment {
     }
 
 
-  public KankanCommentVo resourceCommentInfo(CommentService commentService, KankanUserService userService,Long commentId) {
+  public KankanCommentVo resourceCommentInfo(CommentService commentService, UserService userService,Long commentId) {
     //获取当前resource的所有评价
     List<KankanComment> commentList = commentService.findResourceComment(resourceId);
     List<KankanCommentVo> voList = commentList.stream().map(kankanComment -> new KankanCommentVo(kankanComment, userService)).collect(Collectors.toList());

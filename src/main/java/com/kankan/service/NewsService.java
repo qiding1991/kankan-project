@@ -50,8 +50,8 @@ public class NewsService {
         return News.parseEntity(newsEntity);
     }
 
-    public void updateHotStatus(Long userId,Integer hotStatus){
-            newsMapper.setHot(userId,hotStatus);
+    public void updateHotStatus(Long newsId,Integer hotStatus){
+            newsMapper.setHot(newsId,hotStatus);
     }
 
     public void updateHeaderStatus(Long userId,Integer headerStatus){

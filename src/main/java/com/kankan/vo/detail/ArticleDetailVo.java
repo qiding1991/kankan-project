@@ -1,13 +1,11 @@
 package com.kankan.vo.detail;
 
 import com.kankan.dao.mapper.ThumpMapper;
-import com.kankan.module.KankanComment;
-import com.kankan.module.KankanUser;
-import com.kankan.module.KankanWork;
-import com.kankan.module.MediaResource;
+import com.kankan.module.*;
 import com.kankan.service.CommentService;
 import com.kankan.service.KankanUserService;
 import com.kankan.service.KankanWorkService;
+import com.kankan.service.UserService;
 import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.AdItemVo;
@@ -38,7 +36,7 @@ public class ArticleDetailVo {
     }
 
 
-    public void addCommentInfo(CommentService commentService, KankanUserService userService) {
+    public void addCommentInfo(CommentService commentService, UserService userService) {
         KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
         this.commentVoList = comment.resourceCommentInfo(commentService, userService);
     }

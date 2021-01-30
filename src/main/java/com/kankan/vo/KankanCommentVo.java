@@ -6,7 +6,9 @@ import java.util.List;
 import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.KankanComment;
 import com.kankan.module.KankanUser;
+import com.kankan.module.User;
 import com.kankan.service.KankanUserService;
+import com.kankan.service.UserService;
 import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
@@ -31,10 +33,10 @@ public class KankanCommentVo {
   private List<KankanCommentVo> children = new ArrayList<>();
 
 
-  public KankanCommentVo(KankanComment kankanComment, KankanUserService userService) {
+  public KankanCommentVo(KankanComment kankanComment, UserService userService) {
     BeanUtils.copyProperties(kankanComment, this);
-    KankanUser user = userService.findUser(userId);
-    this.userName = user.getUserName();
+    User user = userService.getUser(userId);
+    this.userName = user.getUsername();
   }
 
   public static void addThumpStatus(List<KankanCommentVo> infoList, Long currentUserId, ThumpMapper thumpMapper) {

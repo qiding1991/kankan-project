@@ -18,6 +18,7 @@ import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,6 +68,9 @@ public class ItemController extends BaseController {
 
   private FollowService followService;
 
+  @Autowired
+  UserService userService;
+
 
   @Resource
   private ThumpMapper thumpMapper;
@@ -109,7 +113,7 @@ public class ItemController extends BaseController {
         NewsDetailVo newsDetailVo = NewsDetailVo.builder().resourceId(resourceId).build();
         newsDetailVo.addBaseInfo(resource);
         newsDetailVo.addAdInfo(adService);
-        newsDetailVo.addCommentInfo(commentService, kankanUserService);
+        newsDetailVo.addCommentInfo(commentService, userService);
         newsDetailVo.addRelatedNews(resource, resourceService, tabService, newsService);
         newsDetailVo.setFavouriteStatus(favouriteStatus);
         //添加当前用户的评论状态
@@ -120,14 +124,14 @@ public class ItemController extends BaseController {
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
         articleDetailVo.addBaseInfo(resource);
         articleDetailVo.addUserAndArticle(kankanUserService, workService, mediaResource);
-        articleDetailVo.addCommentInfo(commentService, kankanUserService);
+        articleDetailVo.addCommentInfo(commentService, userService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
         articleDetailVo.addThumpStatus(userId, thumpMapper);
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
         videoDetailVo.addBaseInfo(resource);
-        videoDetailVo.addCommentInfo(commentService, kankanUserService);
+        videoDetailVo.addCommentInfo(commentService, userService);
         videoDetailVo.addRelatedVideos(resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
         videoDetailVo.setFavouriteStatus(favouriteStatus);

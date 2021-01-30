@@ -39,13 +39,13 @@ public class ResourceController extends BaseController {
 
   private FavouriteService favouriteService;
 
-  private KankanUserService userService;
+  private UserService userService;
 
   @Resource
   private ThumpMapper thumpMapper;
 
   public ResourceController(ResourceService resourceService, CommentService commentService,
-                            ThumpService thumpService, FavouriteService favouriteService, KankanUserService userService) {
+                            ThumpService thumpService, FavouriteService favouriteService, UserService userService) {
     this.resourceService = resourceService;
     this.commentService = commentService;
     this.thumpService = thumpService;
