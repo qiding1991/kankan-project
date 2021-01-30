@@ -29,7 +29,7 @@ public class VideoDetailVo {
   public void addBaseInfo(MediaResource resource) {
     this.videoTitle = "相关视频";
     this.commentTitle = "相关评论";
-    this.content=resource.getContent();
+    this.content = resource.getContent();
   }
 
   public void addCommentInfo(CommentService commentService, UserService userService) {
@@ -39,9 +39,9 @@ public class VideoDetailVo {
 
   public void addRelatedVideos(String resourceId, MediaResource mediaResource, ResourceService resourceService, KankanUserService kankanUserService, KankanWorkService workService) {
     List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
-    mediaResourceList=mediaResourceList.stream().filter(resource->!resource.getResourceId().equalsIgnoreCase(resourceId)).collect(Collectors.toList());
+    mediaResourceList = mediaResourceList.stream().filter(resource -> !resource.getResourceId().equalsIgnoreCase(resourceId)).collect(Collectors.toList());
 
-    if(CollectionUtils.isEmpty(mediaResourceList)){
+    if (CollectionUtils.isEmpty(mediaResourceList)) {
       return;
     }
 
@@ -73,8 +73,11 @@ public class VideoDetailVo {
     this.favouriteStatus = favouriteStatus;
   }
 
-  public void  addThumpStatus(Long userId, ThumpMapper thumpMapper){
-    KankanCommentVo.addThumpStatus(this.commentVoList,userId, thumpMapper);
+  public void addThumpStatus(Long userId, ThumpMapper thumpMapper) {
+    KankanCommentVo.addThumpStatus(this.commentVoList, userId, thumpMapper);
   }
 
+  public void addFollowStatus(FollowService followService, Long userId) {
+    getUserVo().setFollowStatus(followService.exists(userId, getUserVo().getUserId()));
+  }
 }

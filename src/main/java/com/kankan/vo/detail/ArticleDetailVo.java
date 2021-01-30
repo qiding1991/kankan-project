@@ -2,10 +2,7 @@ package com.kankan.vo.detail;
 
 import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.*;
-import com.kankan.service.CommentService;
-import com.kankan.service.KankanUserService;
-import com.kankan.service.KankanWorkService;
-import com.kankan.service.UserService;
+import com.kankan.service.*;
 import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.AdItemVo;
@@ -68,4 +65,7 @@ public class ArticleDetailVo {
   }
 
 
+  public void addFollowStatus(FollowService followService, Long userId) {
+    getUserVo().setFollowStatus(followService.exists(userId, getUserVo().getUserId()));
+  }
 }
