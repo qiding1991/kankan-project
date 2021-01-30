@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -139,15 +140,15 @@ public class UserController extends BaseController {
       return error(USER_TOKEN_CHECK_ERROR);
     }
     user = userService.getUser(user.getUserId());
-    UserPrivilege userPrivilege = getUserPrivilege(mongoTemplate, user.getUserId());
     UserDetailVo userDetail = new UserDetailVo(user);
-    log.info("userDetail={}",userDetail);
-    if (userPrivilege != null) {
-      log.info("userPrivilege={}",userPrivilege);
+    UserPrivilege userPrivilege = getUserPrivilege(mongoTemplate, user.getUserId());
+    log.info("userDetail={}", userDetail);
+    if (userPrivilege != null && !CollectionUtils.isEmpty(userPrivilege.getPrivilege())) {
+      log.info("userPrivilege={}", userPrivilege);
       userDetail = new UserDetailVo(user, userPrivilege);
     } else {
       Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());
-      log.info("applyInfo={}",applyInfo);
+      log.info("applyInfo={}", applyInfo);
       if (applyInfo != null && applyInfo instanceof KankanApply) {
         userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
       }
