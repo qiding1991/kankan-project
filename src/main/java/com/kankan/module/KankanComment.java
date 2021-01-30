@@ -70,8 +70,9 @@ public class KankanComment {
   public KankanCommentVo resourceCommentInfo(CommentService commentService, UserService userService, Long commentId) {
     //获取当前resource的所有评价
     List<KankanComment> commentList = commentService.findResourceComment(resourceId);
+    log.info("当前resourceId={},response={}", resourceId, commentList);
     List<KankanCommentVo> voList = commentList.stream().map(kankanComment -> new KankanCommentVo(kankanComment, userService)).collect(Collectors.toList());
-
+    log.info("当前resourceId={},response={},voList={}", resourceId, commentList, voList);
     List<KankanCommentVo> rootComment = new ArrayList<>();
 
     Map<Long, KankanCommentVo> commentVoMap = new HashMap<>();
