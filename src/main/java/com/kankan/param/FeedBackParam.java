@@ -5,6 +5,9 @@ import com.kankan.module.Feedback;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.Instant;
+import java.util.List;
+
 /**
  * @author <qiding@qiding.com>
  * Created on 2020-12-08
@@ -13,7 +16,12 @@ import lombok.Data;
 public class FeedBackParam {
     private Long userId;
     private String feedback;
-    public Feedback toFeedBack() {
-       return Feedback.builder().userId(userId).feedback(feedback).build();
+    private List<String> pictures;
+    public Feedback toFeedBack(String username) {
+       return Feedback.builder()
+         .userId(userId)
+         .feedback(feedback)
+         .createTime(Instant.now().toEpochMilli())
+         .build();
     }
 }

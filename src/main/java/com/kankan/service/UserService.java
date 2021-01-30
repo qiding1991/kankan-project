@@ -9,6 +9,7 @@ import com.kankan.dao.mapper.UserMapper;
 import com.kankan.module.User;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,6 +49,7 @@ public class UserService {
 
   public User getUser(Long userId){
     UserEntity userEntity= userMapper.findUserById(userId);
+    userEntity=Optional.ofNullable(userEntity).orElse(new UserEntity());
     return userEntity.toUser();
   }
 

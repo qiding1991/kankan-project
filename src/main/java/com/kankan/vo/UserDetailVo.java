@@ -52,7 +52,7 @@ public class UserDetailVo {
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
-    this.isKankan=true;
+    this.isKankan=false;
   }
 
   public UserDetailVo(User user, UserPrivilege userPrivilege) {
@@ -62,7 +62,7 @@ public class UserDetailVo {
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
-    this.isKankan=true;
+    this.isKankan=false;
   }
 
 
@@ -97,6 +97,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = companyApply.getPrivilege();
     this.applyStatus=companyApply.getApplyStatus();
+    this.isKankan=companyApply.getApplyStatus()==2;
   }
 
 
@@ -108,6 +109,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = kankanApply.getPrivilege();
     this.applyStatus =kankanApply.getApplyStatus();
+    this.isKankan=kankanApply.getApplyStatus()==2;
   }
 
 

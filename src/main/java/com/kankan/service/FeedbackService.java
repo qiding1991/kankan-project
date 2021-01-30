@@ -1,11 +1,14 @@
 package com.kankan.service;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import com.kankan.dao.entity.FeedbackEntity;
@@ -17,22 +20,35 @@ import com.kankan.module.Feedback;
  * Created on 2020-12-08
  */
 @Service
-public class FeedbackService {
+public class FeedbackService{
 
-    @Resource
-    private FeedbackMapper feedbackMapper;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
-    public void addFeedback(Feedback feedback) {
-        feedback(feedback, feedbackMapper::insert);
+    public void addFeedBack(Feedback feedback){
+        mongoTemplate.insert(feedback);
     }
 
-    public void feedback(Feedback feedback, Consumer<FeedbackEntity> feedFunction) {
-        feedFunction.accept(((Function<Feedback, FeedbackEntity>) back -> transform(back)).apply(feedback));
+    public List<Feedback> feedbackList(){
+       return mongoTemplate.findAll(Feedback.class);
     }
 
-    public FeedbackEntity transform(Feedback feedback) {
-        FeedbackEntity entity = new FeedbackEntity();
-        BeanUtils.copyProperties(feedback, entity);
-        return entity;
-    }
+
+//
+//    @Resource
+//    private FeedbackMapper feedbackMapper;
+//
+//    public void addFeedback(Feedback feedback) {
+//        feedback(feedback, feedbackMapper::insert);
+//    }
+//
+//    public void feedback(Feedback feedback, Consumer<FeedbackEntity> feedFunction) {
+//        feedFunction.accept(((Function<Feedback, FeedbackEntity>) back -> transform(back)).apply(feedback));
+//    }
+//
+//    public FeedbackEntity transform(Feedback feedback) {
+//        FeedbackEntity entity = new FeedbackEntity();
+//        BeanUtils.copyProperties(feedback, entity);
+//        return entity;
+//    }
 }
