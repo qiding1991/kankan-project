@@ -12,6 +12,7 @@ import com.kankan.vo.tab.NewsItemVo;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang.math.RandomUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,9 +93,13 @@ public class NewsDetailVo {
    */
   AdItemVo findAdItemVo(KankanAdService adService) {
     List<KankanAd> adList = adService.findAll();
-    int randomIndex = RandomUtils.nextInt(adList.size() - 1);
-    KankanAd kankanAd = adList.get(randomIndex);
-    return new AdItemVo(kankanAd);
+    if(!CollectionUtils.isEmpty(adList)){
+      int randomIndex = RandomUtils.nextInt(adList.size() - 1);
+      KankanAd kankanAd = adList.get(randomIndex);
+      return new AdItemVo(kankanAd);
+    }else {
+      return null;
+    }
   }
 
 
