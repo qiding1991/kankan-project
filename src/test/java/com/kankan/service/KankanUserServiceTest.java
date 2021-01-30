@@ -23,4 +23,10 @@ class KankanUserServiceTest {
   void decrFollowCount() {
       userService.decrFollowCount(1L);
   }
+
+  @Test
+  void incrReadCount(){
+     userService.incrReadCount(1L);
+  }
+
 }

@@ -113,31 +113,36 @@ public class ItemController extends BaseController {
         newsDetailVo.addBaseInfo(resource);
         newsDetailVo.addAdInfo(adService);
         newsDetailVo.addCommentInfo(commentService, userService);
-        newsDetailVo.addRelatedNews(resourceId,resource, resourceService, tabService, newsService);
+        newsDetailVo.addRelatedNews(resourceId, resource, resourceService, tabService, newsService);
         newsDetailVo.setFavouriteStatus(favouriteStatus);
         //添加当前用户的评论状态
         newsDetailVo.addThumpStatus(userId, thumpMapper);
+
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();
         articleDetailVo.addBaseInfo(resource);
-        articleDetailVo.addUserAndArticle(resourceId,kankanUserService, workService, mediaResource);
+        articleDetailVo.addUserAndArticle(resourceId, kankanUserService, workService, mediaResource);
         articleDetailVo.addCommentInfo(commentService, userService);
         articleDetailVo.setFavouriteStatus(favouriteStatus);
         articleDetailVo.addThumpStatus(userId, thumpMapper);
         //当前用户是否关注
-        articleDetailVo.addFollowStatus(followService,userId);
+        articleDetailVo.addFollowStatus(followService, userId);
+        //阅读加1
+        kankanUserService.incrReadCount(articleDetailVo.getUserVo().getUserId());
         return success(articleDetailVo);
       case VIDEO:
         VideoDetailVo videoDetailVo = VideoDetailVo.builder().resourceId(resourceId).build();
         videoDetailVo.addBaseInfo(resource);
         videoDetailVo.addCommentInfo(commentService, userService);
-        videoDetailVo.addRelatedVideos(resourceId,resource, resourceService, kankanUserService, workService);
+        videoDetailVo.addRelatedVideos(resourceId, resource, resourceService, kankanUserService, workService);
         videoDetailVo.addUserVo(kankanUserService, workService);
         videoDetailVo.setFavouriteStatus(favouriteStatus);
         videoDetailVo.addThumpStatus(userId, thumpMapper);
         //当前用户是否关注
-        videoDetailVo.addFollowStatus(followService,userId);
+        videoDetailVo.addFollowStatus(followService, userId);
+        //阅读加1
+        kankanUserService.incrReadCount(videoDetailVo.getUserVo().getUserId());
         return success(videoDetailVo);
       default:
         break;

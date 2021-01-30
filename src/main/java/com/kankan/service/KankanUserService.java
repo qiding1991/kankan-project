@@ -61,11 +61,29 @@ public class KankanUserService {
   }
 
 
-  public void incrFollowCount(Long followId) {
-    kankanUserMapper.updateFollowCount(followId,1);
+  public void incrFollowCount(Long userId) {
+    kankanUserMapper.updateFollowCount(userId,1);
   }
 
-  public void decrFollowCount(Long followId) {
-    kankanUserMapper.updateFollowCount(followId,-1);
+  public void decrFollowCount(Long userId) {
+    kankanUserMapper.updateFollowCount(userId,-1);
   }
+
+  public void incrFansCount(Long userId) {
+    kankanUserMapper.updateFansCount(userId,1);
+  }
+
+  public void decrFansCount(Long userId) {
+    kankanUserMapper.updateFansCount(userId,-1);
+  }
+
+
+  public void incrReadCount(Long userId) {
+    kankanUserMapper.updateReadCount(userId,1);
+  }
+
+
+
+
+
 }

@@ -57,7 +57,8 @@ public class FollowController extends BaseController {
   public CommonResponse add(@RequestBody FollowParam param) {
     Follow follow = param.toFollow();
     follow.add(followService);
-    kankanUserService.incrFollowCount(param.getFollowId());
+    kankanUserService.incrFollowCount(param.getUserId());
+    kankanUserService.incrFansCount(param.getFollowId());
     return success();
   }
 
@@ -66,7 +67,8 @@ public class FollowController extends BaseController {
   public CommonResponse cancel(@RequestBody FollowParam param) {
     Follow follow = param.toFollow();
     follow.cancel(followService);
-    kankanUserService.decrFollowCount(param.getFollowId());
+    kankanUserService.decrFollowCount(param.getUserId());
+    kankanUserService.decrFansCount(param.getFollowId());
     return success();
   }
 
