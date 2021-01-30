@@ -67,7 +67,7 @@ public class ResourceController extends BaseController {
   }
 
 
-  @ApiOperation("评论新闻、文章、视频")
+  @ApiOperation("删除评论")
   @PostMapping("comment/cancel/{commentId}")
   public CommonResponse cancelComment(@PathVariable(value = "commentId") Long commentId) {
     //保存

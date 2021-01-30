@@ -35,7 +35,7 @@ public class UserMessageController extends BaseController {
   @PostMapping("read/{id}")
   public CommonResponse read(@PathVariable(value = "id") String id) {
     Query query = Query.query(Criteria.where("id").is(id));
-    Update update = Update.update("read", true);
+    Update update = Update.update("isRead", true);
     mongoTemplate.updateMulti(query, update, UserMessage.class);
     return success();
   }
