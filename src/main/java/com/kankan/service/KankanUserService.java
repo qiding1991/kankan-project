@@ -59,4 +59,13 @@ public class KankanUserService {
   public void updateUserRecommendStatus(Long userId, Integer recommendStatus) {
          kankanUserMapper.updateUserRecommendStatus(userId,recommendStatus);
   }
+
+
+  public void incrFollowCount(Long followId) {
+    kankanUserMapper.updateFollowCount(followId,1);
+  }
+
+  public void decrFollowCount(Long followId) {
+    kankanUserMapper.updateFollowCount(followId,-1);
+  }
 }

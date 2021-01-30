@@ -1,26 +1,23 @@
 package com.kankan.api.user;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-import com.kankan.module.KankanUser;
-import com.kankan.service.KankanUserService;
-import com.kankan.vo.KankanUserVo;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.constant.PageData;
 import com.kankan.module.Follow;
+import com.kankan.module.KankanUser;
 import com.kankan.module.PageQuery;
 import com.kankan.param.FollowParam;
 import com.kankan.service.FollowService;
-
+import com.kankan.service.KankanUserService;
+import com.kankan.vo.KankanUserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * @author <qiding@qiding.com>
@@ -60,6 +57,7 @@ public class FollowController extends BaseController {
   public CommonResponse add(@RequestBody FollowParam param) {
     Follow follow = param.toFollow();
     follow.add(followService);
+    kankanUserService.incrFollowCount(param.getFollowId());
     return success();
   }
 
@@ -68,6 +66,7 @@ public class FollowController extends BaseController {
   public CommonResponse cancel(@RequestBody FollowParam param) {
     Follow follow = param.toFollow();
     follow.cancel(followService);
+    kankanUserService.decrFollowCount(param.getFollowId());
     return success();
   }
 

@@ -85,8 +85,6 @@ public class KankanUserController extends BaseController {
    * 看看信息展示
    */
   private TabItemVo transform(KankanWork kankanWork) {
-
-
     if (0 == kankanWork.getType()) {
       ArticleItemVo articleItemVo = kankanWork.toArticleItemVo(kankanUserService, resourceService);
       articleItemVo.setAuditStatus(kankanWork.getAuditStatus());

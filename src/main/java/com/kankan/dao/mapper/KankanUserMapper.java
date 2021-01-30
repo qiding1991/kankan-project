@@ -29,4 +29,7 @@ public interface KankanUserMapper {
     void updateUserType(Long userId, Long userType);
     @Update("update kankan_user set recommend_status=#{recommendStatus} where user_id=#{userId}")
     void updateUserRecommendStatus(Long userId, Integer recommendStatus);
+
+    @Update("update kankan_user set follow_count=follow_count+${followCount}")
+    void updateFollowCount(Long userId, Integer followCount);
 }
