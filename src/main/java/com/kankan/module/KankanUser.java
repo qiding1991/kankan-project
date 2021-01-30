@@ -3,6 +3,7 @@ package com.kankan.module;
 import java.util.List;
 
 import com.kankan.param.tab.TabPageInfo;
+import com.kankan.service.UserService;
 import com.kankan.vo.tab.UserItemVo;
 import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.BeanUtils;
@@ -80,6 +81,10 @@ public class KankanUser {
   public List<KankanUser> findByPageInfo(KankanUserService kankanUserService, TabPageInfo pageInfo) {
     List<KankanUser> infoList = kankanUserService.findUserByPageInfo(pageInfo.getOffset(), pageInfo.getSize());
     return infoList;
+  }
+
+  public void addUserPhoto(UserService userService) {
+    this.picture= userService.getUser(userId).getUserPhoto();
   }
 
 }

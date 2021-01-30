@@ -2,6 +2,7 @@ package com.kankan.service;
 
 import com.kankan.dao.entity.KankanUserEntity;
 import com.kankan.dao.mapper.KankanUserMapper;
+import com.kankan.module.User;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +24,15 @@ public class KankanUserService {
   @Resource
   private KankanUserMapper kankanUserMapper;
 
+  @Resource
+  private UserService userService;
+
 
   public KankanUser findUser(Long userId) {
     log.info("获取用户信息，userId={}", userId);
     KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
-    final KankanUser user = new KankanUser(userEntity);
+    KankanUser user = new KankanUser(userEntity);
+    user.addUserPhoto(userService);
     return user;
   }
 
@@ -38,52 +43,55 @@ public class KankanUserService {
 
   public List<KankanUser> findAll() {
     List<KankanUserEntity> userEntityList = kankanUserMapper.findAll();
-    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
   }
 
   public List<KankanUser> findUserByPageInfo(Long offset, Integer size) {
     log.info("参数，offset={},size={}", offset, size);
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset, size);
-    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
   }
 
   public List<KankanUser> findUserByType(Long userType) {
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
-    return userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    List<KankanUser> infoList =  userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
   }
 
   public void updateUserType(Long userId, Long userType) {
-       kankanUserMapper.updateUserType(userId,userType);
+    kankanUserMapper.updateUserType(userId, userType);
   }
 
   public void updateUserRecommendStatus(Long userId, Integer recommendStatus) {
-         kankanUserMapper.updateUserRecommendStatus(userId,recommendStatus);
+    kankanUserMapper.updateUserRecommendStatus(userId, recommendStatus);
   }
 
 
   public void incrFollowCount(Long userId) {
-    kankanUserMapper.updateFollowCount(userId,1);
+    kankanUserMapper.updateFollowCount(userId, 1);
   }
 
   public void decrFollowCount(Long userId) {
-    kankanUserMapper.updateFollowCount(userId,-1);
+    kankanUserMapper.updateFollowCount(userId, -1);
   }
 
   public void incrFansCount(Long userId) {
-    kankanUserMapper.updateFansCount(userId,1);
+    kankanUserMapper.updateFansCount(userId, 1);
   }
 
   public void decrFansCount(Long userId) {
-    kankanUserMapper.updateFansCount(userId,-1);
+    kankanUserMapper.updateFansCount(userId, -1);
   }
 
 
   public void incrReadCount(Long userId) {
-    kankanUserMapper.updateReadCount(userId,1);
+    kankanUserMapper.updateReadCount(userId, 1);
   }
-
-
-
 
 
 }
