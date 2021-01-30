@@ -56,12 +56,22 @@ public class AdminWorkController extends BaseController {
 
   @ApiOperation("作品列表")
   @GetMapping("list")
-  public CommonResponse listWork() {
+  public CommonResponse listWork(@RequestParam(value = "userId",required = false) Long userId) {
     KankanWork work = KankanWork.builder().build();
-    List<KankanWork> infoList = work.findAllWork(workService);
+    List<KankanWork> infoList;
+    if(userId==null){
+      infoList = work.findAllWork(workService);
+    }else {
+      work.setUserId(userId);
+      infoList=work.findMyWork(workService);
+    }
     List<KankanWorkVo> voList = infoList.stream().map(kankanWork -> toVo(kankanWork,hotPointService,headerLineService, resourceService)).collect(Collectors.toList());
     return success(voList);
   }
+
+
+
+
 
   @ApiOperation("审核作品")
   @PostMapping("audit")

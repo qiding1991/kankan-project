@@ -55,4 +55,8 @@ public class KankanUserService {
   public void updateUserType(Long userId, Long userType) {
        kankanUserMapper.updateUserType(userId,userType);
   }
+
+  public void updateUserRecommendStatus(Long userId, Integer recommendStatus) {
+         kankanUserMapper.updateUserRecommendStatus(userId,recommendStatus);
+  }
 }

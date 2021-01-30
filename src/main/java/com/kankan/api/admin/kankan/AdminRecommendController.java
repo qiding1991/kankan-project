@@ -3,6 +3,7 @@ package com.kankan.api.admin.kankan;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.kankan.service.KankanUserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,43 +29,49 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 public class AdminRecommendController extends BaseController {
 
-    private KankanRecommendService recommendService;
+  private KankanRecommendService recommendService;
 
-    public AdminRecommendController(KankanRecommendService recommendService) {
-        this.recommendService = recommendService;
-    }
+  private KankanUserService kankanUserService;
 
-    @ApiOperation("推荐list")
-    @PostMapping("list")
-    public CommonResponse list() {
-        List<KankanRecommend> recommendList =recommendService.findAll();
-        List<KankanRecommendVo> infoList=recommendList.stream().map((recommend)->recommend.toVo()).collect(Collectors.toList());
-        return success(infoList);
-    }
+  public AdminRecommendController(KankanRecommendService recommendService, KankanUserService kankanUserService) {
+    this.recommendService = recommendService;
+    this.kankanUserService = kankanUserService;
+  }
+
+  @ApiOperation("推荐list")
+  @PostMapping("list")
+  public CommonResponse list() {
+    List<KankanRecommend> recommendList = recommendService.findAll();
+    List<KankanRecommendVo> infoList = recommendList.stream().map((recommend) -> recommend.toVo()).collect(Collectors.toList());
+    return success(infoList);
+  }
 
 
-    @ApiOperation("推荐用户")
-    @PostMapping("add")
-    public CommonResponse add(@RequestBody KankanRecommendParam param) {
-        KankanRecommend recommend = param.toRecommend();
-        recommend.add(recommendService);
-        return success(2);
-    }
+  @ApiOperation("推荐用户")
+  @PostMapping("add")
+  public CommonResponse add(@RequestBody KankanRecommendParam param) {
+    KankanRecommend recommend = param.toRecommend();
+    recommend.add(recommendService);
+    //修改位推荐
+    kankanUserService.updateUserRecommendStatus(param.getUserId(), 2);
+    return success(2);
+  }
 
-    @ApiOperation("去掉推荐")
-    @PostMapping("del")
-    public CommonResponse del(@RequestBody KankanRecommendDelParam param) {
-        KankanRecommend recommend = param.toRecommend();
-        recommend.del(recommendService);
-        return success();
-    }
+  @ApiOperation("去掉推荐")
+  @PostMapping("del")
+  public CommonResponse del(@RequestBody KankanRecommendDelParam param) {
+    KankanRecommend recommend = param.toRecommend();
+    recommend.del(recommendService);
+    kankanUserService.updateUserRecommendStatus(param.getUserId(), 1);
+    return success();
+  }
 
-    @ApiOperation("更新排序")
-    @PostMapping("update")
-    public CommonResponse update(@RequestBody KankanRecommendParam param) {
-        KankanRecommend recommend = param.toRecommend();
-        recommend.update(recommendService);
-        return success();
-    }
+  @ApiOperation("更新排序")
+  @PostMapping("update")
+  public CommonResponse update(@RequestBody KankanRecommendParam param) {
+    KankanRecommend recommend = param.toRecommend();
+    recommend.update(recommendService);
+    return success();
+  }
 
 }

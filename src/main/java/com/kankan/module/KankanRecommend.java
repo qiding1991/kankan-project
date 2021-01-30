@@ -14,23 +14,25 @@ import lombok.Data;
 @Builder
 public class KankanRecommend {
 
-   private Long id;
-    private Long userId;
-    private Integer recommendOrder;
+  private Long id;
+  private Long userId;
+  private Integer recommendOrder;
 
-    public void add(KankanRecommendService recommendService) {
-        recommendService.addRecommend(this);
+  public void add(KankanRecommendService recommendService) {
+    if (recommendService.getMyKankanRecommend(userId) == null) {
+      recommendService.addRecommend(this);
     }
+  }
 
-    public KankanRecommendVo toVo() {
-        return KankanRecommendVo.builder().recommendOrder(recommendOrder).userId(userId).build();
-    }
+  public KankanRecommendVo toVo() {
+    return KankanRecommendVo.builder().recommendOrder(recommendOrder).userId(userId).build();
+  }
 
-    public void del(KankanRecommendService recommendService) {
-        recommendService.remove(this);
-    }
+  public void del(KankanRecommendService recommendService) {
+    recommendService.remove(this);
+  }
 
-    public void update(KankanRecommendService recommendService) {
-        recommendService.update(this);
-    }
+  public void update(KankanRecommendService recommendService) {
+    recommendService.update(this);
+  }
 }

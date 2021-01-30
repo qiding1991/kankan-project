@@ -27,4 +27,6 @@ public interface KankanUserMapper {
 
     @Update("update kankan_user set user_type=#{userType} where user_id=#{userId}")
     void updateUserType(Long userId, Long userType);
+    @Update("update kankan_user set recommend_status=#{recommendStatus} where user_id=#{userId}")
+    void updateUserRecommendStatus(Long userId, Integer recommendStatus);
 }

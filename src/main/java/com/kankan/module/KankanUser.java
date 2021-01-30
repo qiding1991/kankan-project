@@ -30,6 +30,7 @@ public class KankanUser {
   private Long userType;
   private String picture;
   private String remark;
+  private Integer recommendStatus;
   private Long fansCount;
   private Long followCount;
   private Long readCount;
