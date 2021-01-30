@@ -11,6 +11,7 @@ import com.kankan.vo.comment.BaseCommentVo;
 import com.kankan.vo.comment.NewsCommentVo;
 import com.kankan.vo.comment.WorkCommentVo;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,10 @@ public class CommentController extends BaseController {
   private KankanWorkService workService;
   private ResourceService resourceService;
   private KankanUserService kankanUserService;
+
+  @Autowired
+  private UserService userService;
+
   private NewsService newsService;
   private TabService tabService;
   private KankanWorkService kankanWorkService;
@@ -62,18 +67,19 @@ public class CommentController extends BaseController {
     log.info("comment by userId={},infoList={}",userId,infoList);
     //获取用户信息
     List<BaseCommentVo> resultList = infoList.stream().map(item -> {
-      KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
+      User userInfo = userService.getUser(item.getUserId());
       MediaResource resource = resourceService.findResource(item.getResourceId());
       EnumItemType itemType = EnumItemType.getItem(resource.getMediaType());
       switch (itemType) {
         case NEWS:
           News news = News.fromResourceId(item.getResourceId(), newsService);
           Tab newTab = Tab.fromTabId(news.getTabId(), tabService);
-          return new NewsCommentVo(newTab, news, kankanUser, item, resource);
+          return new NewsCommentVo(newTab, news, userInfo, item, resource);
         case VIDEO:
         case ARTICLE:
+          KankanUser kankanUser=kankanUserService.findUser(userId);
           KankanWork kankanWork = KankanWork.fromResourceId(item.getResourceId(), kankanWorkService);
-          return new WorkCommentVo(kankanWork, kankanUser, item, resource);
+          return new WorkCommentVo(kankanWork, userInfo,kankanUser, item, resource);
         default:
           return null;
       }
@@ -92,7 +98,6 @@ public class CommentController extends BaseController {
     log.info("user_id={},myWorkList={}",userId,infoList);
     List<KankanComment> workCondition = infoList.parallelStream().map(work -> KankanComment.builder().resourceId(work.getResourceId()).parentId(0L).build()).collect(Collectors.toList());
     log.info("resource commentList={}",workCondition);
-
     //2.评论我的回复
     KankanComment comment = KankanComment.builder().userId(userId).build();
     List<KankanComment> myComment = comment.myComment(commentService);
@@ -105,18 +110,19 @@ public class CommentController extends BaseController {
     log.info("find commentList, userid={},workCondition={},commentList={}",userId,workCondition,commentList);
     //获取用户信息
     List<BaseCommentVo> resultList = commentList.stream().map(item -> {
-      KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
+      User user=userService.getUser(userId);
       MediaResource resource = resourceService.findResource(item.getResourceId());
       EnumItemType itemType = EnumItemType.getItem(resource.getMediaType());
       switch (itemType) {
         case NEWS:
           News news = News.fromResourceId(item.getResourceId(), newsService);
           Tab newTab = Tab.fromTabId(news.getTabId(), tabService);
-          return new NewsCommentVo(newTab, news, kankanUser, item, resource);
+          return new NewsCommentVo(newTab, news, user, item, resource);
         case VIDEO:
         case ARTICLE:
+          KankanUser kankanUser = kankanUserService.findUser(item.getUserId());
           KankanWork work = KankanWork.fromResourceId(item.getResourceId(), kankanWorkService);
-          return new WorkCommentVo(work, kankanUser, item, resource);
+          return new WorkCommentVo(work,user, kankanUser, item, resource);
         default:
           return null;
       }

@@ -23,4 +23,21 @@ public class NewsCommentVo extends BaseCommentVo{
      this.setItemType(resource.getMediaType());
      this.setResourceId(resource.getResourceId());
   }
+
+
+
+  public NewsCommentVo(Tab newTab, News news, User user, KankanComment item, MediaResource resource) {
+    this.setTitle(news.getTitle());
+    this.setSubTitle(newTab.getTabName());
+
+    this.setReadCount(resource.getReadCount());
+    this.setPublishTime(news.getCreateTime());
+
+    this.setCommentText(item.getCommentText());
+    this.setCommentTime(item.getCreateTime());
+    this.setUsername(user.getUsername());
+    this.setId(item.getId());
+    this.setItemType(resource.getMediaType());
+    this.setResourceId(resource.getResourceId());
+  }
 }
