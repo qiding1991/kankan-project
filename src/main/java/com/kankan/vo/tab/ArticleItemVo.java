@@ -28,7 +28,10 @@ public class ArticleItemVo extends TabItemVo {
     //评论总数
     private Integer readCount;
 
-    public ArticleItemVo(KankanWork article, KankanUser writer, MediaResource resource) {
+  private Integer auditStatus;
+
+
+  public ArticleItemVo(KankanWork article, KankanUser writer, MediaResource resource) {
           this.title=article.getTitle();
           this.subTitle=writer.getUserName()+"|"+"专栏";
           this.picture=article.getPicture();

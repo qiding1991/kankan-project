@@ -38,6 +38,7 @@ public class VideoItemVo extends TabItemVo {
   //点赞总数
   private Integer thumbsCount;
 
+  private Integer auditStatus;
 
   private Boolean thumbStatus;
 
