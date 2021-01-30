@@ -60,7 +60,9 @@ public class KankanComment {
       if (vo.getParentId() == 0) {
         rootComment.add(vo);
       } else {
-        commentVoMap.get(vo.getParentId()).getChildren().add(vo);
+        if(commentVoMap.get(vo.getParentId())!=null){
+          commentVoMap.get(vo.getParentId()).getChildren().add(vo);
+        }
       }
     });
     return rootComment;
@@ -82,7 +84,9 @@ public class KankanComment {
       if (vo.getParentId() == 0) {
         rootComment.add(vo);
       } else {
-        commentVoMap.get(vo.getParentId()).getChildren().add(vo);
+        if(commentVoMap.get(vo.getParentId())!=null){
+          commentVoMap.get(vo.getParentId()).getChildren().add(vo);
+        }
       }
     });
     return commentVoMap.get(commentId);
