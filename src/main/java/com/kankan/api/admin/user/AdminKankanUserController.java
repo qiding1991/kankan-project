@@ -50,7 +50,7 @@ public class AdminKankanUserController extends BaseController {
   }
 
 
-  @ApiOperation("获取作者列表")
+  @ApiOperation("获取作者列表  recommendStatus  (1不推荐 2推荐) ")
   @PostMapping("list")
   public CommonResponse list() {
     KankanUser kankanUser = KankanUser.builder().build();
