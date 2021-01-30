@@ -86,7 +86,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = kankanApply.getPrivilege();
     this.applyStatus =kankanApply.getApplyStatus();
-    this.isKankan=this.applyStatus==2;
+    this.isKankan=kankanApply.getApplyStatus()==2;
   }
 
   public UserDetailVo(User user, KankanCompanyApply companyApply) {

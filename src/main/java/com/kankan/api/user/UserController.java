@@ -19,6 +19,8 @@ import com.kankan.service.UserService;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -30,6 +32,7 @@ import javax.validation.Valid;
 import static com.kankan.constant.CommonResponse.error;
 import static com.kankan.constant.ErrorCode.*;
 
+@Log4j2
 @Validated
 @Api(tags = "用户接口")
 @RequestMapping("user")
@@ -138,10 +141,13 @@ public class UserController extends BaseController {
     user = userService.getUser(user.getUserId());
     UserPrivilege userPrivilege = getUserPrivilege(mongoTemplate, user.getUserId());
     UserDetailVo userDetail = new UserDetailVo(user);
+    log.info("userDetail={}",userDetail);
     if (userPrivilege != null) {
+      log.info("userPrivilege={}",userPrivilege);
       userDetail = new UserDetailVo(user, userPrivilege);
     } else {
       Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());
+      log.info("applyInfo={}",applyInfo);
       if (applyInfo != null && applyInfo instanceof KankanApply) {
         userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
       }
