@@ -8,7 +8,9 @@ import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.*;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +37,14 @@ public class VideoDetailVo {
     this.commentVoList = comment.resourceCommentInfo(commentService, userService);
   }
 
-  public void addRelatedVideos(MediaResource mediaResource, ResourceService resourceService, KankanUserService kankanUserService, KankanWorkService workService) {
+  public void addRelatedVideos(String resourceId, MediaResource mediaResource, ResourceService resourceService, KankanUserService kankanUserService, KankanWorkService workService) {
     List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
+    mediaResourceList=mediaResourceList.stream().filter(resource->!resource.getResourceId().equalsIgnoreCase(resourceId)).collect(Collectors.toList());
+
+    if(CollectionUtils.isEmpty(mediaResourceList)){
+      return;
+    }
+
     this.relateVideos = relatedVideos(mediaResourceList, workService, kankanUserService, resourceService);
   }
 

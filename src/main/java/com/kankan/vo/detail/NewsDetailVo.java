@@ -52,13 +52,18 @@ public class NewsDetailVo {
   /**
    * 相关信息
    *
+   * @param resourceId
    * @param mediaResource
    * @param resourceService
    * @param tabService
    * @param newsService
    */
-  public void addRelatedNews(MediaResource mediaResource, ResourceService resourceService, TabService tabService, NewsService newsService) {
+  public void addRelatedNews(String resourceId, MediaResource mediaResource, ResourceService resourceService, TabService tabService, NewsService newsService) {
     List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
+    mediaResourceList = mediaResourceList.stream().filter(resource -> !resource.getResourceId().equalsIgnoreCase(resourceId)).collect(Collectors.toList());
+    if (CollectionUtils.isEmpty(mediaResourceList)) {
+      return;
+    }
     this.relatedNews = relatedNews(mediaResourceList, newsService, tabService, resourceService);
   }
 
@@ -93,18 +98,18 @@ public class NewsDetailVo {
    */
   AdItemVo findAdItemVo(KankanAdService adService) {
     List<KankanAd> adList = adService.findAll();
-    if(!CollectionUtils.isEmpty(adList)){
+    if (!CollectionUtils.isEmpty(adList)) {
       int randomIndex = RandomUtils.nextInt(adList.size() - 1);
       KankanAd kankanAd = adList.get(randomIndex);
       return new AdItemVo(kankanAd);
-    }else {
+    } else {
       return null;
     }
   }
 
 
-  public void  addThumpStatus(Long userId,  ThumpMapper thumpMapper){
-     KankanCommentVo.addThumpStatus(this.commentVoList,userId,thumpMapper);
+  public void addThumpStatus(Long userId, ThumpMapper thumpMapper) {
+    KankanCommentVo.addThumpStatus(this.commentVoList, userId, thumpMapper);
   }
 
 }
