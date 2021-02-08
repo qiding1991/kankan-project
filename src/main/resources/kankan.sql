@@ -206,6 +206,19 @@ create table kankan_type(
      primary key (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- 作品分类
+drop table if exists kankan_work_type;
+create table kankan_work_type(
+     id bigint(20) unsigned not null auto_increment comment '主键id',
+     type_name   varchar(20)  not null default '' comment '分类描述',
+     status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
+     create_time bigint(20) unsigned not null  comment '创建时间',
+     update_time bigint(20) unsigned not null  comment '更新时间',
+     primary key (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 -- 作者推荐
 drop table if exists kankan_recommend;
 create table kankan_recommend(
