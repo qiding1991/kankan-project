@@ -47,6 +47,9 @@ public class TabService {
 
     public Tab findTab(Long tabId) {
        TabEntity entity=  tabMapper.findTabById(tabId);
+       if(entity==null){
+         return null;
+       }
        return entity.tab();
     }
 }

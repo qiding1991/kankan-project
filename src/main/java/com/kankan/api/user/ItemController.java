@@ -162,6 +162,9 @@ public class ItemController extends BaseController {
 
     TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
     Tab tab = tabService.findTab(tabId);
+    if (tab == null) {
+      log.info("tab not exists ,tabId={}", tabId);
+    }
     EnumTabType tabType = EnumTabType.get(tab.getTabType());
     List<TabItemVo> infoList = new ArrayList<>();
 

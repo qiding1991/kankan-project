@@ -12,6 +12,7 @@ import com.kankan.vo.comment.NewsCommentVo;
 import com.kankan.vo.comment.WorkCommentVo;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -106,6 +107,11 @@ public class CommentController extends BaseController {
     log.info("my userId={}, comment={},relayCondition={}",userId,myComment,relayCondition);
     //3.查看所有的评论信息
     workCondition.addAll(relayCondition);
+    if(CollectionUtils.isEmpty(workCondition)){
+      log.info("userId={},workCondition is empty={}",userId,workCondition);
+      return success();
+    }
+    
     List<KankanComment> commentList = commentService.findComment(workCondition);
     log.info("find commentList, userid={},workCondition={},commentList={}",userId,workCondition,commentList);
     //获取用户信息

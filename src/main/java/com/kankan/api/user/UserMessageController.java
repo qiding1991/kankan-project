@@ -40,5 +40,12 @@ public class UserMessageController extends BaseController {
     return success();
   }
 
-
+  @ApiOperation(value = "全部读取")
+  @PostMapping("readAll")
+  public CommonResponse readAll(@RequestParam(value = "userId") Long userId) {
+    Query query = Query.query(Criteria.where("userId").is(userId));
+    Update update = Update.update("isRead", true);
+    mongoTemplate.updateMulti(query, update, UserMessage.class);
+    return success();
+  }
 }
