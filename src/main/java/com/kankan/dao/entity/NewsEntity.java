@@ -10,6 +10,7 @@ import lombok.Data;
 public class NewsEntity extends BaseEntity{
     private String resourceId;
     private Long tabId;
+    private Long userId;
     private String title;
     private String picture;
     private Integer hotStatus;//是否设置称热点

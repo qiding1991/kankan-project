@@ -19,6 +19,7 @@ public class NewsAddInfo {
     private String picture;
     private String title;
     private String content;
+    private Long userId;
     private List<String> keyword;
 
 

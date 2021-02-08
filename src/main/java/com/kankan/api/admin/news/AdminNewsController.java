@@ -2,12 +2,10 @@ package com.kankan.api.admin.news;
 
 import javax.validation.Valid;
 
+import com.kankan.dao.entity.NewsEntity;
 import com.kankan.vo.NewsVo;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
@@ -32,43 +30,37 @@ import java.util.stream.Collectors;
 @RequestMapping("admin/news")
 public class AdminNewsController extends BaseController {
 
-    private ResourceService resourceService;
-    private NewsService newsService;
+  private ResourceService resourceService;
+  private NewsService newsService;
 
-    public AdminNewsController(ResourceService resourceService, NewsService newsService) {
-        this.resourceService = resourceService;
-        this.newsService = newsService;
-    }
+  public AdminNewsController(ResourceService resourceService, NewsService newsService) {
+    this.resourceService = resourceService;
+    this.newsService = newsService;
+  }
 
-    @ApiOperation("创建新闻")
-    @PostMapping("create")
-    public CommonResponse createNews(@Valid @RequestBody NewsAddInfo newsAddInfo){
-        News news=newsAddInfo.toNews(resourceService);
-        news.create(newsService);
-        return success(news.getId());
-    }
+  @ApiOperation("创建新闻")
+  @PostMapping("create")
+  public CommonResponse createNews(@Valid @RequestBody NewsAddInfo newsAddInfo) {
+    News news = newsAddInfo.toNews(resourceService);
+    news.create(newsService);
+    return success(news.getId());
+  }
 
-    @ApiOperation("新闻列表")
-    @PostMapping("list")
-    public CommonResponse createNews(){
-        News news= News.builder().build();
-        List<News> infoList= news.findAll(newsService);
-        List<NewsVo> newsVos = infoList.stream().map(news1 -> news1.toItemVo(resourceService)).collect(Collectors.toList());
-        return success(newsVos);
-    }
+  @ApiOperation("新闻列表")
+  @PostMapping("list")
+  public CommonResponse createNews() {
+    News news = News.builder().build();
+    List<News> infoList = news.findAll(newsService);
+    List<NewsVo> newsVos = infoList.stream().map(news1 -> news1.toItemVo(resourceService)).collect(Collectors.toList());
+    return success(newsVos);
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
+  @ApiOperation("获取当前用户创建的新闻")
+  @GetMapping("findByUserId")
+  public CommonResponse findByUserId(@RequestParam(value = "userId") Long userId) {
+    List<NewsEntity> infoList = newsService.findByUserId(userId);
+    return success(infoList);
+  }
 
 
 }

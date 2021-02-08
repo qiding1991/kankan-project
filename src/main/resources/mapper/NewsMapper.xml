@@ -3,7 +3,7 @@
 <mapper namespace="com.kankan.dao.mapper.NewsMapper">
 
     <insert id="insert" parameterType="NewsEntity" useGeneratedKeys="true" keyProperty="id">
-        insert into news_info(id,tab_id,resource_id,title,picture,status,create_time,update_time) values (#{id},#{tabId},#{resourceId},#{title},#{picture},#{status},#{createTime},#{updateTime})
+        insert into news_info(id,tab_id,user_id,resource_id,title,picture,status,create_time,update_time) values (#{id},#{tabId},#{userId},#{resourceId},#{title},#{picture},#{status},#{createTime},#{updateTime})
     </insert>
 
     <select id="findNews" resultType="NewsEntity">

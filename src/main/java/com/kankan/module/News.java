@@ -30,6 +30,7 @@ public class News {
   private String picture;
   private String title;
   private String resourceId;
+  private Long userId;
   private Long createTime;
   private Integer hotStatus;//是否设置称热点
   private Integer headStatus;

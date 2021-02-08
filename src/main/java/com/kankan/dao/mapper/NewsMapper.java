@@ -18,6 +18,7 @@ public interface NewsMapper {
 
   List<NewsEntity> findNews(Long tabId, Long offset, Integer size);
 
+
   @Select("select * from news_info where id=#{newsId}")
   NewsEntity findNewsById(Long newsId);
 
@@ -33,4 +34,6 @@ public interface NewsMapper {
   @Update("update news_info set head_status=#{headStatus} where id=#{newsId}")
   void setHeader(Long newsId, Integer headStatus);
 
+  @Select("select * from news_info where user_id=#{userId}")
+  List<NewsEntity> findByUserId(Long userId);
 }

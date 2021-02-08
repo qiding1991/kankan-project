@@ -59,5 +59,7 @@ public class NewsService {
     }
 
 
-
+  public List<NewsEntity> findByUserId(Long userId) {
+     return newsMapper.findByUserId(userId);
+  }
 }
