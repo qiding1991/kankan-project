@@ -8,6 +8,7 @@ import com.kankan.dao.mapper.KankanUserRoleMapper;
 import com.kankan.module.KankanUser;
 import com.kankan.module.User;
 import com.kankan.module.privilege.UserPrivilege;
+import com.kankan.param.JoinInWhiteParam;
 import com.kankan.param.KankanCompanyApply;
 import com.kankan.param.UserRoleParam;
 import com.kankan.service.KankanUserService;
@@ -50,13 +51,22 @@ public class AdminKankanUserController extends BaseController {
   }
 
 
-  @ApiOperation("获取作者列表  recommendStatus  (1不推荐 2推荐) ")
+  @ApiOperation("获取作者列表  recommendStatus  (1不推荐 2推荐) whiteStatus(1 不白名单 2 白名单)")
   @PostMapping("list")
   public CommonResponse list() {
     KankanUser kankanUser = KankanUser.builder().build();
     List<KankanUser> userList = kankanUser.list(kankanUserService);
     return success(userList);
   }
+
+
+  @ApiOperation("更新白名单状态  1 不是白名单 2 是白名单")
+  @PostMapping("updateWhiteStatus")
+  public CommonResponse updateWhiteStatus(JoinInWhiteParam joinInWhiteParam) {
+    kankanUserService.updateWhiteStatus(joinInWhiteParam.getUserId(), joinInWhiteParam.getWhiteStatus());
+    return success(joinInWhiteParam.getWhiteStatus());
+  }
+
 
   @ApiOperation("创建一个用户")
   @PostMapping("create")
@@ -175,10 +185,10 @@ public class AdminKankanUserController extends BaseController {
   public List<UserDetailVo> findApplyInfo(Map<Long, User> userMap, String privilege) {
 
     List<UserDetailVo> userDetailVoList = new ArrayList<>();
-    Map<Long,UserDetailVo> userDetailVoMap=new HashMap<>();
+    Map<Long, UserDetailVo> userDetailVoMap = new HashMap<>();
 
-    userMap.values().forEach((user)->{
-      userDetailVoMap.put(user.getUserId(),new UserDetailVo(user));
+    userMap.values().forEach((user) -> {
+      userDetailVoMap.put(user.getUserId(), new UserDetailVo(user));
     });
 
     Query query = new Query(Criteria.where("_id").in(userMap.keySet()));
@@ -188,22 +198,22 @@ public class AdminKankanUserController extends BaseController {
     }
     List<KankanApply> userApplyList = mongoTemplate.find(query, KankanApply.class);
     List<KankanCompanyApply> companyApplyList = mongoTemplate.find(query, KankanCompanyApply.class);
-    List<UserPrivilege> userPrivilegeList=mongoTemplate.find(query,UserPrivilege.class);
+    List<UserPrivilege> userPrivilegeList = mongoTemplate.find(query, UserPrivilege.class);
     userPrivilegeList.forEach(userPrivilege -> {
-      Long userId=userPrivilege.getUserId();
-      userDetailVoMap.put(userId,new UserDetailVo(userMap.get(userId),userPrivilege));
+      Long userId = userPrivilege.getUserId();
+      userDetailVoMap.put(userId, new UserDetailVo(userMap.get(userId), userPrivilege));
     });
 
     userApplyList.forEach(kankanApply -> {
       UserDetailVo userDetailVo = new UserDetailVo(userMap.get(kankanApply.getUserId()), kankanApply);
-      userDetailVoMap.put(kankanApply.getUserId(),userDetailVo);
+      userDetailVoMap.put(kankanApply.getUserId(), userDetailVo);
     });
     companyApplyList.forEach(kankanApply -> {
       UserDetailVo userDetailVo = new UserDetailVo(userMap.get(kankanApply.getUserId()), kankanApply);
-      userDetailVoMap.put(kankanApply.getUserId(),userDetailVo);
+      userDetailVoMap.put(kankanApply.getUserId(), userDetailVo);
     });
-     userDetailVoList.addAll(userDetailVoMap.values());
-     return userDetailVoList;
+    userDetailVoList.addAll(userDetailVoMap.values());
+    return userDetailVoList;
   }
 
 

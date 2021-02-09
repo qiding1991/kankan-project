@@ -94,4 +94,12 @@ public class KankanUserService {
   }
 
 
+    public void updateWhiteStatus(String userId, Integer whiteStatus) {
+             kankanUserMapper.updateWhiteStatus(userId,whiteStatus);
+    }
+
+  public Integer whiteStatus(Long userId) {
+    KankanUserEntity userEntity= kankanUserMapper.findByUserId(userId);
+    return userEntity.getWhiteStatus();
+  }
 }

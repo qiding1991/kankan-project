@@ -35,8 +35,11 @@ public interface KankanUserMapper {
   void updateFollowCount(Long userId, Integer followCount);
 
   @Update("update kankan_user set fans_count=fans_count+${fansCount} where user_id=#{userId}")
-  void updateFansCount(Long userId,  Integer fansCount);
+  void updateFansCount(Long userId, Integer fansCount);
 
   @Update("update kankan_user set read_count=read_count+${readCount} where user_id=#{userId}")
   void updateReadCount(Long userId, Integer readCount);
+
+  @Update("update kankan_user set white_status=#{whiteStatus}   where user_id=#{userId}")
+  void updateWhiteStatus(String userId, Integer whiteStatus);
 }

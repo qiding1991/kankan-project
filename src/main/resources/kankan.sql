@@ -296,5 +296,13 @@ create table kankan_company_apply(
     update_time bigint(20) unsigned not null  comment '更新时间',
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
+drop table if exists work_white_list;
+create table work_white_list(
+    id bigint(20) unsigned not null auto_increment comment '主键id',
+    user_id bigint(20) unsigned not null  default '0' comment '关联的用户信息',
+    status tinyint(1) unsigned not null  default '1' comment '0 无效  1 有效',
+    create_time bigint(20) unsigned not null  comment '创建时间',
+    update_time bigint(20) unsigned not null  comment '更新时间',
+    primary key (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

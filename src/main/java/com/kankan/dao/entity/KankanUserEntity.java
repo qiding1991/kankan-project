@@ -17,6 +17,7 @@ public class KankanUserEntity extends BaseEntity {
   private String picture;
   private String remark;
   private Integer recommendStatus;
+  private Integer whiteStatus;
   private Long fansCount;
   private Long followCount;
   private Long readCount;

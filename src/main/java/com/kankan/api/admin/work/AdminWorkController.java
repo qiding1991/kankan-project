@@ -2,10 +2,9 @@ package com.kankan.api.admin.work;
 
 import javax.validation.Valid;
 
-import com.kankan.module.HotPoint;
+import com.google.common.collect.ImmutableMap;
 import com.kankan.param.AuditParam;
-import com.kankan.service.HeaderLineService;
-import com.kankan.service.HotPointService;
+import com.kankan.service.*;
 import com.kankan.vo.KankanWorkVo;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +13,12 @@ import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.module.KankanWork;
 import com.kankan.param.work.WorkAddInfo;
-import com.kankan.service.KankanWorkService;
-import com.kankan.service.ResourceService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -37,21 +35,29 @@ public class AdminWorkController extends BaseController {
   private KankanWorkService workService;
   private HotPointService hotPointService;
   private HeaderLineService headerLineService;
+  private KankanUserService kankanUserService;
 
-  public AdminWorkController(ResourceService resourceService, KankanWorkService workService, HotPointService hotPointService, HeaderLineService headerLineService) {
+  public AdminWorkController(ResourceService resourceService, KankanWorkService workService, HotPointService hotPointService, HeaderLineService headerLineService, KankanUserService kankanUserService) {
     this.resourceService = resourceService;
     this.workService = workService;
     this.hotPointService = hotPointService;
     this.headerLineService = headerLineService;
+    this.kankanUserService = kankanUserService;
   }
 
 
   @ApiOperation("发布作品")
   @PostMapping("create")
   public CommonResponse createWork(@Valid @RequestBody WorkAddInfo workAddInfo) {
+    Integer whiteStatus= kankanUserService.whiteStatus(workAddInfo.getUserId());
     KankanWork work = workAddInfo.toWork(resourceService);
+    work.setAuditStatus(whiteStatus);
     work.addWork(workService);
-    return success(work.getId());
+    //更新审核状态
+    workService.auditWork(work.getId(),whiteStatus);
+    //修改返回值
+    Map<String,Object> resultMap= ImmutableMap.of("id",work.getId(),"aditStatus",whiteStatus);
+    return success(resultMap);
   }
 
   @ApiOperation("作品列表")
