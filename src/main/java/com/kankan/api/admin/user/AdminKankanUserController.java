@@ -62,7 +62,7 @@ public class AdminKankanUserController extends BaseController {
 
   @ApiOperation("更新白名单状态  1 不是白名单 2 是白名单")
   @PostMapping("updateWhiteStatus")
-  public CommonResponse updateWhiteStatus(JoinInWhiteParam joinInWhiteParam) {
+  public CommonResponse updateWhiteStatus(@RequestBody JoinInWhiteParam joinInWhiteParam) {
     kankanUserService.updateWhiteStatus(joinInWhiteParam.getUserId(), joinInWhiteParam.getWhiteStatus());
     return success(joinInWhiteParam.getWhiteStatus());
   }
