@@ -15,6 +15,7 @@ public class KankanApply{
   private Long userId;
   private List<String> privilege;
   private String idUrl;
+  private Long userType;
   private String photo;
   private String username;
   private String remark;

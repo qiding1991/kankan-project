@@ -20,14 +20,19 @@ public class SearchController extends BaseController {
   @Autowired
   private TabService tabService;
 
-
   @ApiOperation(value = "根据关键字搜索")
   @GetMapping("byKeyWords")
   public CommonResponse searchHot(@RequestParam(value = "tabId") Long tabId,
-                                  @RequestParam(value = "word") String word) {
+                                  @RequestParam(value = "keyword") String keyword) {
     //获取tab分类
     Tab tab = tabService.findTab(tabId);
     //搜索条件
+    //1.新闻
+    //2.热点
+    //3.文章
+    //
+
+
     return success();
   }
 

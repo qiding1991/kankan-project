@@ -14,6 +14,7 @@ public class KankanCompanyApply {
   private List<String> privilege;
   @Id
   private Long userId;
+  private Long userType;
   private Integer applyStatus;
   private String city;
   private Integer applyType;

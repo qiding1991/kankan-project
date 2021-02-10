@@ -12,6 +12,7 @@ import com.kankan.param.KankanCompanyApply;
 import com.kankan.service.KankanUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -60,6 +61,14 @@ public class AdminApplyController extends BaseController {
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
     Object applyInfo = getApplyInfo(mongoTemplate, userId);
+
+    Long userType;
+    if(applyInfo instanceof KankanApply){
+      userType=((KankanApply) applyInfo).getUserType();
+    }else {
+      userType=((KankanCompanyApply) applyInfo).getUserType();
+    }
+    userType= ObjectUtils.defaultIfNull(userType,0L);
     if (updateParam.getApplyStatus() == 2) {
       UserPrivilege userPrivilege = UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
       mongoTemplate.save(userPrivilege);
@@ -67,7 +76,7 @@ public class AdminApplyController extends BaseController {
       KankanUser user = KankanUser.builder()
         .userId(updateParam.getUserId())
         .userName(getUsername(applyInfo))
-        .userType(0L)
+        .userType(userType)
         .remark(getRemark(applyInfo))
         .build();
       userService.createUser(user);
