@@ -2,9 +2,11 @@ package com.kankan.dao.mapper;
 
 import java.util.List;
 
+import com.kankan.module.HotPoint;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.kankan.dao.entity.HotPointEntity;
+import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
@@ -39,4 +41,6 @@ public interface HotPointMapper {
     @Update("delete from hot_info where item_id=#{itemId} and item_type=#{itemType}")
     void delByItemTypeAndItemId(int itemType, Long itemId);
 
+    @Select("select * from hot_info where  item_type in (${itemType})  limit #{limit}")
+    List<HotPoint> findByItemType(String itemType, Integer limit);
 }

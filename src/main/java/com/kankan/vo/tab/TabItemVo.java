@@ -2,6 +2,8 @@ package com.kankan.vo.tab;
 
 import java.util.List;
 
+import com.kankan.constant.EnumItemType;
+import com.kankan.dao.entity.NewsEntity;
 import com.kankan.module.HeaderLine;
 import com.kankan.module.HeaderLineItem;
 import com.kankan.module.KankanAd;
@@ -38,7 +40,9 @@ public class TabItemVo {
     private String resourceId;
     private Long publishTime;
 
-    /**
+
+
+  /**
      * 新闻展示方式
      */
     public NewsItemVo toNews(TabService tabService, NewsService newsService, ResourceService resourceService) {

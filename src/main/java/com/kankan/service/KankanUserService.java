@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -58,7 +59,7 @@ public class KankanUserService {
 
   public List<KankanUser> findUserByType(Long userType) {
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
-    List<KankanUser> infoList =  userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     infoList.forEach(userItem -> userItem.addUserPhoto(userService));
     return infoList;
   }
@@ -94,12 +95,30 @@ public class KankanUserService {
   }
 
 
-    public void updateWhiteStatus(String userId, Integer whiteStatus) {
-             kankanUserMapper.updateWhiteStatus(userId,whiteStatus);
-    }
+  public void updateWhiteStatus(String userId, Integer whiteStatus) {
+    kankanUserMapper.updateWhiteStatus(userId, whiteStatus);
+  }
 
   public Integer whiteStatus(Long userId) {
-    KankanUserEntity userEntity= kankanUserMapper.findByUserId(userId);
+    KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
     return userEntity.getWhiteStatus();
+  }
+
+  public List<KankanUser> findHotUserByReadCount(Integer limit) {
+    List<KankanUserEntity> userEntityList = findBotUser(() -> "read_count", limit);
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
+  }
+
+  private List<KankanUserEntity> findBotUser(Supplier<String> orderField, Integer limit) {
+    return kankanUserMapper.findHotUser(orderField.get(), limit);
+  }
+
+  public List<KankanUser> findUser(Long offset, Integer size, String keyword) {
+    List<KankanUserEntity> userEntityList = kankanUserMapper.findByKeyword(offset, size, keyword);
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
   }
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.kankan.dao.entity.KankanTypeEntity;
 import com.kankan.dao.entity.WorkEntity;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -54,4 +53,10 @@ public interface WorkMapper {
   void setHeader(Long workId, Integer headStatus);
 
 
+  @Select("select * from  work_info where id in (${articleIds})")
+  List<WorkEntity> findWorkTitle(String articleIds);
+
+//  @Select("select * from work_info where title like '%#{keyword}%' limit #{offset},#{size}")
+  @Select("select * from work_info where type=0 and   title like concat('%',#{keyword},'%')  limit #{offset},#{size} ")
+  List<WorkEntity> findArticleByKeyword(Long offset, Integer size, String keyword);
 }

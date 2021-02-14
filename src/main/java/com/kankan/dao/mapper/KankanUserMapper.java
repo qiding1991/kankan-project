@@ -42,4 +42,10 @@ public interface KankanUserMapper {
 
   @Update("update kankan_user set white_status=#{whiteStatus}   where user_id=#{userId}")
   void updateWhiteStatus(String userId, Integer whiteStatus);
+
+  @Select("select * from kankan_user order by  #{orderField} desc limit #{limit}")
+  List<KankanUserEntity> findHotUser(String orderField, Integer limit);
+
+  @Select("select * from  kankan_user where user_name like concat('%',#{keyword},'%')  limit #{offset},#{size}")
+  List<KankanUserEntity> findByKeyword(Long offset, Integer size, String keyword);
 }

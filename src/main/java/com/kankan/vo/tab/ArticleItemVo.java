@@ -1,5 +1,6 @@
 package com.kankan.vo.tab;
 
+import com.kankan.dao.entity.WorkEntity;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.kankan.constant.EnumItemType;
@@ -42,5 +43,12 @@ public class ArticleItemVo extends TabItemVo {
           this.setPublishTime(article.getPublishTime());
 
     }
+
+  public ArticleItemVo(WorkEntity workEntity) {
+    this.title=workEntity.getTitle();
+    this.setItemId(workEntity.getId());
+    this.setItemType(EnumItemType.ARTICLE.getCode());
+    this.setResourceId(workEntity.getResourceId());
+  }
 }
 

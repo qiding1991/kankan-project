@@ -36,4 +36,11 @@ public interface NewsMapper {
 
   @Select("select * from news_info where user_id=#{userId}")
   List<NewsEntity> findByUserId(Long userId);
+
+  @Select("select * from news_info where id in (${newsIds})")
+  List<NewsEntity> findTitles(String newsIds);
+
+//  @Select("select * from news_info where title like '%#{keyword}%' limit #{offset},#{size}")
+  @Select("select * from news_info where title like  concat('%',#{keyword},'%')  limit #{offset},#{size} ")
+  List<NewsEntity> findByKeyword(String keyword, Long offset, Integer size);
 }

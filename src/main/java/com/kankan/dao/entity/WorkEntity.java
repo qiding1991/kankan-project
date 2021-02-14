@@ -1,9 +1,6 @@
 package com.kankan.dao.entity;
 
-import java.time.Instant;
-
 import com.kankan.module.KankanWork;
-
 import lombok.Data;
 
 /**

@@ -1,19 +1,20 @@
 package com.kankan.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
+import com.kankan.util.GsonUtil;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.mongodb.monitor.BtreeIndexCounters;
 import org.springframework.stereotype.Service;
 
-import com.kankan.dao.entity.KankanTypeEntity;
 import com.kankan.dao.entity.WorkEntity;
 import com.kankan.dao.mapper.WorkMapper;
 import com.kankan.module.KankanWork;
 import com.kankan.param.tab.TabPageInfo;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author <qiding@qiding.com>
@@ -90,5 +91,20 @@ public class KankanWorkService {
 
   public void updateHeaderStatus(Long id, Integer headerStatus) {
     workMapper.updateWork(id, headerStatus);
+  }
+
+  public List<WorkEntity> findArticleTitle(List<Long> articleIdList) {
+    if (CollectionUtils.isEmpty(articleIdList)) {
+      return new ArrayList<>();
+    }
+    String articleIds = GsonUtil.toGson(articleIdList);
+    articleIds = articleIds.substring(1, articleIds.length() - 1);
+    List<WorkEntity> titleList = workMapper.findWorkTitle(articleIds);
+    return titleList;
+  }
+
+  public List<KankanWork> findArticle(Long offset, Integer size, String keyword) {
+    List<WorkEntity> infoList = workMapper.findArticleByKeyword(offset, size, keyword);
+    return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
   }
 }
