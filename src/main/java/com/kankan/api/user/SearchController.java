@@ -111,7 +111,7 @@ public class SearchController extends BaseController {
   }
 
 
-  @ApiOperation(value = "根据关键字搜索 ")
+  @ApiOperation(value = "根据关键字搜索 tableType(2 新闻 3 文章 5 看看号) ")
   @GetMapping("byKeyWords")
   public CommonResponse searchHot(@RequestParam(value = "tableType") Integer tableType,
                                   @RequestParam(value = "keyword") String keyword,
