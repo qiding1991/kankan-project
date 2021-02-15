@@ -63,7 +63,10 @@ public class SearchController extends BaseController {
   public CommonResponse newsAndArticle() {
     //查询10个，随机返回3个 只查询 新闻+文章
     List<Integer> itemTypes = Stream.of(EnumItemType.NEWS.getCode(), EnumItemType.ARTICLE.getCode()).collect(Collectors.toList());
+    log.info("请求参数={}",itemTypes);
     List<HotPoint> hotPointList = hotPointService.findByItemType(itemTypes, 10);
+    log.info("itemTypes={},hotPointList={}",itemTypes,hotPointList);
+
     //批量获取标题
     List<Long> newsIdList = new ArrayList<>();
     List<Long> articleIdList = new ArrayList<>();
@@ -75,14 +78,19 @@ public class SearchController extends BaseController {
         articleIdList.add(hotPoint.getItemId());
       }
     });
-    List<TabItemVo> itemVoList=new ArrayList<>();
 
+    log.info("newsIdList={},articleIdList={}",newsIdList,articleIdList);
+
+    List<TabItemVo> itemVoList=new ArrayList<>();
     List<NewsEntity> newsInfoList = newsService.findNewsTitle(newsIdList);
+    log.info("newsInfoList={}",newsInfoList);
+
     newsInfoList.stream().forEach(newsEntity -> {
       itemVoList.add(new NewsItemVo(newsEntity));
     });
 
     List<WorkEntity> articleInfoList = workService.findArticleTitle(articleIdList);
+    log.info("newsInfoList={}",newsInfoList);
 
     articleInfoList.stream().forEach(workEntity -> {
       itemVoList.add(new ArticleItemVo(workEntity));
@@ -97,7 +105,7 @@ public class SearchController extends BaseController {
       Integer randomIndex = RandomUtils.nextInt(itemVoList.size());
       indexSet.add(randomIndex);
     }
-    List<TabItemVo> resultTitle = itemVoList.stream().filter(indexSet::contains)
+    List<TabItemVo> resultTitle = itemVoList.stream().filter(tabItemVo->indexSet.contains(tabItemVo.getItemId()))
       .collect(Collectors.toList());
     return success(resultTitle);
   }
