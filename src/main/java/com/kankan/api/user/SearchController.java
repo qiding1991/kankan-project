@@ -105,6 +105,7 @@ public class SearchController extends BaseController {
       Integer randomIndex = RandomUtils.nextInt(itemVoList.size());
       indexSet.add(randomIndex);
     }
+    log.info("indexSet={},itemVoList={}",indexSet,itemVoList);
     List<TabItemVo> resultTitle = itemVoList.stream().filter(tabItemVo->indexSet.contains(tabItemVo.getItemId()))
       .collect(Collectors.toList());
     return success(resultTitle);
