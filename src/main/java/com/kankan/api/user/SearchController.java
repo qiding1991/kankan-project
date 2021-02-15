@@ -63,9 +63,9 @@ public class SearchController extends BaseController {
   public CommonResponse newsAndArticle() {
     //查询10个，随机返回3个 只查询 新闻+文章
     List<Integer> itemTypes = Stream.of(EnumItemType.NEWS.getCode(), EnumItemType.ARTICLE.getCode()).collect(Collectors.toList());
-    log.info("请求参数={}",itemTypes);
+    log.info("请求参数={}", itemTypes);
     List<HotPoint> hotPointList = hotPointService.findByItemType(itemTypes, 10);
-    log.info("itemTypes={},hotPointList={}",itemTypes,hotPointList);
+    log.info("itemTypes={},hotPointList={}", itemTypes, hotPointList);
 
     //批量获取标题
     List<Long> newsIdList = new ArrayList<>();
@@ -79,18 +79,18 @@ public class SearchController extends BaseController {
       }
     });
 
-    log.info("newsIdList={},articleIdList={}",newsIdList,articleIdList);
+    log.info("newsIdList={},articleIdList={}", newsIdList, articleIdList);
 
-    List<TabItemVo> itemVoList=new ArrayList<>();
+    List<TabItemVo> itemVoList = new ArrayList<>();
     List<NewsEntity> newsInfoList = newsService.findNewsTitle(newsIdList);
-    log.info("newsInfoList={}",newsInfoList);
+    log.info("newsInfoList={}", newsInfoList);
 
     newsInfoList.stream().forEach(newsEntity -> {
       itemVoList.add(new NewsItemVo(newsEntity));
     });
 
     List<WorkEntity> articleInfoList = workService.findArticleTitle(articleIdList);
-    log.info("newsInfoList={}",newsInfoList);
+    log.info("newsInfoList={}", newsInfoList);
 
     articleInfoList.stream().forEach(workEntity -> {
       itemVoList.add(new ArticleItemVo(workEntity));
@@ -101,14 +101,14 @@ public class SearchController extends BaseController {
       return success(itemVoList);
     }
     Set<Integer> indexSet = new HashSet<>();
+    List<TabItemVo> resultList = new ArrayList<>();
     while (indexSet.size() < 3) {
       Integer randomIndex = RandomUtils.nextInt(itemVoList.size());
-      indexSet.add(randomIndex);
+      if (indexSet.add(randomIndex)) {
+        resultList.add(itemVoList.get(randomIndex));
+      }
     }
-    log.info("indexSet={},itemVoList={}",indexSet,itemVoList);
-    List<TabItemVo> resultTitle = itemVoList.stream().filter(tabItemVo->indexSet.contains(tabItemVo.getItemId()))
-      .collect(Collectors.toList());
-    return success(resultTitle);
+    return success(resultList);
   }
 
   @ApiOperation(value = "热门看看号")
