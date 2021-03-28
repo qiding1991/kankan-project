@@ -26,6 +26,6 @@ public class NewsAddInfo {
     public News toNews(ResourceService resourceService) {
         MediaResource resource = MediaResource.builder().content(content).title(title).mediaType(EnumItemType.NEWS.getCode()).keyWords(keyword).build();
         String resourceId = resourceService.saveResource(resource);
-        return News.builder().picture(picture).resourceId(resourceId).title(title).tabId(tabId).build();
+        return News.builder().picture(picture).userId(userId).resourceId(resourceId).title(title).tabId(tabId).build();
     }
 }
