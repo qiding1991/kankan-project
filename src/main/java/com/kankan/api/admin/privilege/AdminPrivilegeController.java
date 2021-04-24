@@ -3,6 +3,7 @@ package com.kankan.api.admin.privilege;
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.module.privilege.Privilege;
+import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.service.PrivilegeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -48,5 +49,10 @@ public class AdminPrivilegeController extends BaseController {
     return success();
   }
 
-
+  @ApiOperation("给用户添加权限")
+  @PostMapping("addPrivilegeToUser")
+  public CommonResponse addPrivilegeToUser(@RequestBody UserPrivilege userPrivilege){
+    privilegeService.addPrivilegeToUser(userPrivilege.getUserId(),userPrivilege.getPrivilege());
+    return  success();
+  }
 }

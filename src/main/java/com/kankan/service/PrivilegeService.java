@@ -1,10 +1,12 @@
 package com.kankan.service;
 
 import com.kankan.module.privilege.Privilege;
+import com.kankan.module.privilege.UserPrivilege;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,5 +32,11 @@ public class PrivilegeService {
   public void delPrivilege(String privilegeId) {
     Query query = Query.query(Criteria.where("privilegeId").is(privilegeId));
     mongoTemplate.remove(query, Privilege.class);
+  }
+
+  public void addPrivilegeToUser(Long userId, List<String> privilege) {
+    Query query = Query.query(Criteria.where("_id").is(userId));
+    Update update = new  Update().push("privilege").each(privilege.toArray());
+    mongoTemplate.upsert(query,update, UserPrivilege.class);
   }
 }
