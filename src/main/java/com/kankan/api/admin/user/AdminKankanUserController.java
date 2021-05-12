@@ -18,12 +18,13 @@ import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -239,7 +240,7 @@ public class AdminKankanUserController extends BaseController {
     log.info("userDetail={}", userDetail);
     if (userPrivilege != null && !CollectionUtils.isEmpty(userPrivilege.getPrivilege())) {
       log.info("userPrivilege={}", userPrivilege);
-      if (StringUtils.isEmpty(userDetail.getApplyStatus())) {
+      if (ObjectUtils.isNotEmpty(userDetail.getApplyStatus())) {
         userDetail.setPrivilege(userPrivilege.getPrivilege());
       } else {
         userDetail = new UserDetailVo(user, userPrivilege);
