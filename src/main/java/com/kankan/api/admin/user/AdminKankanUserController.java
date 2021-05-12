@@ -23,6 +23,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,7 @@ import java.util.*;
 import static com.kankan.constant.CommonResponse.error;
 import static com.kankan.constant.ErrorCode.EMAIL_NOT_AVAILABLE_ERROR;
 import static com.kankan.constant.ErrorCode.USER_TOKEN_CHECK_ERROR;
+
 @Slf4j
 @Validated
 @Api(tags = "管理后台-用户管理-管理")
@@ -225,19 +227,22 @@ public class AdminKankanUserController extends BaseController {
   public CommonResponse detail(@RequestParam("userId") Long userId) {
     User user = userService.getUser(userId);
     UserDetailVo userDetail = new UserDetailVo(user);
+    Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());
+    log.info("applyInfo={}", applyInfo);
+    if (applyInfo != null && applyInfo instanceof KankanApply) {
+      userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
+    }
+    if (applyInfo != null && applyInfo instanceof KankanCompanyApply) {
+      userDetail = new UserDetailVo(user, (KankanCompanyApply) applyInfo);
+    }
     UserPrivilege userPrivilege = getUserPrivilege(mongoTemplate, user.getUserId());
     log.info("userDetail={}", userDetail);
     if (userPrivilege != null && !CollectionUtils.isEmpty(userPrivilege.getPrivilege())) {
       log.info("userPrivilege={}", userPrivilege);
-      userDetail = new UserDetailVo(user, userPrivilege);
-    } else {
-      Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());
-      log.info("applyInfo={}", applyInfo);
-      if (applyInfo != null && applyInfo instanceof KankanApply) {
-        userDetail = new UserDetailVo(user, (KankanApply) applyInfo);
-      }
-      if (applyInfo != null && applyInfo instanceof KankanCompanyApply) {
-        userDetail = new UserDetailVo(user, (KankanCompanyApply) applyInfo);
+      if (StringUtils.isEmpty(userDetail.getApplyStatus())) {
+        userDetail.setPrivilege(userPrivilege.getPrivilege());
+      } else {
+        userDetail = new UserDetailVo(user, userPrivilege);
       }
     }
     return CommonResponse.success(userDetail);
