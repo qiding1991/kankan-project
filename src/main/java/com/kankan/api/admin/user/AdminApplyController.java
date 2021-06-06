@@ -63,12 +63,12 @@ public class AdminApplyController extends BaseController {
     Object applyInfo = getApplyInfo(mongoTemplate, userId);
 
     Long userType;
-    if(applyInfo instanceof KankanApply){
-      userType=((KankanApply) applyInfo).getUserType();
-    }else {
-      userType=((KankanCompanyApply) applyInfo).getUserType();
+    if (applyInfo instanceof KankanApply) {
+      userType = ((KankanApply) applyInfo).getUserType();
+    } else {
+      userType = ((KankanCompanyApply) applyInfo).getUserType();
     }
-    userType= ObjectUtils.defaultIfNull(userType,0L);
+    userType = ObjectUtils.defaultIfNull(userType, 0L);
     if (updateParam.getApplyStatus() == 2) {
       UserPrivilege userPrivilege = UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
       mongoTemplate.save(userPrivilege);
