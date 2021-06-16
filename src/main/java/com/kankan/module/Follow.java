@@ -16,8 +16,8 @@ import lombok.Data;
 @Builder
 @Data
 public class Follow {
-    private Long userId;
-    private Long followId;
+    private String userId;
+    private String followId;
 
     public List<Follow> list(FollowService followService, PageQuery pageQuery) {
         return followService.findUserFollow(userId, pageQuery);

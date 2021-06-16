@@ -19,7 +19,7 @@ import lombok.Data;
 public class TabUpdate {
 
     @NotNull(message = "tabId不能为空")
-    private Long tabId;
+    private String tabId;
 
     private String tabName;
 

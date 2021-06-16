@@ -47,7 +47,7 @@ public class UserService {
     return infoList.stream().map(UserEntity::toUser).collect(Collectors.toList());
   }
 
-  public User getUser(Long userId){
+  public User getUser(String userId){
     UserEntity userEntity= userMapper.findUserById(userId);
     userEntity=Optional.ofNullable(userEntity).orElse(new UserEntity());
     return userEntity.toUser();

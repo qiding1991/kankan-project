@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Builder
 public class TabPageInfo {
-     private Long tabId;
-     private Long offset;
+     private String tabId;
+     private String offset;
      private Integer size;
 }

@@ -12,8 +12,8 @@ import org.springframework.beans.BeanUtils;
 @Data
 public class KankanUserEntity extends BaseEntity {
   private String userName;
-  private Long userId;
-  private Long userType;
+  private String userId;
+  private String userType;
   private String picture;
   private String remark;
   private Integer recommendStatus;

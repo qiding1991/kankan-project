@@ -11,7 +11,7 @@ import lombok.Data;
 public class HeaderLineInfo {
     private String picture;
     private String title;
-    private Long tabId;
+    private String tabId;
 
     public HeaderLine toHeadline() {
         return HeaderLine.builder().picture(picture).tabId(tabId).title(title).build();

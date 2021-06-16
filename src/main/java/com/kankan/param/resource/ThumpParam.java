@@ -11,14 +11,14 @@ import lombok.Data;
  */
 @Data
 public class ThumpParam {
-    private Long userId;
+    private String userId;
     private String resourceId;
 
     public ResourceThump toThump() {
-        return toThump(0L);
+        return toThump("0");
     }
 
-    public ResourceThump toThump(Long commentId) {
+    public ResourceThump toThump(String commentId) {
         return ResourceThump.builder().userId(userId).resourceId(resourceId).commentId(commentId).build();
     }
 

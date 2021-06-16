@@ -44,7 +44,7 @@ public class KankanTypeService {
         return entityList;
     }
 
-    public void delById(Long id) {
+    public void delById(String id) {
         typeMapper.delById(id);
     }
 }

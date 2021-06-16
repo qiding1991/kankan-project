@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class KankanTypeVo {
-   private Long id;
+   private String id;
    private String typeDesc;
    List<KankanUserVo>  userVoList=new ArrayList<>();
 }

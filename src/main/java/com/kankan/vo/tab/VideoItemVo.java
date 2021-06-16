@@ -55,7 +55,7 @@ public class VideoItemVo extends TabItemVo {
     this.setPublishTime(video.getPublishTime());
   }
 
-  public void addThumbStatus(Long userId, String resourceId, ThumpMapper thumpMapper) {
+  public void addThumbStatus(String userId, String resourceId, ThumpMapper thumpMapper) {
     this.thumbStatus = !CollectionUtils.isEmpty(thumpMapper.findByResourceId(resourceId, userId));
   }
 }

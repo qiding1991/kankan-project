@@ -13,8 +13,8 @@ import lombok.Data;
 @Data
 public class ResourceThump {
   private String resourceId;
-  private Long commentId;
-  private Long userId;
+  private String commentId;
+  private String userId;
 
   public void save(ThumpService thumpService) {
     thumpService.saveThump(this);

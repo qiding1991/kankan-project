@@ -27,8 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class KankanUser {
   private String userName;
-  private Long userId;
-  private Long userType;
+  private String userId;
+  private String userType;
   private String picture;
   private String remark;
   private Integer recommendStatus;
@@ -41,7 +41,7 @@ public class KankanUser {
     BeanUtils.copyProperties(kankanUserEntity, this);
   }
 
-  public static KankanUser fromUserId(Long userId, KankanUserService userService) {
+  public static KankanUser fromUserId(String userId, KankanUserService userService) {
     return userService.findUser(userId);
   }
 

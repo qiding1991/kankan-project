@@ -13,7 +13,7 @@ class KankanProjectApplicationTests {
 
   @Test
   void contextLoads() {
-    adminApplyController.sendInnerMessage(38L,"xxxxx","helloworld");
+    adminApplyController.sendInnerMessage("38","xxxxx","helloworld");
   }
 
 }

@@ -29,7 +29,7 @@ public class KankanAdService {
         kankanAd.setId(adEntity.getId());
     }
 
-    public KankanAd findAd(Long itemId) {
+    public KankanAd findAd(String itemId) {
         AdEntity entity = kankanAdMapper.findById(itemId);
         return entity.parse();
     }

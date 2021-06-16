@@ -8,7 +8,7 @@ import java.time.Instant;
 @Data
 public class BaseEntity {
 
-    private Long id;
+    private String id;
     private Integer status = 1;
     private Long createTime = Instant.now().toEpochMilli();
     private Long updateTime = Instant.now().toEpochMilli();

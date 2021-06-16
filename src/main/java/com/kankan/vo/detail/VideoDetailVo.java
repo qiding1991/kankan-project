@@ -73,11 +73,11 @@ public class VideoDetailVo {
     this.favouriteStatus = favouriteStatus;
   }
 
-  public void addThumpStatus(Long userId, ThumpMapper thumpMapper) {
+  public void addThumpStatus(String userId, ThumpMapper thumpMapper) {
     KankanCommentVo.addThumpStatus(this.commentVoList, userId, thumpMapper);
   }
 
-  public void addFollowStatus(FollowService followService, Long userId) {
+  public void addFollowStatus(FollowService followService, String userId) {
     getUserVo().setFollowStatus(followService.exists(userId, getUserVo().getUserId()));
   }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class FeedBackVo {
   private String id;
-  private Long userId;
+  private String userId;
   private String username;
   private String feedback;
   private List<String> pictures;

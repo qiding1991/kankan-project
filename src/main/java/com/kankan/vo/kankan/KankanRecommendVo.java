@@ -10,6 +10,6 @@ import lombok.Data;
 @Builder
 @Data
 public class KankanRecommendVo {
-    private Long userId;
+    private String userId;
     private Integer recommendOrder;
 }

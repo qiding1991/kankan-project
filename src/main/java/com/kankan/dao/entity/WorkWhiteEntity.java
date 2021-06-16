@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class WorkWhiteEntity extends BaseEntity {
-  private Long userId;
+  private String userId;
 }

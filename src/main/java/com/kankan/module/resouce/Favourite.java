@@ -26,8 +26,8 @@ import lombok.NoArgsConstructor;
 public class Favourite {
 
     private String resourceId;
-    private Long userId;
-    private Long id;
+    private String userId;
+    private String id;
     private PageQuery pageQuery;
 
 

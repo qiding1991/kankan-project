@@ -22,12 +22,12 @@ public class FollowService {
   @Resource
   private FollowMapper followMapper;
 
-  public List<Follow> findUserFollow(Long userId, PageQuery pageQuery) {
+  public List<Follow> findUserFollow(String userId, PageQuery pageQuery) {
     List<FollowEntity> followEntityList = followMapper.findUserFollow(userId, pageQuery.getOffset(), pageQuery.getSize());
     return followEntityList.stream().map(Follow::parseEntity).collect(Collectors.toList());
   }
 
-  public Boolean exists(Long userId, Long followId) {
+  public Boolean exists(String userId, String followId) {
     return 1 == followMapper.findCount(userId, followId);
   }
 

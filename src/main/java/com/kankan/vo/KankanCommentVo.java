@@ -20,12 +20,12 @@ import org.springframework.util.CollectionUtils;
  */
 @Data
 public class KankanCommentVo {
-  private Long id;
-  private Long parentId;
+  private String id;
+  private String parentId;
   private String resourceId;
   private Integer thumpCount;
   private String commentText;
-  private Long userId;
+  private String userId;
   private String userName;
   private Long createTime;
   private Boolean thumpStatus;//当前用户是否 false 未点赞 true
@@ -39,14 +39,14 @@ public class KankanCommentVo {
     this.userName = user.getUsername();
   }
 
-  public static void addThumpStatus(List<KankanCommentVo> infoList, Long currentUserId, ThumpMapper thumpMapper) {
+  public static void addThumpStatus(List<KankanCommentVo> infoList, String currentUserId, ThumpMapper thumpMapper) {
     for (KankanCommentVo item : infoList) {
       item.thumpStatus = !CollectionUtils.isEmpty(thumpMapper.findByCommentId(item.getId(), currentUserId));
     }
   }
 
-  public static void addThumpStatus(KankanCommentVo commentVo, Long currentUserId, ThumpMapper thumpMapper) {
-    currentUserId = ObjectUtils.defaultIfNull(currentUserId, 0L);
+  public static void addThumpStatus(KankanCommentVo commentVo, String currentUserId, ThumpMapper thumpMapper) {
+    currentUserId = ObjectUtils.defaultIfNull(currentUserId, "0");
     commentVo.thumpStatus = !CollectionUtils.isEmpty(thumpMapper.findByCommentId(commentVo.getId(), currentUserId));
   }
 

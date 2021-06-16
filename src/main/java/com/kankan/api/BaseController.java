@@ -63,8 +63,8 @@ public class BaseController {
     return CommonResponse.success();
   }
 
-  public Object getApplyInfo(MongoTemplate mongoTemplate, Long userId) {
-    Query query = Query.query(Criteria.where("_id").is(userId));
+  public Object getApplyInfo(MongoTemplate mongoTemplate, String userId) {
+    Query query = Query.query(Criteria.where("userId").is(userId));
     Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
     return applyInfo;
   }
@@ -89,8 +89,8 @@ public class BaseController {
 
 
 
-  public UserPrivilege getUserPrivilege(MongoTemplate mongoTemplate, Long userId) {
-    Query query = Query.query(Criteria.where("_id").is(userId));
+  public UserPrivilege getUserPrivilege(MongoTemplate mongoTemplate, String userId) {
+    Query query = Query.query(Criteria.where("userId").is(userId));
     UserPrivilege userPrivilege = mongoTemplate.findOne(query, UserPrivilege.class);
     return userPrivilege;
   }
@@ -104,13 +104,13 @@ public class BaseController {
   }
 
 
-  protected void addFollowStatus(FollowService followService, List<KankanUserVo> userList, Long userId) {
+  protected void addFollowStatus(FollowService followService, List<KankanUserVo> userList, String userId) {
     for (KankanUserVo userVo : userList) {
       userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
     }
   }
 
-  protected void itemAddFollowStatus(FollowService followService, List<UserItemVo> userList, Long userId) {
+  protected void itemAddFollowStatus(FollowService followService, List<UserItemVo> userList, String userId) {
     for (UserItemVo userVo : userList) {
       userVo.setFollowStatus(followService.exists(userId, userVo.getUserId()));
     }

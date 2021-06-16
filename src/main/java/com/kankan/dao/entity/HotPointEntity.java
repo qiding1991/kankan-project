@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HotPointEntity extends BaseEntity {
 
-    private Long itemId;
+    private String itemId;
     private Integer itemType;
     private Integer itemOrder;
 

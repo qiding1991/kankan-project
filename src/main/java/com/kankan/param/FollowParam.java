@@ -9,8 +9,8 @@ import lombok.Data;
  */
 @Data
 public class FollowParam {
-  private Long userId;
-  private Long followId;
+  private String userId;
+  private String followId;
 
 
   public Follow toFollow() {

@@ -14,7 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserMessage {
   @Id
   private String id;
-  private Long userId;
+  private String userId;
   private Integer msgType;
   private String title;
   private String content;

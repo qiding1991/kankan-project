@@ -38,7 +38,7 @@ public class NewsService {
     return infoList.stream().map(News::parseEntity).collect(Collectors.toList());
   }
 
-  public News findNews(Long newsId) {
+  public News findById(String  newsId) {
     NewsEntity newsEntity = newsMapper.findNewsById(newsId);
     return News.parseEntity(newsEntity);
   }
@@ -53,20 +53,20 @@ public class NewsService {
     return News.parseEntity(newsEntity);
   }
 
-  public void updateHotStatus(Long newsId, Integer hotStatus) {
+  public void updateHotStatus(String newsId, Integer hotStatus) {
     newsMapper.setHot(newsId, hotStatus);
   }
 
-  public void updateHeaderStatus(Long userId, Integer headerStatus) {
+  public void updateHeaderStatus(String userId, Integer headerStatus) {
     newsMapper.setHeader(userId, headerStatus);
   }
 
 
-  public List<NewsEntity> findByUserId(Long userId) {
+  public List<NewsEntity> findByUserId(String userId) {
     return newsMapper.findByUserId(userId);
   }
 
-  public List<NewsEntity> findNewsTitle(List<Long> newsIdList) {
+  public List<NewsEntity> findNewsTitle(List<String> newsIdList) {
     if (CollectionUtils.isEmpty(newsIdList)) {
       return new ArrayList<>();
     }
@@ -76,7 +76,7 @@ public class NewsService {
     return infoList;
   }
 
-  public List<News> findNews(Long offset, Integer size, String keyword) {
+  public List<News> findNews(String offset, Integer size, String keyword) {
     List<NewsEntity> infoList=newsMapper.findByKeyword(keyword,offset,size);
     return infoList.stream().map(News::parseEntity).collect(Collectors.toList());
   }

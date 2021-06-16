@@ -15,8 +15,8 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 @Data
 public class FollowEntity extends BaseEntity{
-  private Long userId;
-  private Long followId;
+  private String userId;
+  private String followId;
   public FollowEntity(Follow follow) {
     BeanUtils.copyProperties(follow,this);
   }

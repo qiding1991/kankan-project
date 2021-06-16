@@ -20,8 +20,8 @@ import java.util.List;
 @Data
 public class KankanWorkVo {
 
-  private Long id;
-  private Long userId;
+  private String id;
+  private String userId;
   private String picture;
   private String title;
   private String resourceId;
@@ -58,7 +58,7 @@ public class KankanWorkVo {
   }
 
   public HeaderLineItem addHeadLine(HeaderLineService headerLineService) {
-    HeaderLineItem headerLineItem = headerLineService.findHeaderLineItem(resourceId);
+    HeaderLineItem headerLineItem = headerLineService.findHeaderLineDetail(resourceId);
     if (headerLineItem != null) {
       this.isHeaderLine = 1;
     }

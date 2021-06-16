@@ -60,7 +60,7 @@ public class AdminKankanController extends BaseController {
 
   @ApiOperation("分类-删除")
   @PostMapping("delType/{id}")
-  public CommonResponse delType(@PathVariable(value = "id") Long id) {
+  public CommonResponse delType(@PathVariable(value = "id") String id) {
     KankanType kankanType = KankanType.builder().id(id).build();
     kankanType.remove(typeService);
     return success();

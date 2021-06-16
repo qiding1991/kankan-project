@@ -27,8 +27,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class KankanWork {
-  private Long id;
-  private Long userId;
+  private String id;
+  private String userId;
   private String picture;
   private String videoUrl;
   private String title;

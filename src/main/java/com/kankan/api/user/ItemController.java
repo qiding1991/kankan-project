@@ -96,7 +96,7 @@ public class ItemController extends BaseController {
 
   @ApiOperation("获取详情")
   @GetMapping("detail")
-  public CommonResponse detail(@RequestParam(value = "userId", required = false) Long userId, @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
+  public CommonResponse detail(@RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     MediaResource resource = resourceService.findResource(resourceId);
@@ -154,10 +154,10 @@ public class ItemController extends BaseController {
   @ApiOperation("获取新闻列表")
   @GetMapping("list")
   public CommonResponse list(@Valid
-                             @NotNull(message = "不能为空") @RequestParam(value = "tabId") Long tabId,
+                             @NotNull(message = "不能为空") @RequestParam(value = "tabId") String tabId,
                              @NotNull(message = "不能为空")
-                             @RequestParam(value = "offset", required = false, defaultValue = Integer.MAX_VALUE + "") Long offset,
-                             @RequestParam(value = "userId", required = false) Long userId,
+                             @RequestParam(value = "offset", required = false, defaultValue ="0") String offset,
+                             @RequestParam(value = "userId", required = false) String userId,
                              @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
     TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
@@ -177,14 +177,14 @@ public class ItemController extends BaseController {
       case ARTICLE:
         log.info("---开始查询文章--ARTICLE");
         infoList.add(findHotUserItemVo());
-        if (offset == Integer.MAX_VALUE) {
+        if (offset.equals("0")) {
           infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
         }
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
         log.info("---开始查询新闻--NEWS");
-        if (offset == Integer.MAX_VALUE) {
+        if (offset.equals("0")) {
           infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
         }
         infoList.addAll(findNews(newsService, pageInfo));
@@ -312,7 +312,7 @@ public class ItemController extends BaseController {
    */
   private TabItemVo transform(HotPoint hotPoint) {
     Integer itemType = hotPoint.getItemType();
-    Long itemId = hotPoint.getItemId();
+    String itemId = hotPoint.getItemId();
     EnumItemType itemEnum = EnumItemType.getItem(itemType);
     TabItemVo item = TabItemVo.builder().itemType(itemType).itemId(itemId).build();
     switch (itemEnum) {

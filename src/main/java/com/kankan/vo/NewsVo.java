@@ -8,9 +8,9 @@ import java.util.List;
 
 @Data
 public class NewsVo {
-  private Long id;
+  private String id;
   private String resourceId;
-  private Long tabId;
+  private String tabId;
   private String picture;
   private String title;
   private String content;

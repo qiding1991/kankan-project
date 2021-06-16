@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UpdateUserTypeParam {
-  private Long userId;
-  private Long userType;
+  private String userId;
+  private String userType;
 }

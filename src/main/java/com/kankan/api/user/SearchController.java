@@ -68,8 +68,8 @@ public class SearchController extends BaseController {
     log.info("itemTypes={},hotPointList={}", itemTypes, hotPointList);
 
     //批量获取标题
-    List<Long> newsIdList = new ArrayList<>();
-    List<Long> articleIdList = new ArrayList<>();
+    List<String> newsIdList = new ArrayList<>();
+    List<String> articleIdList = new ArrayList<>();
 
     hotPointList.forEach(hotPoint -> {
       if (EnumItemType.NEWS.getCode() == hotPoint.getItemType()) {
@@ -124,8 +124,8 @@ public class SearchController extends BaseController {
   @GetMapping("byKeyWords")
   public CommonResponse searchHot(@RequestParam(value = "tableType") Integer tableType,
                                   @RequestParam(value = "keyword") String keyword,
-                                  @NotNull(message = "不能为空") @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
-                                  @RequestParam(value = "userId", required = false) Long userId,
+                                  @NotNull(message = "不能为空") @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
+                                  @RequestParam(value = "userId", required = false) String userId,
                                   @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
     //查看信息
     EnumTabType enumTabType = EnumTabType.get(tableType);

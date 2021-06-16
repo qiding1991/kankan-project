@@ -34,8 +34,8 @@ public class PrivilegeService {
     mongoTemplate.remove(query, Privilege.class);
   }
 
-  public void addPrivilegeToUser(Long userId, List<String> privilege) {
-    Query query = Query.query(Criteria.where("_id").is(userId));
+  public void addPrivilegeToUser(String userId, List<String> privilege) {
+    Query query = Query.query(Criteria.where("id").is(userId));
     Update update = new  Update().push("privilege").each(privilege.toArray());
     mongoTemplate.upsert(query,update, UserPrivilege.class);
   }

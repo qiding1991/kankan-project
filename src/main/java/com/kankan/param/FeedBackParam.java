@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Data
 public class FeedBackParam {
-  private Long userId;
+  private String userId;
   private String feedback;
   private List<String> pictures;
 

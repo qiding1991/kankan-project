@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Tab {
-  private Long tabId;
+  private String tabId;
   private String tabName;
   private Integer tabType;
   private Integer tabOrder;
@@ -27,7 +27,7 @@ public class Tab {
     return new Tab();
   }
 
-  public static Tab fromTabId(Long tabId, TabService tabService) {
+  public static Tab fromTabId(String tabId, TabService tabService) {
     return tabService.findTab(tabId);
   }
 

@@ -110,7 +110,7 @@ public class AdminHeaderLineController {
 
   @ApiOperation("头条item列表")
   @GetMapping("headerLineItem/list/{headerLineId}")
-  public CommonResponse headerLineItemList(@PathVariable(value = "headerLineId") Long headerLineId) {
+  public CommonResponse headerLineItemList(@PathVariable(value = "headerLineId") String headerLineId) {
     HeaderLineItem headerLine = HeaderLineItem.builder().headerLineId(headerLineId).build();
     List<HeaderLineItem> infoList = headerLine.findHeadItemList(headerLineService);
     return CommonResponse.success(infoList);

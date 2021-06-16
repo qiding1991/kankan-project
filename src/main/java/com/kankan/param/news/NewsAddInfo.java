@@ -15,11 +15,11 @@ import lombok.Data;
  */
 @Data
 public class NewsAddInfo {
-    private Long tabId;
+    private String tabId;
     private String picture;
     private String title;
     private String content;
-    private Long userId;
+    private String userId;
     private List<String> keyword;
 
 

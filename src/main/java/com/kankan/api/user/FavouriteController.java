@@ -61,8 +61,8 @@ public class FavouriteController extends BaseController {
   @ApiOperation("收藏列表")
   @GetMapping("list")
   public CommonResponse list(
-    @RequestParam(value = "userId") Long userId,
-    @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
+    @RequestParam(value = "userId") String userId,
+    @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
     @RequestParam(value = "size") Integer size) {
     PageQuery pageQuery = PageQuery.builder().offset(offset).size(size).build();
     Favourite favourite = Favourite.builder().pageQuery(pageQuery).userId(userId).build();

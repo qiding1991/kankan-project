@@ -11,7 +11,7 @@ import lombok.Data;
 public class WorkEntity extends BaseEntity {
 
   private String resourceId;
-  private Long userId;
+  private String userId;
   private Integer type;
   private String title;
   private String picture;

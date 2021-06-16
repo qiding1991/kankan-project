@@ -27,7 +27,7 @@ public class KankanRecommendService {
         List<KankanRecommendEntity> infoList = recommendMapper.findAll();
         return infoList.stream().map(KankanRecommendEntity::toKankanRecommend).collect(Collectors.toList());
     }
-    public KankanRecommend getMyKankanRecommend(Long userId){
+    public KankanRecommend getMyKankanRecommend(String userId){
       KankanRecommendEntity entity= recommendMapper.findKankanRecommend(userId);
       if(entity==null){
         return null;

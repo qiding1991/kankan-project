@@ -12,7 +12,7 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeaderLineItemEntity extends BaseEntity {
-    private Long headerLineId;
+    private String headerLineId;
     private String resourceId;
     public HeaderLineItemEntity(HeaderLineItem headerLine) {
         BeanUtils.copyProperties(headerLine,this);

@@ -19,7 +19,7 @@ import java.util.List;
 public class Feedback {
   @Id
   private String id;
-  private Long userId;
+  private String userId;
   private String username;
   private String feedback;
   private List<String> pictures;

@@ -18,9 +18,9 @@ import org.apache.commons.lang3.ObjectUtils;
 @Data
 public class CommentEntity extends BaseEntity {
     private String resourceId;
-    private Long parentId = 0L;
+    private String parentId = "0";
     private String commentText;
-    private Long userId;
+    private String userId;
     private Integer thumpCount=0;
 
     public KankanComment parse() {

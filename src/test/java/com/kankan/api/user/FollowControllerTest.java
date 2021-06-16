@@ -16,16 +16,16 @@ class FollowControllerTest {
   @Test
   void add() {
     FollowParam followParam=new FollowParam();
-    followParam.setUserId(1L);
-    followParam.setFollowId(2L);
+    followParam.setUserId("1");
+    followParam.setFollowId("2");
     followController.add(followParam);
   }
 
   @Test
   void cancel() {
     FollowParam followParam=new FollowParam();
-    followParam.setUserId(1L);
-    followParam.setFollowId(2L);
+    followParam.setUserId("1");
+    followParam.setFollowId("2");
     followController.cancel(followParam);
   }
 }

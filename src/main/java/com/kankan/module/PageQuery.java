@@ -10,6 +10,6 @@ import lombok.Data;
 @Builder
 @Data
 public class PageQuery {
-    private Long offset;
+    private String offset;
     private Integer size;
 }

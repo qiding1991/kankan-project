@@ -69,7 +69,7 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("删除评论")
   @PostMapping("comment/cancel/{commentId}")
-  public CommonResponse cancelComment(@PathVariable(value = "commentId") Long commentId) {
+  public CommonResponse cancelComment(@PathVariable(value = "commentId") String commentId) {
     //保存
     KankanComment comment = KankanComment.builder().id(commentId).build();
     String resourceId = comment.remove(commentService);
@@ -83,7 +83,7 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("评论回复")
   @PostMapping("comment/{commentId}")
-  public CommonResponse comment(@PathVariable(value = "commentId") Long parentId, @RequestBody CommentParam param) {
+  public CommonResponse comment(@PathVariable(value = "commentId") String parentId, @RequestBody CommentParam param) {
     KankanComment comment = param.toComment(parentId);
     comment.save(commentService);
     return success();
@@ -117,7 +117,7 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("点赞 评论")
   @PostMapping("thump/{commentId}")
-  public CommonResponse thump(@PathVariable(value = "commentId") Long commentId, @RequestBody ThumpParam param) {
+  public CommonResponse thump(@PathVariable(value = "commentId") String commentId, @RequestBody ThumpParam param) {
     //保存点赞
     ResourceThump thump = param.toThump(commentId);
     thump.save(thumpService);
@@ -129,7 +129,7 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("取消点赞评论")
   @PostMapping("thump/{commentId}/cancel")
-  public CommonResponse cancelThump(@PathVariable(value = "commentId") Long commentId, @RequestBody ThumpParam param) {
+  public CommonResponse cancelThump(@PathVariable(value = "commentId") String commentId, @RequestBody ThumpParam param) {
     //删除点赞
     ResourceThump thump = param.toThump();
     thump.cancel(thumpService);
@@ -170,7 +170,7 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取所有的评论")
   @GetMapping("comment/list")
-  public CommonResponse commentList(@RequestParam(value = "userId",required = false) Long userId,
+  public CommonResponse commentList(@RequestParam(value = "userId",required = false) String userId,
                                     @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
@@ -183,8 +183,8 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取某条评论相关的评论")
   @GetMapping("comment/list/{commentId}")
-  public CommonResponse commentList(@PathVariable(value = "commentId") Long commentId,
-                                    @RequestParam(value = "userId",required = false) Long userId, @RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@PathVariable(value = "commentId") String commentId,
+                                    @RequestParam(value = "userId",required = false) String userId, @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();

@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class TabEntity {
-    private Long id;
+    private String id;
     private String tabName;
     private Integer tabType;
     private Integer tabOrder;

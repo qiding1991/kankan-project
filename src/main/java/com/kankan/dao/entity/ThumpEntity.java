@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class ThumpEntity extends BaseEntity {
     private String resourceId;
-    private Long commentId;
-    private Long userId;
+    private String  commentId;
+    private String userId;
 }

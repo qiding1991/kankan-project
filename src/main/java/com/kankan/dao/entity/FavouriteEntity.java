@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class FavouriteEntity extends BaseEntity {
     private String resourceId;
-    private Long userId;
+    private String userId;
 
     public Favourite parse() {
         return Favourite.builder().resourceId(resourceId).userId(userId).id(this.getId()).build();

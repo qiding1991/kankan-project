@@ -18,8 +18,8 @@ public class HeaderLine {
 
     private String picture;
     private String title;
-    private Long tabId;
-    private Long id;
+    private String tabId;
+    private String id;
 
     public static HeaderLine parseEntity(HeaderLineInfoEntity entity) {
         return HeaderLine.builder().id(entity.getId()).picture(entity.getPicture()).title(entity.getTitle()).tabId(entity.getTabId())

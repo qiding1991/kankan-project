@@ -48,7 +48,7 @@ public class HotPointService {
 
 
 
-  public HotPoint findHot(int itemType, Long itemId) {
+  public HotPoint findHot(int itemType, String itemId) {
     HotPointEntity hotPointEntity = hotPointMapper.findByItemTypeAndItemId(itemType, itemId);
     if (hotPointEntity != null) {
       return HotPoint.parseEntity(hotPointEntity);
@@ -57,7 +57,7 @@ public class HotPointService {
 
   }
 
-  public void delHot(int itemType, Long itemId) {
+  public void delHot(int itemType, String itemId) {
     hotPointMapper.delByItemTypeAndItemId(itemType, itemId);
   }
 

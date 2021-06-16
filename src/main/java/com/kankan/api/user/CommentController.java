@@ -62,7 +62,7 @@ public class CommentController extends BaseController {
 
   @ApiOperation("我评论的")
   @GetMapping("from")
-  public CommonResponse from(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse from(@RequestParam(value = "userId") String userId) {
     KankanComment comment = KankanComment.builder().userId(userId).build();
     List<KankanComment> infoList = comment.fromMe(commentService);
     log.info("comment by userId={},infoList={}",userId,infoList);
@@ -92,12 +92,12 @@ public class CommentController extends BaseController {
 
   @ApiOperation("回复我的")
   @GetMapping("to")
-  public CommonResponse to(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse to(@RequestParam(value = "userId") String userId) {
     //1.获取我所有的作品的评论
     KankanWork kankanWork = KankanWork.builder().userId(userId).build();
     List<KankanWork> infoList = kankanWork.findMyWork(workService);
     log.info("user_id={},myWorkList={}",userId,infoList);
-    List<KankanComment> workCondition = infoList.parallelStream().map(work -> KankanComment.builder().resourceId(work.getResourceId()).parentId(0L).build()).collect(Collectors.toList());
+    List<KankanComment> workCondition = infoList.parallelStream().map(work -> KankanComment.builder().resourceId(work.getResourceId()).parentId("0").build()).collect(Collectors.toList());
     log.info("resource commentList={}",workCondition);
     //2.评论我的回复
     KankanComment comment = KankanComment.builder().userId(userId).build();

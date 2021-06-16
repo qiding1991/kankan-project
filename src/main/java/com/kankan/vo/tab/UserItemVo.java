@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 @Data
 public class UserItemVo extends TabItemVo {
   private String userName;
-  private Long userId;
+  private String userId;
   private String remark;
   private String picture;
   private Long fansCount;

@@ -49,7 +49,7 @@ public class KankanUserController extends BaseController {
 
   @ApiOperation("作者基本信息-粉丝数、阅读量、关注基本信息")
   @GetMapping("baseInfo")
-  public CommonResponse baseInfo(@RequestParam(value = "currentUserId", required = false) Long currentUserId, @RequestParam(value = "userId") Long userId) {
+  public CommonResponse baseInfo(@RequestParam(value = "currentUserId", required = false) String currentUserId, @RequestParam(value = "userId") String userId) {
     KankanUser user = KankanUser.builder().userId(userId).build();
     user.completeInfo(kankanUserService);
     KankanUserVo kankanUserVo = user.toVo();
@@ -62,7 +62,7 @@ public class KankanUserController extends BaseController {
 
   @ApiOperation("作者的文章")
   @GetMapping("article")
-  public CommonResponse article(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse article(@RequestParam(value = "userId") String userId) {
     return getUserWorkInfo(userId, 0);
 
   }
@@ -70,11 +70,11 @@ public class KankanUserController extends BaseController {
 
   @ApiOperation("作者的视频")
   @GetMapping("video")
-  public CommonResponse video(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse video(@RequestParam(value = "userId") String userId) {
     return getUserWorkInfo(userId, 1);
   }
 
-  private CommonResponse getUserWorkInfo(Long userId, Integer workType) {
+  private CommonResponse getUserWorkInfo(String userId, Integer workType) {
     List<KankanWork> workList = workService.findUserWork(userId, workType);
     List<TabItemVo> itemVoList = workList.stream().map(this::transform).collect(Collectors.toList());
     return success(itemVoList);

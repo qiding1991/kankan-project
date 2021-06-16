@@ -22,7 +22,7 @@ import org.springframework.beans.BeanUtils;
 @Data
 public class KankanType {
 
-    private Long id;
+    private String id;
     private String typeDesc;
     private Integer typeOrder;
 

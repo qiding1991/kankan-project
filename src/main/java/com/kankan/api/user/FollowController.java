@@ -40,13 +40,13 @@ public class FollowController extends BaseController {
   @ApiOperation("关注列表")
   @GetMapping("list")
   public CommonResponse list(
-    @RequestParam(value = "offset", required = false, defaultValue = "0") Long offset,
-    @RequestParam(value = "size") Integer size, @RequestParam(value = "userId") Long userId) {
+    @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
+    @RequestParam(value = "size") Integer size, @RequestParam(value = "userId") String userId) {
     Follow follow = Follow.builder().userId(userId).build();
     PageQuery pageQuery = PageQuery.builder().offset(offset).size(size).build();
     List<Follow> followList = follow.list(followService, pageQuery);
-    List<Long> userIdList = followList.stream().map(Follow::getFollowId).collect(Collectors.toList());
-    List<KankanUserVo> userVoList = userIdList.stream().map(id -> ((Function<Long, KankanUserVo>) userId1 -> KankanUser.builder().userId(userId1).build().findUser(kankanUserService).toVo()).apply(id)).collect(Collectors.toList());
+    List<String> userIdList = followList.stream().map(Follow::getFollowId).collect(Collectors.toList());
+    List<KankanUserVo> userVoList = userIdList.stream().map(id -> ((Function<String, KankanUserVo>) userId1 -> KankanUser.builder().userId(userId1).build().findUser(kankanUserService).toVo()).apply(id)).collect(Collectors.toList());
     PageData pageData = PageData.pageData(userVoList, size);
     return success(pageData);
   }
@@ -74,7 +74,7 @@ public class FollowController extends BaseController {
 
   @ApiOperation("是否已经关注")
   @GetMapping("isFollow")
-  public CommonResponse isFollow(@RequestParam(value = "userId") Long userId, @RequestParam(value = "targetUserId") Long targetUserId) {
+  public CommonResponse isFollow(@RequestParam(value = "userId") String userId, @RequestParam(value = "targetUserId") String targetUserId) {
     Follow follow = Follow.builder().userId(userId).followId(targetUserId).build();
     return success(follow.exists(followService));
   }

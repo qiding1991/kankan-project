@@ -57,7 +57,7 @@ public class AdminNewsController extends BaseController {
 
   @ApiOperation("获取当前用户创建的新闻")
   @GetMapping("findByUserId")
-  public CommonResponse findByUserId(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse findByUserId(@RequestParam(value = "userId") String userId) {
     List<NewsEntity> infoList = newsService.findByUserId(userId);
     return success(infoList);
   }

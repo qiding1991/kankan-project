@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class KankanUserVo extends TabItemVo {
     private String userName;
-    private Long userId;
+    private String userId;
     private String remark;
     private String picture;
     private Long fansCount;

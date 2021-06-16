@@ -29,7 +29,7 @@ public class KankanUserService {
   private UserService userService;
 
 
-  public KankanUser findUser(Long userId) {
+  public KankanUser findUser(String userId) {
     log.info("获取用户信息，userId={}", userId);
     KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
     KankanUser user = new KankanUser(userEntity);
@@ -49,7 +49,7 @@ public class KankanUserService {
     return infoList;
   }
 
-  public List<KankanUser> findUserByPageInfo(Long offset, Integer size) {
+  public List<KankanUser> findUserByPageInfo(String offset, Integer size) {
     log.info("参数，offset={},size={}", offset, size);
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset, size);
     List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
@@ -57,40 +57,40 @@ public class KankanUserService {
     return infoList;
   }
 
-  public List<KankanUser> findUserByType(Long userType) {
+  public List<KankanUser> findUserByType(String userType) {
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByType(userType);
     List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     infoList.forEach(userItem -> userItem.addUserPhoto(userService));
     return infoList;
   }
 
-  public void updateUserType(Long userId, Long userType) {
+  public void updateUserType(String userId, String userType) {
     kankanUserMapper.updateUserType(userId, userType);
   }
 
-  public void updateUserRecommendStatus(Long userId, Integer recommendStatus) {
+  public void updateUserRecommendStatus(String userId, Integer recommendStatus) {
     kankanUserMapper.updateUserRecommendStatus(userId, recommendStatus);
   }
 
 
-  public void incrFollowCount(Long userId) {
+  public void incrFollowCount(String userId) {
     kankanUserMapper.updateFollowCount(userId, 1);
   }
 
-  public void decrFollowCount(Long userId) {
+  public void decrFollowCount(String userId) {
     kankanUserMapper.updateFollowCount(userId, -1);
   }
 
-  public void incrFansCount(Long userId) {
+  public void incrFansCount(String userId) {
     kankanUserMapper.updateFansCount(userId, 1);
   }
 
-  public void decrFansCount(Long userId) {
+  public void decrFansCount(String userId) {
     kankanUserMapper.updateFansCount(userId, -1);
   }
 
 
-  public void incrReadCount(Long userId) {
+  public void incrReadCount(String userId) {
     kankanUserMapper.updateReadCount(userId, 1);
   }
 
@@ -99,7 +99,7 @@ public class KankanUserService {
     kankanUserMapper.updateWhiteStatus(userId, whiteStatus);
   }
 
-  public Integer whiteStatus(Long userId) {
+  public Integer whiteStatus(String userId) {
     KankanUserEntity userEntity = kankanUserMapper.findByUserId(userId);
     return userEntity.getWhiteStatus();
   }
@@ -115,7 +115,7 @@ public class KankanUserService {
     return kankanUserMapper.findHotUser(orderField.get(), limit);
   }
 
-  public List<KankanUser> findUser(Long offset, Integer size, String keyword) {
+  public List<KankanUser> findUser(String offset, Integer size, String keyword) {
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByKeyword(offset, size, keyword);
     List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
     infoList.forEach(userItem -> userItem.addUserPhoto(userService));

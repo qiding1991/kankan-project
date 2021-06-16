@@ -15,7 +15,7 @@ import org.apache.commons.lang3.ObjectUtils;
  */
 @Data
 public class WorkAddInfo {
-    private Long userId;
+    private String userId;
     private String picture;
     private String title;
     private String videoUrl;

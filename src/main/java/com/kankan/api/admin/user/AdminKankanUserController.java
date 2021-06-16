@@ -110,7 +110,7 @@ public class AdminKankanUserController extends BaseController {
 
   @ApiOperation("更新用户")
   @PostMapping("update/{userId}")
-  public CommonResponse update(@PathVariable(value = "userId") Long userId, @RequestBody UserRoleParam userRole) {
+  public CommonResponse update(@PathVariable(value = "userId") String userId, @RequestBody UserRoleParam userRole) {
     User user = User.builder()
       .userEmail(userRole.getUserEmail())
       .username(userRole.getUsername())
@@ -165,7 +165,7 @@ public class AdminKankanUserController extends BaseController {
     @RequestParam(value = "userEmail", required = false) String userEmail) {
     User user = User.builder().userEmail(userEmail).username(username).build();
     List<User> userList = userService.findUser(user);
-    Map<Long, User> userMap = new HashMap<>(userList.size());
+    Map<String, User> userMap = new HashMap<>(userList.size());
     userList.stream().forEach(userInfo -> userMap.put(userInfo.getUserId(), userInfo));
     List<UserDetailVo> userDetailVoList = findApplyInfo(userMap, privilege);
     return success(userDetailVoList);
@@ -189,10 +189,10 @@ public class AdminKankanUserController extends BaseController {
   }
 
 
-  public List<UserDetailVo> findApplyInfo(Map<Long, User> userMap, String privilege) {
+  public List<UserDetailVo> findApplyInfo(Map<String, User> userMap, String privilege) {
 
     List<UserDetailVo> userDetailVoList = new ArrayList<>();
-    Map<Long, UserDetailVo> userDetailVoMap = new HashMap<>();
+    Map<String, UserDetailVo> userDetailVoMap = new HashMap<>();
 
     userMap.values().forEach((user) -> {
       userDetailVoMap.put(user.getUserId(), new UserDetailVo(user));
@@ -207,7 +207,7 @@ public class AdminKankanUserController extends BaseController {
     List<KankanCompanyApply> companyApplyList = mongoTemplate.find(query, KankanCompanyApply.class);
     List<UserPrivilege> userPrivilegeList = mongoTemplate.find(query, UserPrivilege.class);
     userPrivilegeList.forEach(userPrivilege -> {
-      Long userId = userPrivilege.getUserId();
+      String userId = userPrivilege.getUserId();
       userDetailVoMap.put(userId, new UserDetailVo(userMap.get(userId), userPrivilege));
     });
 
@@ -225,7 +225,7 @@ public class AdminKankanUserController extends BaseController {
 
   @ApiOperation("用户详情,根据userid获取用户详情")
   @GetMapping("detail")
-  public CommonResponse detail(@RequestParam("userId") Long userId) {
+  public CommonResponse detail(@RequestParam("userId") String userId) {
     User user = userService.getUser(userId);
     UserDetailVo userDetail = new UserDetailVo(user);
     Object applyInfo = getApplyInfo(mongoTemplate, user.getUserId());

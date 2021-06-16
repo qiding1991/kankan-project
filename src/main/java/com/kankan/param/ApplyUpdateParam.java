@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ApplyUpdateParam {
-  private Long userId;
+  private String userId;
   private Integer applyStatus;
 }

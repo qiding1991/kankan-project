@@ -11,7 +11,7 @@ import lombok.Data;
  */
 @Data
 public class HotInfo {
-    private Long itemId;
+    private String itemId;
     private Integer itemType;
     private Integer itemOrder;
 

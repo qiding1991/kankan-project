@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class KankanRecommendEntity extends BaseEntity{
-    private Long userId;
+    private String userId;
     private Integer recommendOrder;
 
     public KankanRecommendEntity(KankanRecommend kankanRecommend) {

@@ -8,6 +8,6 @@ import lombok.Data;
  */
 @Data
 public class FeedbackEntity extends BaseEntity{
-    private Long userId;
+    private String userId;
     private String feedback;
 }

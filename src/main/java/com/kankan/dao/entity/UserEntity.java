@@ -15,7 +15,7 @@ import lombok.Data;
 @NoArgsConstructor
 @Data
 public class UserEntity {
-    private Long id;
+    private String id;
     private String userEmail="";
     private String password="";;
     private String username="";;

@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 public class KankanTypeUpdataParam {
-    private Long id;
+    private String id;
     private String typeDesc;
     private Integer typeOrder;
 

@@ -37,9 +37,9 @@ public class CommentService {
   public List<KankanComment> fromMe(KankanComment kankanComment) {
     List<CommentEntity> entityList = entityList(kankanComment);
     List<KankanComment> kankanComments = entityList.stream().map(CommentEntity::parse).collect(Collectors.toList());
-    kankanComments.stream().filter(comment -> comment.getParentId() > 0)
+    kankanComments.stream().filter(comment -> !comment.getParentId().equals("0"))
       .forEach(comment -> {
-        Long id = comment.getParentId();
+        String id = comment.getParentId();
         CommentEntity commentEntity = commentMapper.findById(id);
         comment.setUserId(commentEntity.getUserId());
       });
@@ -70,18 +70,18 @@ public class CommentService {
     return infoList;
   }
 
-  public void incrementThumpCount(Long id) {
+  public void incrementThumpCount(String id) {
     commentMapper.incrementThumpCount(id);
   }
 
-  public void decreaseThumpCount(Long id) {
+  public void decreaseThumpCount(String id) {
     commentMapper.decreaseThumpCount(id);
   }
 
-  public String removeById(Long id) {
+  public String removeById(String id) {
     CommentEntity entity = commentMapper.findById(id);
     commentMapper.deleteById(id);
-    if(entity.getParentId()!=0){
+    if(!entity.getParentId().equals("0")){
        return entity.getResourceId();
     }
     return null;

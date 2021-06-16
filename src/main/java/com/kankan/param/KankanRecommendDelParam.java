@@ -10,7 +10,7 @@ import lombok.Data;
  */
 @Data
 public class KankanRecommendDelParam {
-    private Long userId;
+    private String userId;
     public KankanRecommend toRecommend() {
         return KankanRecommend.builder().userId(userId).build();
     }

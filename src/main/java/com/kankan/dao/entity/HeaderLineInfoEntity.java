@@ -15,7 +15,7 @@ import org.springframework.beans.BeanUtils;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HeaderLineInfoEntity extends BaseEntity {
-    private Long tabId;
+    private String tabId;
     private String title;
     private String picture;
 

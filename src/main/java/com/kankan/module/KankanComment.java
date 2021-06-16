@@ -23,11 +23,11 @@ import lombok.extern.log4j.Log4j2;
 @Builder
 @Data
 public class KankanComment {
-  private Long id;
+  private String id;
   private String resourceId;
-  private Long parentId = 0L;
+  private String parentId = "0";
   private String commentText;
-  private Long userId;
+  private String userId;
   private Integer thumpCount = 0;
   private Long createTime;
 
@@ -53,11 +53,11 @@ public class KankanComment {
 
     List<KankanCommentVo> rootComment = new ArrayList<>();
 
-    Map<Long, KankanCommentVo> commentVoMap = new HashMap<>();
+    Map<String, KankanCommentVo> commentVoMap = new HashMap<>();
     voList.forEach(vo -> commentVoMap.put(vo.getId(), vo));
 
     voList.forEach(vo -> {
-      if (vo.getParentId() == 0) {
+      if (vo.getParentId() .equals("0")) {
         rootComment.add(vo);
       } else {
         if(commentVoMap.get(vo.getParentId())!=null){
@@ -69,7 +69,7 @@ public class KankanComment {
   }
 
 
-  public KankanCommentVo resourceCommentInfo(CommentService commentService, UserService userService, Long commentId) {
+  public KankanCommentVo resourceCommentInfo(CommentService commentService, UserService userService, String commentId) {
     //获取当前resource的所有评价
     List<KankanComment> commentList = commentService.findResourceComment(resourceId);
     log.info("当前resourceId={},response={}", resourceId, commentList);
@@ -77,11 +77,11 @@ public class KankanComment {
     log.info("当前resourceId={},response={},voList={}", resourceId, commentList, voList);
     List<KankanCommentVo> rootComment = new ArrayList<>();
 
-    Map<Long, KankanCommentVo> commentVoMap = new HashMap<>();
+    Map<String, KankanCommentVo> commentVoMap = new HashMap<>();
     voList.forEach(vo -> commentVoMap.put(vo.getId(), vo));
 
     voList.forEach(vo -> {
-      if (vo.getParentId() == 0) {
+      if (vo.getParentId().equals("0")) {
         rootComment.add(vo);
       } else {
         if(commentVoMap.get(vo.getParentId())!=null){

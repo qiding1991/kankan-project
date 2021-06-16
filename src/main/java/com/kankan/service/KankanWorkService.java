@@ -44,22 +44,22 @@ public class KankanWorkService {
     return workEntityList.stream().map(KankanWork::parseEntity).collect(Collectors.toList());
   }
 
-  public KankanWork findVideo(Long itemId) {
+  public KankanWork findVideo(String itemId) {
     WorkEntity entity = workMapper.findById(itemId);
     return KankanWork.parseEntity(entity);
   }
 
-  public KankanWork findArticle(Long itemId) {
+  public KankanWork findArticle(String itemId) {
     WorkEntity entity = workMapper.findById(itemId);
     return KankanWork.parseEntity(entity);
   }
 
-  public List<KankanWork> findUserWork(Long userId) {
+  public List<KankanWork> findUserWork(String userId) {
     List<WorkEntity> infoList = workMapper.findUserWork(userId);
     return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
   }
 
-  public List<KankanWork> findUserWork(Long userId, Integer workType) {
+  public List<KankanWork> findUserWork(String userId, Integer workType) {
     List<WorkEntity> infoList = workMapper.findUserWorkByType(userId, workType);
     return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
   }
@@ -80,20 +80,20 @@ public class KankanWorkService {
     return KankanWork.parseEntity(workEntity);
   }
 
-  public void auditWork(Long id, Integer status) {
+  public void auditWork(String id, Integer status) {
     workMapper.updateWork(id, status);
   }
 
-  public void setHot(Long id, Integer hotStatus) {
+  public void setHot(String id, Integer hotStatus) {
     workMapper.setHot(id, hotStatus);
   }
 
 
-  public void updateHeaderStatus(Long id, Integer headerStatus) {
+  public void updateHeaderStatus(String id, Integer headerStatus) {
     workMapper.updateWork(id, headerStatus);
   }
 
-  public List<WorkEntity> findArticleTitle(List<Long> articleIdList) {
+  public List<WorkEntity> findArticleTitle(List<String> articleIdList) {
     if (CollectionUtils.isEmpty(articleIdList)) {
       return new ArrayList<>();
     }
@@ -103,7 +103,7 @@ public class KankanWorkService {
     return titleList;
   }
 
-  public List<KankanWork> findArticle(Long offset, Integer size, String keyword) {
+  public List<KankanWork> findArticle(String offset, Integer size, String keyword) {
     List<WorkEntity> infoList = workMapper.findArticleByKeyword(offset, size, keyword);
     return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
   }

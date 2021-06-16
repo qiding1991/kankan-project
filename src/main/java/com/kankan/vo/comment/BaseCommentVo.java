@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class BaseCommentVo {
-  private Long id;
+  private String id;
   private String username;
   private Long publishTime;
   private String resourceId;

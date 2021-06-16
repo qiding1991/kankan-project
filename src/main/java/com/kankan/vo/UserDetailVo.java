@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class UserDetailVo {
-  private Long userId;
+  private String userId;
   private String userEmail;
   private String password;
 

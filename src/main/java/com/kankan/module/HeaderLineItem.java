@@ -23,10 +23,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class HeaderLineItem {
   private String resourceId;
-  private Long headerLineId;
+  private String headerLineId;
   private String title;
   private Integer itemType;
-  private Long id;
+  private String id;
 
   public void creatHeadItem(HeaderLineService headerLineService) {
     headerLineService.createHeadItem(this);

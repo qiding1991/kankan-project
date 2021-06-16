@@ -58,7 +58,7 @@ public class KankanController extends BaseController {
 
   @ApiOperation("推荐列表")
   @GetMapping("list")
-  public CommonResponse recommendList(@RequestParam(value = "userId", required = false) Long userId) {
+  public CommonResponse recommendList(@RequestParam(value = "userId", required = false) String userId) {
     List<KankanRecommend> recommendList = recommendService.findAll();
     List<KankanUserVo> userList =
       recommendList.stream()
@@ -78,7 +78,7 @@ public class KankanController extends BaseController {
 
   @ApiOperation("分类+用户列表")
   @GetMapping("userList")
-  public CommonResponse userList(@RequestParam(value = "userId", required = false) Long userId) {
+  public CommonResponse userList(@RequestParam(value = "userId", required = false) String  userId) {
     //获取分类
     KankanType kankanType = KankanType.builder().build();
     List<KankanType> typeList = kankanType.findAll(typeService);

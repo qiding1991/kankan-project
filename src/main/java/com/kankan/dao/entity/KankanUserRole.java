@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class KankanUserRole  extends BaseEntity{
-  private Long id;
-  private Long userId;
+  private String id;
+  private String userId;
   private String roleId;
 }

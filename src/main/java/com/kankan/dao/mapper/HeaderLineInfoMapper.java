@@ -1,22 +1,21 @@
 package com.kankan.dao.mapper;
 
 import com.kankan.module.HeaderLine;
-import org.apache.ibatis.annotations.Mapper;
-
+//import org.apache.ibatis.annotations.Mapper;
+//import org.apache.ibatis.annotations.Select;
 import com.kankan.dao.entity.HeaderLineInfoEntity;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-@Mapper
+//@Mapper
 public interface HeaderLineInfoMapper {
     void insert(HeaderLineInfoEntity headerLineInfoEntity);
 
-    HeaderLineInfoEntity findHeaderLineInfo(Long tabId);
+    HeaderLineInfoEntity findHeaderLineInfo(String tabId);
 
-    @Select("select * from header_line_info  where id=#{itemId}")
-    HeaderLine findHeaderLineById(Long itemId);
+//    @Select("select * from header_line_info  where id=#{itemId}")
+    HeaderLine findHeaderLineById(String itemId);
 
-    @Select("select * from header_line_info")
+//    @Select("select * from header_line_info")
     List<HeaderLineInfoEntity> findHeaderLine();
 }

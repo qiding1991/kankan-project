@@ -108,7 +108,7 @@ public class NewsDetailVo {
   }
 
 
-  public void addThumpStatus(Long userId, ThumpMapper thumpMapper) {
+  public void addThumpStatus(String userId, ThumpMapper thumpMapper) {
     KankanCommentVo.addThumpStatus(this.commentVoList, userId, thumpMapper);
   }
 

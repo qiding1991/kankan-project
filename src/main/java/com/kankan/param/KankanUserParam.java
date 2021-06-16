@@ -5,8 +5,8 @@ import lombok.Data;
 
 @Data
 public class KankanUserParam {
-    private Long userId;
-    private Long userType;
+    private String userId;
+    private String userType;
     private String remark;
     private String userName;
 

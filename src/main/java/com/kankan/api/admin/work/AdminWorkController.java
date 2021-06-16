@@ -62,7 +62,7 @@ public class AdminWorkController extends BaseController {
 
   @ApiOperation("作品列表")
   @GetMapping("list")
-  public CommonResponse listWork(@RequestParam(value = "userId",required = false) Long userId) {
+  public CommonResponse listWork(@RequestParam(value = "userId",required = false) String userId) {
     KankanWork work = KankanWork.builder().build();
     List<KankanWork> infoList;
     if(userId==null){

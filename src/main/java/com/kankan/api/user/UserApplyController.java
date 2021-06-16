@@ -71,13 +71,13 @@ public class UserApplyController extends BaseController {
 
   @ApiOperation("获取申请信息")
   @GetMapping("applyDetail")
-  public CommonResponse applyDetail(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse applyDetail(@RequestParam(value = "userId") String userId) {
     Object applyInfo = getApplyInfo(userId);
     return success(applyInfo);
   }
 
 
-  private Object getApplyInfo(Long userId) {
+  private Object getApplyInfo(String userId) {
     Query query = Query.query(Criteria.where("_id").is(userId));
     Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
     return applyInfo;

@@ -1,8 +1,8 @@
 package com.kankan.dao.mapper;
 
 import com.kankan.dao.entity.UserEntity;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+//import org.apache.ibatis.annotations.Mapper;
+//import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @author <qiding@qiding.com>
  * Created on 2020-12-02
  */
-@Mapper
+//@Mapper
 public interface UserMapper {
 
   /**
@@ -44,6 +44,6 @@ public interface UserMapper {
 
   List<UserEntity> findUser(UserEntity userEntity);
 
-  @Select("select * from  user_info where id=#{userId}")
-  UserEntity findUserById(Long userId);
+//  @Select("select * from  user_info where id=#{userId}")
+  UserEntity findUserById(String userId);
 }

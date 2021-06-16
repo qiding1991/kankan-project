@@ -35,7 +35,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TabItemVo {
-    private Long itemId;
+    private String itemId;
     private Integer itemType;
     private String resourceId;
     private Long publishTime;

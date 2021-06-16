@@ -1,8 +1,5 @@
 package com.kankan.dao.entity;
 
-import java.time.Instant;
-
-import com.fasterxml.jackson.databind.ser.Serializers;
 import com.kankan.module.KankanAd;
 import lombok.Data;
 

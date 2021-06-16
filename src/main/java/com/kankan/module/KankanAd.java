@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class KankanAd {
 
-    private Long id;
+    private String id;
     private String resourceId;
     private String title;
     private String picture;

@@ -55,20 +55,20 @@ public class AdminApplyController extends BaseController {
   @ApiOperation("更新审核状态")
   @PostMapping("update")
   public CommonResponse update(@RequestBody ApplyUpdateParam updateParam) {
-    Long userId = updateParam.getUserId();
+    String userId = updateParam.getUserId();
     Integer applyStatus = updateParam.getApplyStatus();
     Query query = Query.query(Criteria.where("_id").is(userId));
     Update update = Update.update("applyStatus", applyStatus);
     mongoTemplate.updateMulti(query, update, "kankan_apply");
     Object applyInfo = getApplyInfo(mongoTemplate, userId);
 
-    Long userType;
+    String userType;
     if (applyInfo instanceof KankanApply) {
       userType = ((KankanApply) applyInfo).getUserType();
     } else {
       userType = ((KankanCompanyApply) applyInfo).getUserType();
     }
-    userType = ObjectUtils.defaultIfNull(userType, 0L);
+    userType = ObjectUtils.defaultIfNull(userType, "0");
     if (updateParam.getApplyStatus() == 2) {
       UserPrivilege userPrivilege = UserPrivilege.builder().privilege(getPrivilege(applyInfo)).userId(userId).build();
       mongoTemplate.save(userPrivilege);
@@ -87,7 +87,7 @@ public class AdminApplyController extends BaseController {
     return success();
   }
 
-  public void sendInnerMessage(Long userId, String username, String message) {
+  public void sendInnerMessage(String userId, String username, String message) {
     UserMessage userMessage = UserMessage.builder().userId(userId).content(username + "," + message).build();
     userMessage.setCreateTime(Instant.now().toEpochMilli());
     userMessage.setRead(false);

@@ -20,7 +20,7 @@ class FeedbackControllerTest {
   void addFeedBack() {
     FeedBackParam feedBackParam = new FeedBackParam();
     feedBackParam.setFeedback("46464646");
-    feedBackParam.setUserId(4L);
+    feedBackParam.setUserId("4");
     feedBackParam.setPictures(Arrays.asList("11111111111111"));
     feedbackController.addFeedBack(feedBackParam);
   }

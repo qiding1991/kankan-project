@@ -12,15 +12,15 @@ import lombok.Data;
 
 @Data
 public class CommentParam {
-    private Long userId;
+    private String userId;
     private String resourceId;
     private String commentText;
 
     public KankanComment toComment() {
-        return toComment(0L);
+        return toComment("0");
     }
 
-    public KankanComment toComment(Long parentId) {
+    public KankanComment toComment(String parentId) {
         return KankanComment.builder().commentText(commentText).userId(userId).parentId(parentId)
                 .resourceId(resourceId).build();
     }

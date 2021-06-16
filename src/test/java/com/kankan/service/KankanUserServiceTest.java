@@ -14,19 +14,19 @@ class KankanUserServiceTest {
 
   @Test
   void incrFollowCount() {
-       userService.incrFollowCount(1L);
-       userService.incrFollowCount(1L);
-       userService.incrFollowCount(1L);
+       userService.incrFollowCount("2");
+       userService.incrFollowCount("2");
+       userService.incrFollowCount("2");
   }
 
   @Test
   void decrFollowCount() {
-      userService.decrFollowCount(1L);
+      userService.decrFollowCount("1");
   }
 
   @Test
   void incrReadCount(){
-     userService.incrReadCount(1L);
+     userService.incrReadCount("1");
   }
 
 }

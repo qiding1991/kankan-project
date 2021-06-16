@@ -37,7 +37,7 @@ public class FavouriteService {
           favouriteMapper.remove(favourite.getUserId(),favourite.getResourceId());
     }
 
-    public FavouriteEntity findFavourite(Long userId,String resourceId){
+    public FavouriteEntity findFavourite(String userId,String resourceId){
       return favouriteMapper.findByUserIdAndResourceId(userId,resourceId);
     }
 

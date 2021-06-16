@@ -40,7 +40,7 @@ public class HeaderLineService {
     headerLineItem.setId(itemEntity.getId());
   }
 
-  public HeaderLine findHeaderLineInfo(Long tabId) {
+  public HeaderLine findHeaderLineInfo(String tabId) {
     HeaderLineInfoEntity entity = headerLineInfoMapper.findHeaderLineInfo(tabId);
     if(entity!=null){
       return HeaderLine.parseEntity(entity);
@@ -48,12 +48,12 @@ public class HeaderLineService {
     return  null;
   }
 
-  public List<HeaderLineItem> findHeaderLineItem(Long headerLineId) {
+  public List<HeaderLineItem> findHeaderLineItem(String headerLineId) {
     List<HeaderLineItemEntity> entity = headerLineItemMapper.findHeaderLineItem(headerLineId);
     return HeaderLineItem.parseEntity(entity);
   }
 
-  public HeaderLine findHeaderLineById(Long itemId) {
+  public HeaderLine findHeaderLineById(String itemId) {
     return headerLineInfoMapper.findHeaderLineById(itemId);
   }
 
@@ -62,7 +62,7 @@ public class HeaderLineService {
     return infoList.stream().map(HeaderLineInfoEntity::parse).collect(Collectors.toList());
   }
 
-  public HeaderLineItem findHeaderLineItem(String resourceId) {
+  public HeaderLineItem findHeaderLineDetail(String resourceId) {
     HeaderLineItemEntity headerLineItemEntity = headerLineItemMapper.findByResourceId(resourceId);
     if(headerLineItemEntity!=null){
 

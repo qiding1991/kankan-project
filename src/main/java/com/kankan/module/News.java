@@ -25,12 +25,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class News {
-  private Long id;
-  private Long tabId;
+  private String id;
+  private String tabId;
   private String picture;
   private String title;
   private String resourceId;
-  private Long userId;
+  private String userId;
   private Long createTime;
   private Integer hotStatus;//是否设置称热点
   private Integer headStatus;

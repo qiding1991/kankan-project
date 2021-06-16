@@ -16,8 +16,8 @@ import java.util.List;
 @Data
 public class HotPoint {
 
-  private Long id;
-  private Long itemId;
+  private String id;
+  private String itemId;
   private Integer itemType;
   private Integer itemOrder;
 
