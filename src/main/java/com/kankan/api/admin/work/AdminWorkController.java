@@ -1,11 +1,14 @@
 package com.kankan.api.admin.work;
 
+import com.kankan.module.privilege.UserPrivilege;
 import javax.validation.Valid;
 
 import com.google.common.collect.ImmutableMap;
 import com.kankan.param.AuditParam;
 import com.kankan.service.*;
 import com.kankan.vo.KankanWorkVo;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,19 +34,19 @@ import java.util.stream.Collectors;
 @RequestMapping("admin/work")
 public class AdminWorkController extends BaseController {
 
+  @Autowired
   private ResourceService resourceService;
+  @Autowired
   private KankanWorkService workService;
+  @Autowired
   private HotPointService hotPointService;
+  @Autowired
   private HeaderLineService headerLineService;
+  @Autowired
   private KankanUserService kankanUserService;
+  @Autowired
+  private UserPrivilegeService userPrivilegeService;
 
-  public AdminWorkController(ResourceService resourceService, KankanWorkService workService, HotPointService hotPointService, HeaderLineService headerLineService, KankanUserService kankanUserService) {
-    this.resourceService = resourceService;
-    this.workService = workService;
-    this.hotPointService = hotPointService;
-    this.headerLineService = headerLineService;
-    this.kankanUserService = kankanUserService;
-  }
 
 
   @ApiOperation("发布作品")
@@ -63,6 +66,14 @@ public class AdminWorkController extends BaseController {
   @ApiOperation("作品列表")
   @GetMapping("list")
   public CommonResponse listWork(@RequestParam(value = "userId",required = false) String userId) {
+
+    if(StringUtils.isNotBlank(userId)){
+      UserPrivilege userPrivilege= userPrivilegeService.findByUserId(userId);
+      if(userPrivilege.getPrivilege().contains("manage_kankan")){
+         userId = null;
+      }
+    }
+
     KankanWork work = KankanWork.builder().build();
     List<KankanWork> infoList;
     if(userId==null){

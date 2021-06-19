@@ -39,4 +39,7 @@ public class PrivilegeService {
     Update update = new  Update().push("privilege").each(privilege.toArray());
     mongoTemplate.upsert(query,update, UserPrivilege.class);
   }
+
+
+
 }
