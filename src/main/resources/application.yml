@@ -12,7 +12,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://127.0.0.1:27017/kankan2
-#      uri: mongodb://127.0.0.1:27017/kankan2
+#      uri: mongodb://47.94.33.237:27017/kankan2
       grid-fs-database: kankan-fs2
     #mysql配置
 #  datasource:
