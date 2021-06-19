@@ -4,10 +4,11 @@ import lombok.Data;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.time.Instant;
+import org.springframework.data.annotation.Id;
 
 @Data
 public class BaseEntity {
-
+    @Id
     private String id;
     private Integer status = 1;
     private Long createTime = Instant.now().toEpochMilli();
