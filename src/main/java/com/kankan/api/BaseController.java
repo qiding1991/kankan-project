@@ -13,6 +13,7 @@ import com.kankan.vo.KankanUserVo;
 import com.kankan.vo.tab.UserItemVo;
 import lombok.extern.log4j.Log4j2;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -65,8 +66,9 @@ public class BaseController {
 
   public Object getApplyInfo(MongoTemplate mongoTemplate, String userId) {
     Query query = Query.query(Criteria.where("userId").is(userId));
-    Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
-    return applyInfo;
+    Object applyInfo = mongoTemplate.findOne(query, KankanApply.class, "kankan_apply");
+    Object applyInfo2 = mongoTemplate.findOne(query, KankanCompanyApply.class, "kankan_apply");
+    return ObjectUtils.defaultIfNull(applyInfo,applyInfo2);
   }
 
   public String getUsername( Object applyInfo){
@@ -85,6 +87,8 @@ public class BaseController {
       return ((KankanCompanyApply) applyInfo).getCity();
     }
   }
+
+
 
 
 
