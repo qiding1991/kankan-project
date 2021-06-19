@@ -1,7 +1,9 @@
 package com.kankan.dao.mapper;
 
 import com.kankan.dao.entity.NewsEntity;
+import io.netty.util.internal.StringUtil;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -26,9 +28,12 @@ public class NewsMapperImpl implements NewsMapper {
   @Override
   public List<NewsEntity> findNews(String tabId, String offset, Integer size) {
     Query query = new Query(Criteria.where("tabId").is(tabId))
-        .addCriteria(Criteria.where("id").lt(offset))
         .with(Sort.by(Order.desc("id")))
         .limit(size);
+
+    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+       query.addCriteria(Criteria.where("id").lt(offset));
+    }
     return mongoTemplate.find(query, myClass);
   }
 
