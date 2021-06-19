@@ -9,6 +9,7 @@ import com.kankan.service.*;
 import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.tab.AdItemVo;
 import com.kankan.vo.tab.NewsItemVo;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang.math.RandomUtils;
@@ -85,7 +86,8 @@ public class NewsDetailVo {
    */
   private List<NewsItemVo> relatedNews(List<MediaResource> mediaResourceList, NewsService newsService, TabService tabService, ResourceService resourceService) {
     List<News> newsList = mediaResourceList.stream().map(mediaResource -> newsService.findNews(mediaResource.getResourceId()))
-      .collect(Collectors.toList());
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
     return newsList.stream().map(news -> news.toItemVo(tabService, resourceService)).collect(Collectors.toList());
 
   }

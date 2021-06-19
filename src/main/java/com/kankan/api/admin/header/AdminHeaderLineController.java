@@ -74,7 +74,9 @@ public class AdminHeaderLineController {
 
     if (enumItemType == EnumItemType.NEWS) {
       News news = newsService.findNews(headerItem.getResourceId());
-      newsService.updateHeaderStatus(news.getId(), 2);
+      if(news!=null){
+        newsService.updateHeaderStatus(news.getId(), 2);
+      }
     } else if (enumItemType == EnumItemType.VIDEO || enumItemType == EnumItemType.ARTICLE) {
       KankanWork work = workService.findByResourceId(headerItem.getResourceId());
       workService.updateHeaderStatus(work.getId(), 2);
@@ -94,7 +96,9 @@ public class AdminHeaderLineController {
 
     if (enumItemType == EnumItemType.NEWS) {
       News news = newsService.findNews(headerItem.getResourceId());
-      newsService.updateHeaderStatus(news.getId(), 1);
+      if(news!=null){
+        newsService.updateHeaderStatus(news.getId(), 1);
+      }
     } else if (enumItemType == EnumItemType.VIDEO || enumItemType == EnumItemType.ARTICLE) {
       KankanWork work = workService.findByResourceId(headerItem.getResourceId());
       workService.updateHeaderStatus(work.getId(), 1);

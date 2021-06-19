@@ -1,5 +1,6 @@
 package com.kankan.service;
 
+import io.netty.util.internal.StringUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +8,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 
 import com.kankan.util.GsonUtil;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -50,8 +52,20 @@ public class NewsService {
 
   public News findNews(String resourceId) {
     NewsEntity newsEntity = newsMapper.findNewsByResourceId(resourceId);
-    return News.parseEntity(newsEntity);
+    if(ObjectUtils.allNotNull(newsEntity)){
+      return News.parseEntity(newsEntity);
+    }
+    return null;
   }
+
+  public News findNewsById(String newsId){
+    NewsEntity newsEntity = newsMapper.findNewsById(newsId);
+    if(ObjectUtils.allNotNull(newsEntity)){
+      return News.parseEntity(newsEntity);
+    }
+    return null;
+  }
+
 
   public void updateHotStatus(String newsId, Integer hotStatus) {
     newsMapper.setHot(newsId, hotStatus);

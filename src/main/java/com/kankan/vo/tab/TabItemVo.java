@@ -47,7 +47,7 @@ public class TabItemVo {
      */
     public NewsItemVo toNews(TabService tabService, NewsService newsService, ResourceService resourceService) {
         //获取新闻详情
-        News news = newsService.findNews(itemId);
+        News news = newsService.findNewsById(itemId);
         //获取tab名称
         Tab tab = tabService.findTab(news.getTabId());
         //资源详情
