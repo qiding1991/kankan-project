@@ -86,7 +86,7 @@ public class WorkMapperImpl implements WorkMapper {
   @Override
   public List<WorkEntity> findUserWorkByType(String userId, Integer workType) {
 //    @Select("select * from work_info where user_id=#{userId}  and type=#{workType}")
-    Query query = Query.query(Criteria.where("userId").is(userId).and("workType").is(workType));
+    Query query = Query.query(Criteria.where("userId").is(userId).and("type").is(workType));
     return mongoTemplate.find(query, myClass);
   }
 

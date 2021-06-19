@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Queue;
 //import org.apache.ibatis.annotations.Delete;
 //import org.apache.ibatis.annotations.Select;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -24,8 +26,11 @@ public class FollowMapperImpl implements FollowMapper {
   public List<FollowEntity> findUserFollow(String userId, String offset, Integer size) {
 
 //    @Select("select * from kankan_follow where user_id=#{userId} and id > #{offset} limit #{size}")
-
-    Query query = Query.query(Criteria.where("userId").is(userId).and("id").lt(offset)).limit(size);
+    Query query = Query.query(Criteria.where("userId").is(userId))
+        .limit(size);
+    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+       query.addCriteria(Criteria.where("id").gt(new ObjectId(offset)));
+    }
     return mongoTemplate.find(query, myClass);
   }
 
