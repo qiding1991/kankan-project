@@ -4,12 +4,14 @@ import com.kankan.dao.entity.UserEntity;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class UserMapperImpl implements UserMapper {
@@ -105,16 +107,18 @@ public class UserMapperImpl implements UserMapper {
     List<Criteria> criteriaList = new ArrayList<>(2);
 
     if (StringUtils.isNotEmpty(userEmail)) {
-      criteriaList.add(Criteria.where("userEmail").is("/"+userEmail+"/"));
+      criteriaList.add(Criteria.where("userEmail").is("/" + userEmail + "/"));
     }
     if (StringUtils.isNotEmpty(username)) {
-      criteriaList.add(Criteria.where("username").is("/"+username+"/"));
+      criteriaList.add(Criteria.where("username").is("/" + username + "/"));
     }
 
-    Query query = Query.query(Criteria.where("status").is(1)
-        .orOperator(
-            criteriaList.toArray(new Criteria[]{})
-        ));
+    Query query = Query.query(Criteria.where("status").is(1));
+    if (CollectionUtils.isEmpty(criteriaList)) {
+      query.addCriteria(new Criteria().orOperator(
+          criteriaList.toArray(new Criteria[]{})
+      ));
+    }
     return mongoTemplate.find(query, myClass);
   }
 
