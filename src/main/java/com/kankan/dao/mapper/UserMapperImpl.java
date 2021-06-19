@@ -114,7 +114,7 @@ public class UserMapperImpl implements UserMapper {
     }
 
     Query query = Query.query(Criteria.where("status").is(1));
-    if (CollectionUtils.isEmpty(criteriaList)) {
+    if (!CollectionUtils.isEmpty(criteriaList)) {
       query.addCriteria(new Criteria().orOperator(
           criteriaList.toArray(new Criteria[]{})
       ));
