@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 @Lazy
-public class UserPermissionHandler {
+public class UserLogHandler {
 
   @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)||"
       + "@annotation(org.springframework.web.bind.annotation.PostMapping)")
@@ -24,10 +24,10 @@ public class UserPermissionHandler {
   @Around("request()")
   public Object userTokenCheck(ProceedingJoinPoint joinPoint) throws Throwable {
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-    log.info("收到请求，target ={},method={},args={}", joinPoint.getTarget().toString()
+    log.info("收到请求，target ={},method={},args={}", joinPoint.getTarget().getClass().getName()
         , methodSignature.getName(), joinPoint.getArgs());
     Object result = joinPoint.proceed(joinPoint.getArgs());
-    log.info("收到result，target ={},method={},args={},result={}", joinPoint.getTarget().toString()
+    log.info("处理结果，target ={},method={},args={},result={}", joinPoint.getTarget().getClass().getName()
         , methodSignature.getName(), joinPoint.getArgs(), result);
     return result;
   }
