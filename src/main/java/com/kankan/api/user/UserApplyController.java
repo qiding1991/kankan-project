@@ -7,6 +7,7 @@ import com.kankan.dao.entity.KankanApply;
 import com.kankan.param.KankanCompanyApply;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -81,13 +82,12 @@ public class UserApplyController extends BaseController {
   private Object getApplyInfo(String userId) {
     Query query = Query.query(Criteria.where("userId").is(userId));
 
-    Object applyInfo = mongoTemplate.findOne(query, KankanCompanyApply.class, "kankan_apply");
-    Object applyInfo2 = mongoTemplate.findOne(query, KankanApply.class, "kankan_apply");
-    if(ObjectUtils.isEmpty(applyInfo)){
-       return  applyInfo2;
-    }else{
-      return applyInfo;
+    KankanCompanyApply applyInfo2 = mongoTemplate.findOne(query, KankanCompanyApply.class, "kankan_apply");
+    KankanApply applyInfo = mongoTemplate.findOne(query, KankanApply.class, "kankan_apply");
+    if(applyInfo2!=null&& StringUtils.isNotBlank(applyInfo2.getAdminName())){
+      return  applyInfo2;
     }
+    return applyInfo;
   }
 
 

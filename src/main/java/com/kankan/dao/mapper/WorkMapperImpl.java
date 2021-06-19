@@ -2,6 +2,8 @@ package com.kankan.dao.mapper;
 
 import com.kankan.dao.entity.WorkEntity;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -32,8 +34,11 @@ public class WorkMapperImpl implements WorkMapper {
 //
 //    select * from work_info where  `type`=0 and id &lt; #{offset} order by id desc limit #{size}
 
-    Query query = Query.query(Criteria.where("type").is(0).and("id").lt(offset))
+    Query query = Query.query(Criteria.where("type").is(0))
         .limit(size).with(Sort.by(Order.desc("id")));
+    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
+    }
     return mongoTemplate.find(query, myClass);
   }
 
@@ -45,8 +50,11 @@ public class WorkMapperImpl implements WorkMapper {
 //        select * from work_info where  `type`=1 and  id &lt; #{offset} order by id desc limit #{size}
 //    </select>
 
-    Query query = Query.query(Criteria.where("type").is(1).and("id").lt(offset))
+    Query query = Query.query(Criteria.where("type").is(1))
         .limit(size).with(Sort.by(Order.desc("id")));
+    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
+    }
     return mongoTemplate.find(query, myClass);
 
   }
