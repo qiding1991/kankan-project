@@ -4,6 +4,7 @@ import com.kankan.dao.entity.NewsEntity;
 import io.netty.util.internal.StringUtil;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Order;
@@ -32,7 +33,7 @@ public class NewsMapperImpl implements NewsMapper {
         .limit(size);
 
     if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
-       query.addCriteria(Criteria.where("id").lt(offset));
+       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
     return mongoTemplate.find(query, myClass);
   }

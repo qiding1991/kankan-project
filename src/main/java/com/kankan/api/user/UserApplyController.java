@@ -78,7 +78,7 @@ public class UserApplyController extends BaseController {
 
 
   private Object getApplyInfo(String userId) {
-    Query query = Query.query(Criteria.where("_id").is(userId));
+    Query query = Query.query(Criteria.where("userId").is(userId));
     Object applyInfo = mongoTemplate.findOne(query, Object.class, "kankan_apply");
     return applyInfo;
   }

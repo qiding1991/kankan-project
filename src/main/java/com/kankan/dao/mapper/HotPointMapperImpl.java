@@ -4,7 +4,10 @@ import com.kankan.dao.entity.HotPointEntity;
 import com.kankan.module.HotPoint;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -26,8 +29,13 @@ public class HotPointMapperImpl implements HotPointMapper {
   @Override
   public List<HotPointEntity> findHotInfo(String offset, Integer size) {
 //    return nuselect item_id,item_type from hot_info where status = 1 and item_order &lt; #{offset}  order by item_order desc limit #{size}ll;
-    //TODO 修改
-    return  mongoTemplate.findAll(myClass);
+    Query query = new Query(Criteria.where("status").is(1))
+        .with(Sort.by(Order.desc("itemOrder")))
+        .limit(size);
+    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+      query.addCriteria(Criteria.where("itemOrder").lt(offset));
+    }
+    return  mongoTemplate.find(query,myClass);
   }
 
   @Override
