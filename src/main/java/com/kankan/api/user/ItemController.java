@@ -160,6 +160,10 @@ public class ItemController extends BaseController {
                              @RequestParam(value = "userId", required = false) String userId,
                              @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
+    if (offset.equals("2147483647")) {
+      offset = "0";
+    }
+
     TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
     Tab tab = tabService.findTab(tabId);
     if (tab == null) {
