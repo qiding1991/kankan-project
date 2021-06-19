@@ -62,8 +62,9 @@ public class NewsService {
   }
 
 
-  public List<NewsEntity> findByUserId(String userId) {
-    return newsMapper.findByUserId(userId);
+  public List<News> findByUserId(String userId) {
+    List<NewsEntity> newsEntities= newsMapper.findByUserId(userId);
+    return newsEntities.stream().map(News::parseEntity).collect(Collectors.toList());
   }
 
   public List<NewsEntity> findNewsTitle(List<String> newsIdList) {

@@ -21,8 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Validated
 @Api(tags = "管理后台-管理-新闻")
@@ -58,9 +57,8 @@ public class AdminNewsController extends BaseController {
   @ApiOperation("获取当前用户创建的新闻")
   @GetMapping("findByUserId")
   public CommonResponse findByUserId(@RequestParam(value = "userId") String userId) {
-    List<NewsEntity> infoList = newsService.findByUserId(userId);
-    return success(infoList);
+    List<News> infoList = newsService.findByUserId(userId);
+    List<NewsVo> newsVos = infoList.stream().map(news1 -> news1.toItemVo(resourceService)).collect(Collectors.toList());
+    return success(newsVos);
   }
-
-
 }
