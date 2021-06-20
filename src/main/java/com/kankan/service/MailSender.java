@@ -36,7 +36,8 @@ public class MailSender {
     private MailConfig mailConfig;
 
     public String sendActiveSmsCode(String receiver) {
-        String activeCode = JiaGuoRandomUtil.generateCode(activeCodeLength);
+       // String activeCode = JiaGuoRandomUtil.generateCode(activeCodeLength);
+        String activeCode = "111111";
         String content = String.format(emailTemplate, receiver, activeCode);
         MailData mailData = MailData.builder().content(content).receiver(receiver).build();
         try {
