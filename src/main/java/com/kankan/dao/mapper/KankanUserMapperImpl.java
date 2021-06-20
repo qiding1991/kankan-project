@@ -2,8 +2,11 @@ package com.kankan.dao.mapper;
 
 import com.kankan.dao.entity.KankanUserEntity;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -37,7 +40,11 @@ public class KankanUserMapperImpl implements KankanUserMapper {
   @Override
   public List<KankanUserEntity> findByPage(String offset, Integer size) {
 //    @Select("select * from kankan_user where id < #{offset} limit #{size}")
-    Query query = new Query(Criteria.where("id").lt(offset)).limit(size);
+    Query query = new Query().limit(size)
+        .with(Sort.by(Order.desc("id")));
+    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
+      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
+    }
     return mongoTemplate.find(query, myClass);
   }
 
@@ -104,7 +111,7 @@ public class KankanUserMapperImpl implements KankanUserMapper {
   @Override
   public List<KankanUserEntity> findByKeyword(String offset, Integer size, String keyword) {
 //    @Select("select * from  kankan_user where user_name like concat('%',#{keyword},'%')  limit #{offset},#{size}")
-    Query query = new Query().addCriteria(Criteria.where("userName").is("/"+keyword+"/"))
+    Query query = new Query().addCriteria(Criteria.where("userName").is("/" + keyword + "/"))
         .addCriteria(Criteria.where("id").gt(offset)).limit(size);
     return mongoTemplate.find(query, myClass);
   }

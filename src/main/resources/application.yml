@@ -13,7 +13,7 @@ spring:
     mongodb:
       uri: mongodb://127.0.0.1:27017/kankan2
 #      uri: mongodb://47.94.33.237:27017/kankan2
-      grid-fs-database: kankan-fs2
+      grid-fs-database: kankan-fs
     #mysql配置
 #  datasource:
 #    url: jdbc:mysql://localhost:3306/kankan?useUnicode=true&characterEncoding=utf-8&relaxAutoCommit=true&
