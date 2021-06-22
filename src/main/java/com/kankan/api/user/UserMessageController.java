@@ -25,7 +25,7 @@ public class UserMessageController extends BaseController {
 
   @ApiOperation(value = "获取站内信")
   @GetMapping("list")
-  public CommonResponse list(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse list(@RequestParam(value = "userId") String userId) {
     Query query = Query.query(Criteria.where("userId").is(userId));
     List<UserMessage> infoList = mongoTemplate.find(query, UserMessage.class);
     return success(infoList);
@@ -42,7 +42,7 @@ public class UserMessageController extends BaseController {
 
   @ApiOperation(value = "全部读取")
   @PostMapping("readAll")
-  public CommonResponse readAll(@RequestParam(value = "userId") Long userId) {
+  public CommonResponse readAll(@RequestParam(value = "userId") String userId) {
     Query query = Query.query(Criteria.where("userId").is(userId));
     Update update = Update.update("isRead", true);
     mongoTemplate.updateMulti(query, update, UserMessage.class);
