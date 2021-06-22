@@ -13,6 +13,7 @@ public enum ErrorCode {
   USER_APPLY_FORBIDDEN(2002, "审核已经通过，不需要重新申请"),
   USER_APPLY_REPEATED_COMPANY(2003, "已经申请公司看看号"),
   USER_APPLY_REPEATED_PERSON(2004, "已经申请个人看看号"),
+  USER_FOLLOW_REPEATED_PERSON(2005, "已经关注，不能重复关注"),
   UN_KNOW_ERROR(-1, "服务器未知异常");
 
 

@@ -2,6 +2,7 @@ package com.kankan.api.user;
 
 import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
+import com.kankan.constant.ErrorCode;
 import com.kankan.constant.PageData;
 import com.kankan.module.Follow;
 import com.kankan.module.KankanUser;
@@ -60,6 +61,10 @@ public class FollowController extends BaseController {
   @PostMapping("add")
   public CommonResponse add(@RequestBody FollowParam param) {
     Follow follow = param.toFollow();
+    //如果已经关注的不能重复关注
+    if(followService.exists(param.getUserId(),param.getFollowId())){
+         return CommonResponse.error(ErrorCode.SMS_CODE_ERROR);
+    }
     follow.add(followService);
     kankanUserService.incrFollowCount(param.getUserId());
     kankanUserService.incrFansCount(param.getFollowId());
