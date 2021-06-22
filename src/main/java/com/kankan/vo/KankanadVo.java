@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 @Data
 public class KankanadVo {
 
-    private Long id;
+    private String id;
     private String resourceId;
     private String title;
     private String picture;

@@ -12,7 +12,7 @@ import lombok.Data;
  */
 @Data
 public class FavouriteVo {
-    private Long id;
+    private String id;
     private String resourceId;
 
     public FavouriteVo(Favourite favourite) {
