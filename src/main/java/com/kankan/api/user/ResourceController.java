@@ -22,8 +22,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-06
+ * @author <qiding@qiding.com> Created on 2020-12-06
  */
 @Validated
 @Api(tags = "用户-详情-点赞、评论")
@@ -45,7 +44,7 @@ public class ResourceController extends BaseController {
   private ThumpMapper thumpMapper;
 
   public ResourceController(ResourceService resourceService, CommentService commentService,
-                            ThumpService thumpService, FavouriteService favouriteService, UserService userService) {
+      ThumpService thumpService, FavouriteService favouriteService, UserService userService) {
     this.resourceService = resourceService;
     this.commentService = commentService;
     this.thumpService = thumpService;
@@ -68,7 +67,7 @@ public class ResourceController extends BaseController {
 
 
   @ApiOperation("删除评论")
-  @PostMapping("comment/cancel/{commentId}")
+  @RequestMapping(value = "comment/cancel/{commentId}", method = {RequestMethod.GET, RequestMethod.POST})
   public CommonResponse cancelComment(@PathVariable(value = "commentId") String commentId) {
     //保存
     KankanComment comment = KankanComment.builder().id(commentId).build();
@@ -162,7 +161,7 @@ public class ResourceController extends BaseController {
   @ApiOperation("相关资源")
   @GetMapping("related")
   public CommonResponse related(@RequestParam(value = "resourceId") String resourceId,
-                                @RequestParam(value = "mediaType") Integer mediaType) {
+      @RequestParam(value = "mediaType") Integer mediaType) {
     MediaResource resource = MediaResource.builder().mediaType(mediaType).resourceId(resourceId).build();
     List<MediaResource> infoList = resource.findRelated(resourceService);
     return success(infoList);
@@ -170,8 +169,8 @@ public class ResourceController extends BaseController {
 
   @ApiOperation("获取所有的评论")
   @GetMapping("comment/list")
-  public CommonResponse commentList(@RequestParam(value = "userId",required = false) String userId,
-                                    @RequestParam(value = "resourceId") String resourceId) {
+  public CommonResponse commentList(@RequestParam(value = "userId", required = false) String userId,
+      @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
@@ -184,12 +183,12 @@ public class ResourceController extends BaseController {
   @ApiOperation("获取某条评论相关的评论")
   @GetMapping("comment/list/{commentId}")
   public CommonResponse commentList(@PathVariable(value = "commentId") String commentId,
-                                    @RequestParam(value = "userId",required = false) String userId, @RequestParam(value = "resourceId") String resourceId) {
+      @RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "resourceId") String resourceId) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     KankanComment comment = KankanComment.builder().resourceId(resourceId).build();
     KankanCommentVo commentVo = comment.resourceCommentInfo(commentService, userService, commentId);
-    KankanCommentVo.addThumpStatus(commentVo, userId,thumpMapper);
+    KankanCommentVo.addThumpStatus(commentVo, userId, thumpMapper);
     return success(commentVo);
   }
 }
