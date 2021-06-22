@@ -20,8 +20,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-06
+ * @author <qiding@qiding.com> Created on 2020-12-06
  */
 @Validated
 @Api(tags = "关注")
@@ -40,13 +39,18 @@ public class FollowController extends BaseController {
   @ApiOperation("关注列表")
   @GetMapping("list")
   public CommonResponse list(
-    @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
-    @RequestParam(value = "size") Integer size, @RequestParam(value = "userId") String userId) {
+      @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
+      @RequestParam(value = "size") Integer size, @RequestParam(value = "userId") String userId) {
     Follow follow = Follow.builder().userId(userId).build();
+    if ("1".equals(offset)) {
+      offset = "0";
+    }
     PageQuery pageQuery = PageQuery.builder().offset(offset).size(size).build();
     List<Follow> followList = follow.list(followService, pageQuery);
     List<String> userIdList = followList.stream().map(Follow::getFollowId).collect(Collectors.toList());
-    List<KankanUserVo> userVoList = userIdList.stream().map(id -> ((Function<String, KankanUserVo>) userId1 -> KankanUser.builder().userId(userId1).build().findUser(kankanUserService).toVo()).apply(id)).collect(Collectors.toList());
+    List<KankanUserVo> userVoList = userIdList.stream().map(
+        id -> ((Function<String, KankanUserVo>) userId1 -> KankanUser.builder().userId(userId1).build().findUser(kankanUserService).toVo()).apply(id))
+        .collect(Collectors.toList());
     PageData pageData = PageData.pageData(userVoList, size);
     return success(pageData);
   }
