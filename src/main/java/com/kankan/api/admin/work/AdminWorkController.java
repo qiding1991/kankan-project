@@ -1,6 +1,9 @@
 package com.kankan.api.admin.work;
 
+import com.kankan.dao.entity.WorkEntity;
+import com.kankan.module.MediaResource;
 import com.kankan.module.privilege.UserPrivilege;
+import com.kankan.param.work.WorkUpdateInfo;
 import javax.validation.Valid;
 
 import com.google.common.collect.ImmutableMap;
@@ -25,8 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Validated
 @Api(tags = "管理后台-专刊-发布作品")
@@ -48,46 +50,43 @@ public class AdminWorkController extends BaseController {
   private UserPrivilegeService userPrivilegeService;
 
 
-
   @ApiOperation("发布作品")
   @PostMapping("create")
   public CommonResponse createWork(@Valid @RequestBody WorkAddInfo workAddInfo) {
-    Integer whiteStatus= kankanUserService.whiteStatus(workAddInfo.getUserId());
+    Integer whiteStatus = kankanUserService.whiteStatus(workAddInfo.getUserId());
     KankanWork work = workAddInfo.toWork(resourceService);
     work.setAuditStatus(whiteStatus);
     work.addWork(workService);
     //更新审核状态
-    workService.auditWork(work.getId(),whiteStatus);
+    workService.auditWork(work.getId(), whiteStatus);
     //修改返回值
-    Map<String,Object> resultMap= ImmutableMap.of("id",work.getId(),"aditStatus",whiteStatus);
+    Map<String, Object> resultMap = ImmutableMap.of("id", work.getId(), "aditStatus", whiteStatus);
     return success(resultMap);
   }
 
   @ApiOperation("作品列表")
   @GetMapping("list")
-  public CommonResponse listWork(@RequestParam(value = "userId",required = false) String userId) {
+  public CommonResponse listWork(@RequestParam(value = "userId", required = false) String userId) {
 
-    if(StringUtils.isNotBlank(userId)){
-      UserPrivilege userPrivilege= userPrivilegeService.findByUserId(userId);
-      if(userPrivilege.getPrivilege().contains("manage_kankan")){
-         userId = null;
+    if (StringUtils.isNotBlank(userId)) {
+      UserPrivilege userPrivilege = userPrivilegeService.findByUserId(userId);
+      if (userPrivilege.getPrivilege().contains("manage_kankan")) {
+        userId = null;
       }
     }
 
     KankanWork work = KankanWork.builder().build();
     List<KankanWork> infoList;
-    if(userId==null){
+    if (userId == null) {
       infoList = work.findAllWork(workService);
-    }else {
+    } else {
       work.setUserId(userId);
-      infoList=work.findMyWork(workService);
+      infoList = work.findMyWork(workService);
     }
-    List<KankanWorkVo> voList = infoList.stream().map(kankanWork -> toVo(kankanWork,hotPointService,headerLineService, resourceService)).collect(Collectors.toList());
+    List<KankanWorkVo> voList = infoList.stream().map(kankanWork -> toVo(kankanWork, hotPointService, headerLineService, resourceService))
+        .collect(Collectors.toList());
     return success(voList);
   }
-
-
-
 
 
   @ApiOperation("审核作品")
@@ -97,7 +96,35 @@ public class AdminWorkController extends BaseController {
     return success();
   }
 
-  private KankanWorkVo toVo(KankanWork kankanWork, HotPointService hotPointService, HeaderLineService headerLineService, ResourceService resourceService) {
+
+  @ApiOperation("删除作品")
+  @PostMapping("delete/{id}")
+  public CommonResponse delete(@PathVariable(value = "id") String id) {
+    workService.delete(id);
+    return success();
+  }
+
+
+  @ApiOperation("更新作品")
+  @PostMapping("updateWork")
+  public CommonResponse updateWork(@RequestBody WorkUpdateInfo updateInfo) {
+    WorkEntity kankanWork = workService.findById(updateInfo.getId());
+    kankanWork.setTitle(updateInfo.getTitle());
+    kankanWork.setPicture(updateInfo.getPicture());
+    workService.updateWork(kankanWork);
+
+    MediaResource resource = resourceService.findResource(kankanWork.getResourceId());
+    resource.setContent(updateInfo.getContent());
+    resource.setTitle(updateInfo.getTitle());
+    resource.setKeyWords(updateInfo.getKeyword());
+    resourceService.saveResource(resource);
+
+    return success();
+  }
+
+
+  private KankanWorkVo toVo(KankanWork kankanWork, HotPointService hotPointService, HeaderLineService headerLineService,
+      ResourceService resourceService) {
     KankanWorkVo kankanWorkVo = new KankanWorkVo(kankanWork);
     kankanWorkVo.addResource(resourceService);
 

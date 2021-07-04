@@ -1,5 +1,6 @@
 package com.kankan.api.admin.header;
 
+import com.kankan.constant.ErrorCode;
 import javax.validation.Valid;
 
 import com.kankan.constant.EnumItemType;
@@ -21,8 +22,7 @@ import io.swagger.annotations.ApiOperation;
 import java.util.List;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Validated
 @Api(tags = "管理后台-管理-头条")
@@ -39,7 +39,8 @@ public class AdminHeaderLineController {
   private KankanWorkService workService;
 
 
-  public AdminHeaderLineController(HeaderLineService headerLineService, ResourceService resourceService, NewsService newsService, KankanWorkService workService) {
+  public AdminHeaderLineController(HeaderLineService headerLineService, ResourceService resourceService, NewsService newsService,
+      KankanWorkService workService) {
     this.headerLineService = headerLineService;
     this.resourceService = resourceService;
     this.newsService = newsService;
@@ -66,6 +67,11 @@ public class AdminHeaderLineController {
   @ApiOperation("创建头条item")
   @PostMapping("headerLineItem")
   public CommonResponse headerLineItem(@Valid @RequestBody HeaderLineItemInfo headerItem) {
+    String headerLineId = headerItem.getHeaderLineId();
+    List<HeaderLineItem> infoList = headerLineService.findHeaderLineItem(headerLineId);
+    if (infoList.size() >= 3) {
+      return CommonResponse.error(ErrorCode.HEADER_LINE_OVER_LIMIT);
+    }
     HeaderLineItem headerLine = headerItem.toHeadline();
     headerLine.creatHeadItem(headerLineService);
 
@@ -74,7 +80,7 @@ public class AdminHeaderLineController {
 
     if (enumItemType == EnumItemType.NEWS) {
       News news = newsService.findNews(headerItem.getResourceId());
-      if(news!=null){
+      if (news != null) {
         newsService.updateHeaderStatus(news.getId(), 2);
       }
     } else if (enumItemType == EnumItemType.VIDEO || enumItemType == EnumItemType.ARTICLE) {
@@ -96,7 +102,7 @@ public class AdminHeaderLineController {
 
     if (enumItemType == EnumItemType.NEWS) {
       News news = newsService.findNews(headerItem.getResourceId());
-      if(news!=null){
+      if (news != null) {
         newsService.updateHeaderStatus(news.getId(), 1);
       }
     } else if (enumItemType == EnumItemType.VIDEO || enumItemType == EnumItemType.ARTICLE) {
@@ -106,10 +112,6 @@ public class AdminHeaderLineController {
 
     return CommonResponse.success();
   }
-
-
-
-
 
 
   @ApiOperation("头条item列表")

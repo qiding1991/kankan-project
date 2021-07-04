@@ -61,4 +61,11 @@ public class AdminNewsController extends BaseController {
     List<NewsVo> newsVos = infoList.stream().map(news1 -> news1.toItemVo(resourceService)).collect(Collectors.toList());
     return success(newsVos);
   }
+
+  @ApiOperation("删除新闻")
+  @PostMapping("delete/{id}")
+  public CommonResponse delete(@PathVariable(value = "id") String id) {
+     newsService.delete(id);
+     return  success();
+  }
 }

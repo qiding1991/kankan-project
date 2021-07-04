@@ -107,4 +107,16 @@ public class KankanWorkService {
     List<WorkEntity> infoList = workMapper.findArticleByKeyword(offset, size, keyword);
     return infoList.stream().map(WorkEntity::parse).collect(Collectors.toList());
   }
+
+  public void delete(String id) {
+      workMapper.delete(id);
+  }
+
+  public void updateWork(WorkEntity updateInfo) {
+      workMapper.save(updateInfo);
+  }
+
+  public WorkEntity findById(String id) {
+    return  workMapper.findById(id);
+  }
 }

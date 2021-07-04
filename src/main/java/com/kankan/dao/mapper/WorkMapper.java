@@ -59,4 +59,8 @@ public interface WorkMapper {
 //  @Select("select * from work_info where title like '%#{keyword}%' limit #{offset},#{size}")
 //  @Select("select * from work_info where type=0 and   title like concat('%',#{keyword},'%')  limit #{offset},#{size} ")
   List<WorkEntity> findArticleByKeyword(String offset, Integer size, String keyword);
+
+  void delete(String id);
+
+  void save(WorkEntity updateInfo);
 }

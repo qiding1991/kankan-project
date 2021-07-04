@@ -18,6 +18,7 @@ public class NewsVo {
   private Integer headStatus;
   private List<String> keyword;
   private Long createTime;
+  private String desc;
 
   public NewsVo(News news) {
     BeanUtils.copyProperties(news, this);

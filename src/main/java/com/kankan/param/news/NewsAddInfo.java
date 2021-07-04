@@ -10,22 +10,25 @@ import com.kankan.service.ResourceService;
 import lombok.Data;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Data
 public class NewsAddInfo {
-    private String tabId;
-    private String picture;
-    private String title;
-    private String content;
-    private String userId;
-    private List<String> keyword;
+
+  private String tabId;
+  private String picture;
+  private String title;
+  private String content;
+  private String userId;
+  private List<String> keyword;
+  private String desc;
 
 
-    public News toNews(ResourceService resourceService) {
-        MediaResource resource = MediaResource.builder().content(content).title(title).mediaType(EnumItemType.NEWS.getCode()).keyWords(keyword).build();
-        String resourceId = resourceService.saveResource(resource);
-        return News.builder().picture(picture).userId(userId).resourceId(resourceId).title(title).tabId(tabId).build();
-    }
+  public News toNews(ResourceService resourceService) {
+    MediaResource resource = MediaResource.builder().content(content).title(title).mediaType(EnumItemType.NEWS.getCode()).keyWords(keyword).build();
+    String resourceId = resourceService.saveResource(resource);
+    return News.builder().picture(picture).userId(userId).resourceId(resourceId)
+        .title(title).tabId(tabId).desc(desc)
+        .build();
+  }
 }

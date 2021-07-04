@@ -95,4 +95,8 @@ public class NewsService {
     List<NewsEntity> infoList=newsMapper.findByKeyword(keyword,offset,size);
     return infoList.stream().map(News::parseEntity).collect(Collectors.toList());
   }
+
+  public void delete(String id) {
+       newsMapper.delete(id);
+  }
 }

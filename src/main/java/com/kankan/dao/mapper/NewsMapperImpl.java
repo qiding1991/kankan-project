@@ -32,8 +32,8 @@ public class NewsMapperImpl implements NewsMapper {
         .with(Sort.by(Order.desc("id")))
         .limit(size);
 
-    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
-       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
+    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
+      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
     return mongoTemplate.find(query, myClass);
   }
@@ -97,5 +97,12 @@ public class NewsMapperImpl implements NewsMapper {
         .addCriteria(Criteria.where("id").lt(offset))
         .with(Sort.by(Order.desc("id"))).limit(size);
     return mongoTemplate.find(query, myClass);
+  }
+
+  @Override
+  public void delete(String id) {
+    Query query = Query.query(Criteria.where("id").is(id));
+    Update update = new Update().set("status", 0);
+    mongoTemplate.updateFirst(query, update, myClass);
   }
 }

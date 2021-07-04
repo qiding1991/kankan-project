@@ -18,6 +18,7 @@ public class WorkMapperImpl implements WorkMapper {
 
   @Autowired
   private MongoTemplate mongoTemplate;
+
   private Class<WorkEntity> myClass = WorkEntity.class;
 
   @Override
@@ -35,8 +36,8 @@ public class WorkMapperImpl implements WorkMapper {
 //    select * from work_info where  `type`=0 and id &lt; #{offset} order by id desc limit #{size}
     Query query = Query.query(Criteria.where("type").is(0).and("auditStatus").is(2))
         .limit(size).with(Sort.by(Order.desc("id")));
-    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
-       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
+    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
+      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
     return mongoTemplate.find(query, myClass);
   }
@@ -49,7 +50,7 @@ public class WorkMapperImpl implements WorkMapper {
 //    </select>
     Query query = Query.query(Criteria.where("type").is(1).and("auditStatus").is(2))
         .limit(size).with(Sort.by(Order.desc("id")));
-    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
+    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
     return mongoTemplate.find(query, myClass);
@@ -65,13 +66,14 @@ public class WorkMapperImpl implements WorkMapper {
 
   @Override
   public List<WorkEntity> findUserWork(String userId) {
-    Query query = Query.query(Criteria.where("userId").is(userId));
+    Query query = Query.query(Criteria.where("userId").is(userId).and("status").is(1));
     return mongoTemplate.find(query, myClass);
   }
 
   @Override
   public List<WorkEntity> findAllWork() {
-    return mongoTemplate.findAll(myClass);
+    Query query = Query.query(Criteria.where("status").is(1));
+    return mongoTemplate.find(query, myClass);
   }
 
   @Override
@@ -124,5 +126,17 @@ public class WorkMapperImpl implements WorkMapper {
         .and("title").is("/" + keyword + "/"))
         .limit(size).with(Sort.by(Order.desc("id")));
     return mongoTemplate.find(query, myClass);
+  }
+
+  @Override
+  public void delete(String id) {
+    Query query = Query.query(Criteria.where("id").is(id));
+    Update update = new Update().set("status", 0);
+    mongoTemplate.updateFirst(query, update, myClass);
+  }
+
+  @Override
+  public void save(WorkEntity updateInfo) {
+        mongoTemplate.save(updateInfo);
   }
 }
