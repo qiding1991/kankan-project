@@ -1,6 +1,7 @@
 package com.kankan.dao.mapper;
 
 import com.kankan.dao.entity.UserEntity;
+import com.kankan.module.User.ThreePartLogin;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -125,6 +126,15 @@ public class UserMapperImpl implements UserMapper {
   @Override
   public UserEntity findUserById(String userId) {
     Query query = Query.query(Criteria.where("id").is(userId));
+    return mongoTemplate.findOne(query, myClass);
+  }
+
+  @Override
+  public UserEntity findByThreePart(ThreePartLogin threePartLogin) {
+    Query query = Query.query(
+        Criteria.where("threePartLogin.threePartId").is(threePartLogin.getThreePartId())
+            .andOperator(Criteria.where("threePartLogin.threePartType").is(threePartLogin.getThreePartType()))
+    );
     return mongoTemplate.findOne(query, myClass);
   }
 }

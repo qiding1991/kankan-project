@@ -4,6 +4,7 @@ import com.kankan.api.BaseController;
 import com.kankan.constant.CommonResponse;
 import com.kankan.constant.ErrorCode;
 import com.kankan.dao.entity.KankanApply;
+import com.kankan.dao.entity.UserEntity;
 import com.kankan.module.User;
 import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.KankanCompanyApply;
@@ -11,6 +12,7 @@ import com.kankan.param.mail.SendSmsCode;
 import com.kankan.param.mail.VerifySmsCode;
 import com.kankan.param.user.LoginParam;
 import com.kankan.param.user.RegisterInfo;
+import com.kankan.param.user.ThreePartLoginParam;
 import com.kankan.param.user.UserBaseInfo;
 import com.kankan.service.CacheService;
 import com.kankan.service.MailSender;
@@ -19,8 +21,8 @@ import com.kankan.service.UserService;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Objects;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -55,7 +57,6 @@ public class UserController extends BaseController {
 
   @ApiOperation("发送验证码")
   @PostMapping("sendSmsCode")
-
   public CommonResponse sendSmsCode(@Valid @RequestBody SendSmsCode sendSmsCode) {
     User user = sendSmsCode.toUser();
     if (user.emailNotExists(userService)) {
@@ -89,7 +90,7 @@ public class UserController extends BaseController {
   @ApiOperation("注册用户,smscode验证通过才能注册")
   @PostMapping("register")
   public CommonResponse register(@RequestHeader("verifyToken") String verifyToken,
-                                 @Valid @RequestBody RegisterInfo registerInfo) {
+      @Valid @RequestBody RegisterInfo registerInfo) {
     User user = registerInfo.toUser(tokenService, verifyToken);
     if (user.isEmpty()) {
       return error(VERIFY_TOKEN_CHECK_ERROR);
@@ -102,8 +103,7 @@ public class UserController extends BaseController {
   @ApiOperation("用户信息更新")
   @PostMapping("update")
   public CommonResponse update(@RequestHeader("userToken") String userToken,
-                               @Valid @RequestBody UserBaseInfo userInfo) {
-
+      @Valid @RequestBody UserBaseInfo userInfo) {
     User user = userInfo.toUser(tokenService, userToken);
     //检查token
     if (user.isEmpty()) {
@@ -113,7 +113,6 @@ public class UserController extends BaseController {
     if (StringUtils.isNotBlank(userInfo.getUserEmail()) && !user.emailNotExists(userService)) {
       return error(EMAIL_NOT_AVAILABLE_ERROR);
     }
-
     //更新token
     user.refreshToken(userToken, tokenService);
     //更新数据库
@@ -131,6 +130,19 @@ public class UserController extends BaseController {
     String token = user.generateUserToken(tokenService);
     return success(token);
   }
+
+
+  @ApiOperation("第三方登录")
+  @PostMapping("loginWithThread")
+  public CommonResponse loginWithThread(@Valid @RequestBody ThreePartLoginParam loginParam) {
+    UserEntity userEntity = userService.byThreePartLoginParam(loginParam);
+    if (Objects.nonNull(userEntity)) {
+      String token = userEntity.toUser().generateUserToken(tokenService);
+      return CommonResponse.success(token);
+    }
+    return error(THREE_NOT_REGISTER);
+  }
+
 
   @ApiOperation("用户详情")
   @GetMapping("detail")

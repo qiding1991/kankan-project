@@ -15,6 +15,7 @@ public enum ErrorCode {
   USER_APPLY_REPEATED_PERSON(2004, "已经申请个人看看号"),
   USER_FOLLOW_REPEATED_PERSON(2005, "已经关注，不能重复关注"),
   HEADER_LINE_OVER_LIMIT(2006, "头条数量超过3个限制"),
+  THREE_NOT_REGISTER(2007, "第三方账号未注册"),
   UN_KNOW_ERROR(-1, "服务器未知异常");
 
 

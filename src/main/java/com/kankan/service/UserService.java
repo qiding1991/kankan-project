@@ -1,5 +1,7 @@
 package com.kankan.service;
 
+import com.kankan.module.User.ThreePartLogin;
+import com.kankan.param.user.ThreePartLoginParam;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -39,19 +41,27 @@ public class UserService {
     userMapper.updateUser(entity);
   }
 
-  public List<User> findUser( User user) {
-    UserEntity userEntity=new UserEntity();
+  public List<User> findUser(User user) {
+    UserEntity userEntity = new UserEntity();
     userEntity.setUsername(user.getUsername());
     userEntity.setUserEmail(user.getUserEmail());
     List<UserEntity> infoList = userMapper.findUser(userEntity);
     return infoList.stream().map(UserEntity::toUser).collect(Collectors.toList());
   }
 
-  public User getUser(String userId){
-    UserEntity userEntity= userMapper.findUserById(userId);
-    userEntity=Optional.ofNullable(userEntity).orElse(new UserEntity());
+  public User getUser(String userId) {
+    UserEntity userEntity = userMapper.findUserById(userId);
+    userEntity = Optional.ofNullable(userEntity).orElse(new UserEntity());
     return userEntity.toUser();
   }
 
 
+  public UserEntity byThreePartLoginParam(ThreePartLoginParam loginParam) {
+    ThreePartLogin threePartLogin = ThreePartLogin.builder()
+        .threePartType(loginParam.getThreePartType())
+        .threePartId(loginParam.getThreePartId())
+        .build();
+    UserEntity userEntity = userMapper.findByThreePart(threePartLogin);
+    return userEntity;
+  }
 }

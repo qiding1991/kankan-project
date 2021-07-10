@@ -1,6 +1,7 @@
 package com.kankan.module;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.util.ObjectUtils;
@@ -23,12 +24,23 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 public class User {
+
+  @Builder
+  @AllArgsConstructor
+  @NoArgsConstructor
+  @Data
+  public  static class ThreePartLogin {
+    private String threePartId;
+    private String threePartType;
+  }
+
   private String userEmail;
   private String userId;
   private Boolean empty = false;
   private String username;
   private String password;
   private String userPhoto;
+  private List<ThreePartLogin> threePartLogin;
 
   public static User toUser(TokenService tokenService, String userToken) {
     return tokenService.findUserByToken(userToken);
