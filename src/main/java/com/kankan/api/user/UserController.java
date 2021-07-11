@@ -151,9 +151,8 @@ public class UserController extends BaseController {
   public CommonResponse sendSmsCodeNotVerify(@Valid @RequestBody SendSmsCode sendSmsCode) {
     User user = sendSmsCode.toUser();
     user.sendActiveCode(mailSender, cacheService);
-    UserEntity userEntity = ObjectUtils.defaultIfNull(
-        userService.findUserByEmail(sendSmsCode.getUserEmail()), new UserEntity());
-    Boolean userRegistered = StringUtils.isNotBlank(userEntity.getUsername());
+    UserEntity userEntity = userService.findUserByEmail(sendSmsCode.getUserEmail());
+    Boolean userRegistered = userEntity!=null;
     return success(userRegistered);
   }
 
