@@ -137,4 +137,11 @@ public class UserMapperImpl implements UserMapper {
     );
     return mongoTemplate.findOne(query, myClass);
   }
+
+  @Override
+  public void addThreeAccount(String userId, ThreePartLogin threeAccount) {
+    Query query = Query.query(Criteria.where("id").is(userId));
+    Update update = new Update().addToSet("threePartLogin",threeAccount);
+    mongoTemplate.updateFirst(query, update, myClass);
+  }
 }

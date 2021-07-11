@@ -1,5 +1,6 @@
 package com.kankan.param.user;
 
+import com.kankan.util.Md5Util;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.validator.constraints.Email;
 
@@ -27,7 +28,7 @@ public class UserBaseInfo {
                 user.setUsername(username);
             }
             if (StringUtils.isNotEmpty(password)) {
-                user.setPassword(password);
+                user.setPassword(Md5Util.md5Hex(password));
             }
             if (StringUtils.isNotEmpty(userPhoto)) {
                 user.setUserPhoto(userPhoto);

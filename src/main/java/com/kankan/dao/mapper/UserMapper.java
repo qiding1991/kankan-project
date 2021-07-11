@@ -4,6 +4,7 @@ import com.kankan.dao.entity.UserEntity;
 //import org.apache.ibatis.annotations.Mapper;
 //import org.apache.ibatis.annotations.Select;
 
+import com.kankan.module.User;
 import com.kankan.module.User.ThreePartLogin;
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface UserMapper {
   UserEntity findUserById(String userId);
 
   UserEntity findByThreePart(ThreePartLogin threePartLogin);
+
+  void addThreeAccount(String userId, ThreePartLogin threeAccount);
 }

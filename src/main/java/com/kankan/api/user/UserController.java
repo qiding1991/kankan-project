@@ -6,10 +6,12 @@ import com.kankan.constant.ErrorCode;
 import com.kankan.dao.entity.KankanApply;
 import com.kankan.dao.entity.UserEntity;
 import com.kankan.module.User;
+import com.kankan.module.User.ThreePartLogin;
 import com.kankan.module.privilege.UserPrivilege;
 import com.kankan.param.KankanCompanyApply;
 import com.kankan.param.mail.SendSmsCode;
 import com.kankan.param.mail.VerifySmsCode;
+import com.kankan.param.user.BindThreeAccount;
 import com.kankan.param.user.LoginParam;
 import com.kankan.param.user.RegisterInfo;
 import com.kankan.param.user.ThreePartLoginParam;
@@ -24,6 +26,7 @@ import io.swagger.annotations.ApiOperation;
 import java.util.Objects;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.util.CollectionUtils;
@@ -133,14 +136,55 @@ public class UserController extends BaseController {
 
 
   @ApiOperation("第三方登录")
-  @PostMapping("loginWithThread")
-  public CommonResponse loginWithThread(@Valid @RequestBody ThreePartLoginParam loginParam) {
+  @PostMapping("loginWithThreeAccount")
+  public CommonResponse loginWithThreeAccount(@Valid @RequestBody ThreePartLoginParam loginParam) {
     UserEntity userEntity = userService.byThreePartLoginParam(loginParam);
     if (Objects.nonNull(userEntity)) {
       String token = userEntity.toUser().generateUserToken(tokenService);
       return CommonResponse.success(token);
     }
     return error(THREE_NOT_REGISTER);
+  }
+
+  @ApiOperation("发送验证码，不校验账号是否被占用; true 账号已经占用，false 账号未设置")
+  @PostMapping("sendSmsCodeNotVerify")
+  public CommonResponse sendSmsCodeNotVerify(@Valid @RequestBody SendSmsCode sendSmsCode) {
+    User user = sendSmsCode.toUser();
+    user.sendActiveCode(mailSender, cacheService);
+    UserEntity userEntity = ObjectUtils.defaultIfNull(
+        userService.findUserByEmail(sendSmsCode.getUserEmail()), new UserEntity());
+    Boolean userRegistered = StringUtils.isNotBlank(userEntity.getUsername());
+    return success(userRegistered);
+  }
+
+  @ApiOperation("绑定第三方账号")
+  @PostMapping("bindThreeAccount")
+  public CommonResponse bindThreeAccount(@RequestHeader("userToken") String userToken,@RequestBody BindThreeAccount loginParam) {
+    User user = User.toUser(tokenService, userToken);
+    if (user != null) {
+      userService.addThreeAccount(user.getUserId(),
+          ThreePartLogin.builder().threePartType(loginParam.getThreePartType())
+              .threePartId(loginParam.getThreePartId())
+              .build()
+      );
+      return  success();
+    }
+    return error(THREE_ACCOUNT_BIND_FAIL);
+  }
+
+
+  @ApiOperation("验证码的登录")
+  @PostMapping("loginWithSmsCode")
+  public CommonResponse loginWithSmsCode(@RequestBody VerifySmsCode verifySmsCode){
+    User user = verifySmsCode.toUser();
+    //check activeCode
+    if (!user.checkActiveCode(cacheService, verifySmsCode.getSmsCode())) {
+      return CommonResponse.error(ErrorCode.SMS_CODE_ERROR);
+    }
+    UserEntity userEntity = userService.findUserByEmail(user.getUserEmail());
+    user = userEntity.toUser();
+    String userToken = user.generateUserToken(tokenService);
+    return success(userToken);
   }
 
 

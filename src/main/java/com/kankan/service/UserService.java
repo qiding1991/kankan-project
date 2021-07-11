@@ -64,4 +64,8 @@ public class UserService {
     UserEntity userEntity = userMapper.findByThreePart(threePartLogin);
     return userEntity;
   }
+
+  public void addThreeAccount(String userId ,ThreePartLogin threeAccount) {
+    userMapper.addThreeAccount(userId, threeAccount);
+  }
 }
