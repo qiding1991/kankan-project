@@ -29,6 +29,7 @@ public class NewsDetailVo {
   private String commentTitle = "相关评论";
   private List<KankanCommentVo> commentVoList;
   private Boolean favouriteStatus;
+  private Integer readCount;
 
   /**
    * 基本信息
@@ -37,6 +38,7 @@ public class NewsDetailVo {
    */
   public void addBaseInfo(MediaResource mediaResource) {
     this.content = mediaResource.getContent();
+    this.readCount = mediaResource.getReadCount();
     this.commentTitle = "相关评论";
     this.newsTitle = "相关信息";
   }
@@ -101,7 +103,10 @@ public class NewsDetailVo {
   AdItemVo findAdItemVo(KankanAdService adService) {
     List<KankanAd> adList = adService.findAll();
     if (!CollectionUtils.isEmpty(adList)) {
-      int randomIndex = RandomUtils.nextInt(adList.size() - 1);
+      int randomIndex=0;
+      if(adList.size()>1){
+        randomIndex = RandomUtils.nextInt(adList.size() - 1);
+      }
       KankanAd kankanAd = adList.get(randomIndex);
       return new AdItemVo(kankanAd);
     } else {
