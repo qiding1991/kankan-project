@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import com.kankan.vo.KankanadVo;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,7 @@ public class AdminAdController extends BaseController {
     }
 
     @ApiOperation("广告列表")
-    @PostMapping("list")
+    @GetMapping("list")
     public CommonResponse list() {
         KankanAd kankanAd = KankanAd.builder().build();
         List<KankanAd> infoList = kankanAd.findAll(kankanAdService);
