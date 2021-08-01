@@ -23,6 +23,7 @@ import com.kankan.service.UserService;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Collections;
 import java.util.Objects;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang.StringUtils;
@@ -139,11 +140,17 @@ public class UserController extends BaseController {
   @PostMapping("loginWithThreeAccount")
   public CommonResponse loginWithThreeAccount(@Valid @RequestBody ThreePartLoginParam loginParam) {
     UserEntity userEntity = userService.byThreePartLoginParam(loginParam);
-    if (Objects.nonNull(userEntity)) {
-      String token = userEntity.toUser().generateUserToken(tokenService);
-      return CommonResponse.success(token);
+    if (userEntity == null) {
+      ThreePartLogin threePartLogin = ThreePartLogin.builder()
+          .threePartType(loginParam.getThreePartType())
+          .threePartId(loginParam.getThreePartId())
+          .build();
+      User user = new User();
+      user.setThreePartLogin(Collections.singletonList(threePartLogin));
+      userEntity = userService.createUser(user);
     }
-    return error(THREE_NOT_REGISTER);
+    String token = userEntity.toUser().generateUserToken(tokenService);
+    return CommonResponse.success(token);
   }
 
   @ApiOperation("发送验证码，不校验账号是否被占用; true 账号已经占用，false 账号未设置")
@@ -152,13 +159,13 @@ public class UserController extends BaseController {
     User user = sendSmsCode.toUser();
     user.sendActiveCode(mailSender, cacheService);
     UserEntity userEntity = userService.findUserByEmail(sendSmsCode.getUserEmail());
-    Boolean userRegistered = userEntity!=null;
+    Boolean userRegistered = userEntity != null;
     return success(userRegistered);
   }
 
   @ApiOperation("绑定第三方账号")
   @PostMapping("bindThreeAccount")
-  public CommonResponse bindThreeAccount(@RequestHeader("userToken") String userToken,@RequestBody BindThreeAccount loginParam) {
+  public CommonResponse bindThreeAccount(@RequestHeader("userToken") String userToken, @RequestBody BindThreeAccount loginParam) {
     User user = User.toUser(tokenService, userToken);
     if (user != null) {
       userService.addThreeAccount(user.getUserId(),
@@ -166,7 +173,7 @@ public class UserController extends BaseController {
               .threePartId(loginParam.getThreePartId())
               .build()
       );
-      return  success();
+      return success();
     }
     return error(THREE_ACCOUNT_BIND_FAIL);
   }
@@ -174,7 +181,7 @@ public class UserController extends BaseController {
 
   @ApiOperation("验证码的登录")
   @PostMapping("loginWithSmsCode")
-  public CommonResponse loginWithSmsCode(@RequestBody VerifySmsCode verifySmsCode){
+  public CommonResponse loginWithSmsCode(@RequestBody VerifySmsCode verifySmsCode) {
     User user = verifySmsCode.toUser();
     //check activeCode
     if (!user.checkActiveCode(cacheService, verifySmsCode.getSmsCode())) {
