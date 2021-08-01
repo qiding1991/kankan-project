@@ -117,7 +117,12 @@ public class ItemController extends BaseController {
         newsDetailVo.setFavouriteStatus(favouriteStatus);
         //添加当前用户的评论状态
         newsDetailVo.addThumpStatus(userId, thumpMapper);
-
+        //
+        News newsEntity=  newsService.findNews(resourceId);
+        newsDetailVo.setPublishTime(newsEntity.getCreateTime());
+        newsDetailVo.setTilte(newsEntity.getTitle());
+        Tab tab=  tabService.findTab(newsEntity.getTabId());
+        newsDetailVo.setSubTitle(tab.getTabName());
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();

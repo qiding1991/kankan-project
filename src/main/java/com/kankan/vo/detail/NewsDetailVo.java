@@ -26,10 +26,13 @@ public class NewsDetailVo {
   private AdItemVo adItemVo;
   private String newsTitle = "相关信息";
   private List<NewsItemVo> relatedNews;
-  private String commentTitle = "相关评论";
+  private String commentTitle = "全部评论";
   private List<KankanCommentVo> commentVoList;
   private Boolean favouriteStatus;
   private Integer readCount;
+  private String tilte;
+  private String subTitle;
+  private Long publishTime;
 
   /**
    * 基本信息
@@ -39,7 +42,7 @@ public class NewsDetailVo {
   public void addBaseInfo(MediaResource mediaResource) {
     this.content = mediaResource.getContent();
     this.readCount = mediaResource.getReadCount();
-    this.commentTitle = "相关评论";
+    this.commentTitle = "全部评论";
     this.newsTitle = "相关信息";
   }
 

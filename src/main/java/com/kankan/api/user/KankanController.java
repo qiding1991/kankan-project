@@ -67,6 +67,10 @@ public class KankanController extends BaseController {
     if (userId != null) {
       addFollowStatus(followService, userList, userId);
     }
+    //添加当前的用户分类，是否是企业认证，是否个认证
+    
+
+
     return success(userList);
   }
 
