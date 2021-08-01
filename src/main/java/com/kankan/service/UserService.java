@@ -68,4 +68,16 @@ public class UserService {
   public void addThreeAccount(String userId ,ThreePartLogin threeAccount) {
     userMapper.addThreeAccount(userId, threeAccount);
   }
+
+  public void resetPassword(String userId, String password) {
+         userMapper.updatePassword(userId, password);
+  }
+
+  public void removeUser(String userId) {
+          userMapper.removeUser(userId);
+  }
+
+  public Long count() {
+    return userMapper.userCount();
+  }
 }

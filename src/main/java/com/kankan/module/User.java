@@ -29,7 +29,8 @@ public class User {
   @AllArgsConstructor
   @NoArgsConstructor
   @Data
-  public  static class ThreePartLogin {
+  public static class ThreePartLogin {
+
     private String threePartId;
     private String threePartType;
   }
@@ -41,6 +42,8 @@ public class User {
   private String password;
   private String userPhoto;
   private List<ThreePartLogin> threePartLogin;
+  private Long createTime;
+  private Long updateTime;
 
   public static User toUser(TokenService tokenService, String userToken) {
     return tokenService.findUserByToken(userToken);

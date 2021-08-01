@@ -17,6 +17,7 @@ import com.kankan.util.Md5Util;
 import com.kankan.vo.UserDetailVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -67,6 +68,20 @@ public class AdminKankanUserController extends BaseController {
   }
 
 
+  @Data
+  public static class ResetPassword {
+    private String userId;
+    private String password;
+  }
+
+
+  @ApiOperation("重置密码")
+  @PostMapping("resetPassword")
+  public CommonResponse resetPassword(@RequestBody ResetPassword param) {
+    userService.resetPassword(param.getUserId(), Md5Util.md5Hex(param.getPassword()));
+    return CommonResponse.success();
+  }
+
   @ApiOperation("更新白名单状态  1 不是白名单 2 是白名单")
   @PostMapping("updateWhiteStatus")
   public CommonResponse updateWhiteStatus(@RequestBody JoinInWhiteParam joinInWhiteParam) {
@@ -79,11 +94,11 @@ public class AdminKankanUserController extends BaseController {
   @PostMapping("create")
   public CommonResponse create(@RequestBody UserRoleParam userRole) {
     User user = User.builder()
-      .userEmail(userRole.getUserEmail())
-      .username(userRole.getUsername())
-      .userPhoto(userRole.getUserPhoto())
-      .password(Md5Util.md5Hex(userRole.getPassword()))
-      .build();
+        .userEmail(userRole.getUserEmail())
+        .username(userRole.getUsername())
+        .userPhoto(userRole.getUserPhoto())
+        .password(Md5Util.md5Hex(userRole.getPassword()))
+        .build();
     Boolean emailExists = user.emailNotExists(userService);
     if (!emailExists) {
       return CommonResponse.error(EMAIL_NOT_AVAILABLE_ERROR, "邮箱重复");
@@ -112,12 +127,12 @@ public class AdminKankanUserController extends BaseController {
   @PostMapping("update/{userId}")
   public CommonResponse update(@PathVariable(value = "userId") String userId, @RequestBody UserRoleParam userRole) {
     User user = User.builder()
-      .userEmail(userRole.getUserEmail())
-      .username(userRole.getUsername())
-      .userPhoto(userRole.getUserPhoto())
-      .password(Md5Util.md5Hex(userRole.getPassword()))
-      .userId(userId)
-      .build();
+        .userEmail(userRole.getUserEmail())
+        .username(userRole.getUsername())
+        .userPhoto(userRole.getUserPhoto())
+        .password(Md5Util.md5Hex(userRole.getPassword()))
+        .userId(userId)
+        .build();
 
     if (userRole.getUserEmail() != null) {
       UserEntity userRecord = userService.findUserByEmail(userRole.getUserEmail());
@@ -130,7 +145,6 @@ public class AdminKankanUserController extends BaseController {
     }
     //创建用户
     user.updateUser(userService);
-
 
 //
 //
@@ -148,7 +162,6 @@ public class AdminKankanUserController extends BaseController {
 //
 //
 
-
     UserPrivilege userPrivilege = UserPrivilege.builder().userId(user.getUserId()).privilege(userRole.getPrivilege()).build();
     mongoTemplate.save(userPrivilege);
     UserDetailVo userDetail = new UserDetailVo(user, userPrivilege);
@@ -159,10 +172,10 @@ public class AdminKankanUserController extends BaseController {
   @ApiOperation("用户列表")
   @GetMapping("find")
   public CommonResponse findUser(
-    @RequestParam(value = "username", required = false) String username,
-    @RequestParam(value = "roleId", required = false) String roleId,
-    @RequestParam(value = "privilege", required = false) String privilege,
-    @RequestParam(value = "userEmail", required = false) String userEmail) {
+      @RequestParam(value = "username", required = false) String username,
+      @RequestParam(value = "roleId", required = false) String roleId,
+      @RequestParam(value = "privilege", required = false) String privilege,
+      @RequestParam(value = "userEmail", required = false) String userEmail) {
     User user = User.builder().userEmail(userEmail).username(username).build();
     List<User> userList = userService.findUser(user);
     Map<String, User> userMap = new HashMap<>(userList.size());
@@ -170,6 +183,22 @@ public class AdminKankanUserController extends BaseController {
     List<UserDetailVo> userDetailVoList = findApplyInfo(userMap, privilege);
     return success(userDetailVoList);
   }
+
+  @ApiOperation("用户总数")
+  @GetMapping("count")
+  public CommonResponse count() {
+    Long userCount = userService.count();
+    return CommonResponse.success(userCount);
+  }
+
+
+  @ApiOperation("删除用户")
+  @PostMapping("remove/{userId}")
+  public CommonResponse remove(@PathVariable(value = "userId") String userId) {
+    userService.removeUser(userId);
+    return CommonResponse.success();
+  }
+
 
   @ApiOperation("查看用户信息")
   @GetMapping("get")

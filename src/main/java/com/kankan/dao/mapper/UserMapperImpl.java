@@ -5,7 +5,6 @@ import com.kankan.module.User.ThreePartLogin;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -141,7 +140,27 @@ public class UserMapperImpl implements UserMapper {
   @Override
   public void addThreeAccount(String userId, ThreePartLogin threeAccount) {
     Query query = Query.query(Criteria.where("id").is(userId));
-    Update update = new Update().addToSet("threePartLogin",threeAccount);
+    Update update = new Update().addToSet("threePartLogin", threeAccount);
     mongoTemplate.updateFirst(query, update, myClass);
+  }
+
+  @Override
+  public void updatePassword(String userId, String password) {
+    Query query = Query.query(Criteria.where("id").is(userId));
+    Update update = new Update().set("password", password);
+    mongoTemplate.updateFirst(query, update, myClass);
+  }
+
+  @Override
+  public void removeUser(String userId) {
+    Query query = Query.query(Criteria.where("id").is(userId));
+    Update update = new Update().set("status", 0);
+    mongoTemplate.updateFirst(query, update, myClass);
+  }
+
+  @Override
+  public Long userCount() {
+    Query query = Query.query(Criteria.where("status").is(1));
+    return mongoTemplate.count(query, myClass);
   }
 }

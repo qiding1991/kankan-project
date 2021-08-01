@@ -52,4 +52,8 @@ public class TabService {
        }
        return entity.tab();
     }
+
+  public void removeTab(String tabId) {
+       tabMapper.removeTab(tabId);
+  }
 }

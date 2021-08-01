@@ -8,6 +8,8 @@ import java.util.function.Predicate;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,7 +26,8 @@ public class TabMapperImpl implements TabMapper {
 
   @Override
   public List<TabEntity> findTab() {
-    return mongoTemplate.findAll(myClass);
+    Query query = new Query().with(Sort.by(Order.desc("tabOrder")));
+    return mongoTemplate.find(query, myClass);
   }
 
   @Override
@@ -52,5 +55,11 @@ public class TabMapperImpl implements TabMapper {
   @Override
   public TabEntity findTabById(String tabId) {
     return mongoTemplate.findById(tabId, myClass);
+  }
+
+  @Override
+  public void removeTab(String tabId) {
+    Query query = new Query(Criteria.where("id").is(tabId));
+    mongoTemplate.remove(query, myClass);
   }
 }

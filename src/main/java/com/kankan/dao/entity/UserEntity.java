@@ -60,6 +60,8 @@ public class UserEntity extends BaseEntity {
         .userPhoto(userPhoto)
         .username(username)
         .userEmail(userEmail)
+        .createTime(this.getCreateTime())
+        .updateTime(this.getUpdateTime())
         .build();
     return user;
   }

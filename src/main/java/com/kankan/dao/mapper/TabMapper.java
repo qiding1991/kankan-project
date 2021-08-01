@@ -7,16 +7,18 @@ import java.util.List;
 import com.kankan.dao.entity.TabEntity;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-02
+ * @author <qiding@qiding.com> Created on 2020-12-02
  */
 //@Mapper
 public interface TabMapper {
-    List<TabEntity> findTab();
 
-    void updateTab(TabEntity entity);
+  List<TabEntity> findTab();
 
-    void addTab(TabEntity entity);
+  void updateTab(TabEntity entity);
 
-    TabEntity findTabById(String tabId);
+  void addTab(TabEntity entity);
+
+  TabEntity findTabById(String tabId);
+
+  void removeTab(String tabId);
 }
