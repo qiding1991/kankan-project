@@ -9,7 +9,7 @@ import java.util.List;
 
 //@Mapper
 public interface HeaderLineInfoMapper {
-    void insert(HeaderLineInfoEntity headerLineInfoEntity);
+    void save(HeaderLineInfoEntity headerLineInfoEntity);
 
     HeaderLineInfoEntity findHeaderLineInfo(String tabId);
 

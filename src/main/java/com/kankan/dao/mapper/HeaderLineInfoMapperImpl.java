@@ -18,8 +18,8 @@ public class HeaderLineInfoMapperImpl implements HeaderLineInfoMapper {
   private Class<HeaderLineInfoEntity> myClass = HeaderLineInfoEntity.class;
 
   @Override
-  public void insert(HeaderLineInfoEntity headerLineInfoEntity) {
-    mongoTemplate.insert(headerLineInfoEntity);
+  public void save(HeaderLineInfoEntity headerLineInfoEntity) {
+    mongoTemplate.save(headerLineInfoEntity);
   }
 
   @Override

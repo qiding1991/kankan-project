@@ -26,7 +26,7 @@ public class HeaderLine {
                 .build();
     }
 
-    public void creatHeaderLine(HeaderLineService headerLineService) {
+    public void saveHeaderLine(HeaderLineService headerLineService) {
         headerLineService.createHeadLine(this);
     }
 

@@ -33,6 +33,8 @@ public class KankanUser {
   private String remark;
   private Integer recommendStatus;
   private Integer whiteStatus;
+  private Long updateTime;
+  private Long createTime;
   private Long fansCount;
   private Long followCount;
   private Long readCount;

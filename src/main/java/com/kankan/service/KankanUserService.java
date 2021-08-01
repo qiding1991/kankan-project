@@ -49,6 +49,15 @@ public class KankanUserService {
     return infoList;
   }
 
+  public List<KankanUser> findAllOrderByTime(Boolean desc) {
+    List<KankanUserEntity> userEntityList = kankanUserMapper.findAllOrderByTime(desc);
+    List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());
+    infoList.forEach(userItem -> userItem.addUserPhoto(userService));
+    return infoList;
+  }
+
+
+
   public List<KankanUser> findUserByPageInfo(String offset, Integer size) {
     log.info("参数，offset={},size={}", offset, size);
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset, size);

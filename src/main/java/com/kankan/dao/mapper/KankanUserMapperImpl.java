@@ -38,6 +38,18 @@ public class KankanUserMapperImpl implements KankanUserMapper {
   }
 
   @Override
+  public List<KankanUserEntity> findAllOrderByTime(Boolean desc) {
+    Query query = new Query();
+
+    if (desc) {
+      query.with(Sort.by(Order.desc("createTime")));
+    } else {
+      query.with(Sort.by(Order.asc("createTime")));
+    }
+    return mongoTemplate.find(query, myClass);
+  }
+
+  @Override
   public List<KankanUserEntity> findByPage(String offset, Integer size) {
 //    @Select("select * from kankan_user where id < #{offset} limit #{size}")
     Query query = new Query().limit(size)

@@ -9,7 +9,6 @@ import com.kankan.dao.mapper.HeaderLineInfoMapper;
 import com.kankan.dao.mapper.HeaderLineItemMapper;
 import com.kankan.module.HeaderLineItem;
 import com.kankan.module.HeaderLine;
-import com.kankan.param.headline.HeaderLineItemInfo;
 
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public class HeaderLineService {
 
   public void createHeadLine(HeaderLine headerLine) {
     HeaderLineInfoEntity headerLineInfoEntity = new HeaderLineInfoEntity(headerLine);
-    headerLineInfoMapper.insert(headerLineInfoEntity);
+    headerLineInfoMapper.save(headerLineInfoEntity);
     headerLine.setId(headerLineInfoEntity.getId());
   }
 

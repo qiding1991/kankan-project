@@ -8,7 +8,10 @@ import javax.annotation.Resource;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.kankan.dao.entity.FeedbackEntity;
@@ -16,23 +19,22 @@ import com.kankan.dao.mapper.FeedbackMapper;
 import com.kankan.module.Feedback;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-08
+ * @author <qiding@qiding.com> Created on 2020-12-08
  */
 @Service
-public class FeedbackService{
+public class FeedbackService {
 
-    @Autowired
-    private MongoTemplate mongoTemplate;
+  @Autowired
+  private MongoTemplate mongoTemplate;
 
-    public void addFeedBack(Feedback feedback){
-        mongoTemplate.insert(feedback);
-    }
+  public void addFeedBack(Feedback feedback) {
+    mongoTemplate.insert(feedback);
+  }
 
-    public List<Feedback> feedbackList(){
-       return mongoTemplate.findAll(Feedback.class);
-    }
-
+  public List<Feedback> feedbackList() {
+    Query query = new Query().with(Sort.by(Order.desc("createTime")));
+    return mongoTemplate.find(query, Feedback.class);
+  }
 
 //
 //    @Resource

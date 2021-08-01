@@ -59,17 +59,18 @@ public class AdminKankanUserController extends BaseController {
   }
 
 
-  @ApiOperation("获取作者列表  recommendStatus  (1不推荐 2推荐) whiteStatus(1 不白名单 2 白名单)")
+  @ApiOperation("获取作者列表  orderTime 1 时间倒序，   recommendStatus  (1不推荐 2推荐) whiteStatus(1 不白名单 2 白名单)")
   @PostMapping("list")
-  public CommonResponse list() {
-    KankanUser kankanUser = KankanUser.builder().build();
-    List<KankanUser> userList = kankanUser.list(kankanUserService);
+  public CommonResponse list(@RequestParam(value = "orderTime", required = false, defaultValue = "1")
+      Integer orderTime) {
+    List<KankanUser> userList = kankanUserService.findAllOrderByTime(1 == orderTime);
     return success(userList);
   }
 
 
   @Data
   public static class ResetPassword {
+
     private String userId;
     private String password;
   }

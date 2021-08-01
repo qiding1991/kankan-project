@@ -18,6 +18,8 @@ public interface KankanUserMapper {
 //  @Select("select * from kankan_user")
   List<KankanUserEntity> findAll();
 
+  List<KankanUserEntity> findAllOrderByTime(Boolean desc);
+
 //  @Select("select * from kankan_user where id < #{offset} limit #{size}")
   List<KankanUserEntity> findByPage(String offset, Integer size);
 

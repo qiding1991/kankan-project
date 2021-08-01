@@ -51,7 +51,12 @@ public class AdminHeaderLineController {
   @PostMapping("headerLineInfo")
   public CommonResponse headerLineInfo(@Valid @RequestBody HeaderLineInfo headerLineInfo) {
     HeaderLine headerLine = headerLineInfo.toHeadline();
-    headerLine.creatHeaderLine(headerLineService);
+    String tabId = headerLineInfo.getTabId();
+    HeaderLine recordHeadLine = headerLineService.findHeaderLineInfo(tabId);
+    if (recordHeadLine != null) {
+      headerLine.setId(recordHeadLine.getId());
+    }
+    headerLine.saveHeaderLine(headerLineService);
     return CommonResponse.success(headerLine.getId());
   }
 
