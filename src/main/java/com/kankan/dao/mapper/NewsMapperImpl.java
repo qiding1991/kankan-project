@@ -105,4 +105,10 @@ public class NewsMapperImpl implements NewsMapper {
     Update update = new Update().set("status", 0);
     mongoTemplate.updateFirst(query, update, myClass);
   }
+
+  @Override
+  public List<NewsEntity> findRelated(String tabId, String id) {
+    Query query = Query.query(Criteria.where("tabId").is(tabId).and("id").not().is(id));
+    return  mongoTemplate.find(query, myClass);
+  }
 }

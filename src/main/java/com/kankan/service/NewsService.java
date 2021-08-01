@@ -99,4 +99,8 @@ public class NewsService {
   public void delete(String id) {
        newsMapper.delete(id);
   }
+
+  public List<NewsEntity> findRelatedNews(String tabId, String id) {
+     return newsMapper.findRelated(tabId,id);
+  }
 }

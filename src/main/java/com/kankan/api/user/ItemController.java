@@ -7,6 +7,7 @@ import com.kankan.constant.EnumItemType;
 import com.kankan.constant.EnumTabType;
 import com.kankan.constant.PageData;
 import com.kankan.dao.entity.FavouriteEntity;
+import com.kankan.dao.entity.NewsEntity;
 import com.kankan.dao.mapper.ThumpMapper;
 import com.kankan.module.*;
 import com.kankan.param.tab.TabPageInfo;
@@ -17,6 +18,7 @@ import com.kankan.vo.detail.VideoDetailVo;
 import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.Set;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -113,16 +115,22 @@ public class ItemController extends BaseController {
         newsDetailVo.addBaseInfo(resource);
         newsDetailVo.addAdInfo(adService);
         newsDetailVo.addCommentInfo(commentService, userService);
-        newsDetailVo.addRelatedNews(resourceId, resource, resourceService, tabService, newsService);
-        newsDetailVo.setFavouriteStatus(favouriteStatus);
-        //添加当前用户的评论状态
-        newsDetailVo.addThumpStatus(userId, thumpMapper);
-        //
+        //获取tabId有关的数据
         News newsEntity=  newsService.findNews(resourceId);
         newsDetailVo.setPublishTime(newsEntity.getCreateTime());
         newsDetailVo.setTilte(newsEntity.getTitle());
         Tab tab=  tabService.findTab(newsEntity.getTabId());
         newsDetailVo.setSubTitle(tab.getTabName());
+        //获取tabId下的数据
+        List<NewsEntity> infoList = newsService.findRelatedNews(newsEntity.getTabId(),newsEntity.getId());
+        if(!CollectionUtils.isEmpty(infoList)){
+          Set<String> resourceIdList = infoList.stream().map(NewsEntity::getResourceId).collect(Collectors.toSet());
+          newsDetailVo.addRelatedNews(resourceIdList, resource, resourceService, tabService, newsService);
+        }
+        newsDetailVo.setFavouriteStatus(favouriteStatus);
+        //添加当前用户的评论状态
+        newsDetailVo.addThumpStatus(userId, thumpMapper);
+        //
         return success(newsDetailVo);
       case ARTICLE:
         ArticleDetailVo articleDetailVo = ArticleDetailVo.builder().resourceId(resourceId).build();

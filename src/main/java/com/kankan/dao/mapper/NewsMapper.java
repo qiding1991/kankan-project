@@ -45,4 +45,6 @@ public interface NewsMapper {
   List<NewsEntity> findByKeyword(String keyword, String offset, Integer size);
 
   void delete(String id);
+
+  List<NewsEntity> findRelated(String tabId, String id);
 }

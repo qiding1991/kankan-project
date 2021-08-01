@@ -10,6 +10,7 @@ import com.kankan.vo.KankanCommentVo;
 import com.kankan.vo.tab.AdItemVo;
 import com.kankan.vo.tab.NewsItemVo;
 import java.util.Objects;
+import java.util.Set;
 import lombok.Builder;
 import lombok.Data;
 import org.apache.commons.lang.math.RandomUtils;
@@ -57,16 +58,14 @@ public class NewsDetailVo {
 
   /**
    * 相关信息
-   *
-   * @param resourceId
+   *  @param resourceId
    * @param mediaResource
    * @param resourceService
    * @param tabService
    * @param newsService
    */
-  public void addRelatedNews(String resourceId, MediaResource mediaResource, ResourceService resourceService, TabService tabService, NewsService newsService) {
-    List<MediaResource> mediaResourceList = resourceService.findRelatedResource(mediaResource);
-    mediaResourceList = mediaResourceList.stream().filter(resource -> !resource.getResourceId().equalsIgnoreCase(resourceId)).collect(Collectors.toList());
+  public void addRelatedNews(Set<String> resourceIdList, MediaResource mediaResource, ResourceService resourceService, TabService tabService, NewsService newsService) {
+    List<MediaResource> mediaResourceList =resourceService.findResource(resourceIdList);
     if (CollectionUtils.isEmpty(mediaResourceList)) {
       return;
     }
