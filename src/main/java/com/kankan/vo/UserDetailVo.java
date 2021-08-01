@@ -25,6 +25,7 @@ public class UserDetailVo {
   private Boolean isKankan;
 
   private List<String> privilege;
+  private Long createTime;
 
 
   public UserDetailVo(UserEntity user) {
@@ -33,6 +34,7 @@ public class UserDetailVo {
     this.password = user.getPassword();
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
+    this.createTime = user.getCreateTime();
   }
   public UserDetailVo(User user) {
     this.userId = user.getUserId();
@@ -40,6 +42,7 @@ public class UserDetailVo {
     this.password = user.getPassword();
     this.username = user.getUsername();
     this.userPhoto = user.getUserPhoto();
+    this.createTime = user.getCreateTime();
   }
 
 
@@ -53,6 +56,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
     this.isKankan=false;
+    this.createTime = user.getCreateTime();
   }
 
   public UserDetailVo(User user, UserPrivilege userPrivilege) {
@@ -63,6 +67,7 @@ public class UserDetailVo {
     this.userPhoto = user.getUserPhoto();
     this.privilege = userPrivilege.getPrivilege();
     this.isKankan=false;
+    this.createTime = user.getCreateTime();
   }
 
 
@@ -75,6 +80,7 @@ public class UserDetailVo {
     this.privilege = companyApply.getPrivilege();
     this.applyStatus=companyApply.getApplyStatus();
     this.isKankan=this.applyStatus==2;
+    this.createTime = user.getCreateTime();
   }
 
 
@@ -87,6 +93,7 @@ public class UserDetailVo {
     this.privilege = kankanApply.getPrivilege();
     this.applyStatus =kankanApply.getApplyStatus();
     this.isKankan=kankanApply.getApplyStatus()==2;
+    this.createTime = user.getCreateTime();
   }
 
   public UserDetailVo(User user, KankanCompanyApply companyApply) {
@@ -98,6 +105,7 @@ public class UserDetailVo {
     this.privilege = companyApply.getPrivilege();
     this.applyStatus=companyApply.getApplyStatus();
     this.isKankan=companyApply.getApplyStatus()==2;
+    this.createTime =user.getCreateTime();
   }
 
 
@@ -110,6 +118,7 @@ public class UserDetailVo {
     this.privilege = kankanApply.getPrivilege();
     this.applyStatus =kankanApply.getApplyStatus();
     this.isKankan=kankanApply.getApplyStatus()==2;
+    this.createTime = user.getCreateTime();
   }
 
 
