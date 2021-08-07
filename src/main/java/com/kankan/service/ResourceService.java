@@ -18,8 +18,7 @@ import org.springframework.stereotype.Service;
 import com.kankan.module.MediaResource;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Log4j2
 @Service
@@ -69,6 +68,10 @@ public class ResourceService {
       log.info("请求参数 resourceId={},param={}", resourceId, param.get());
       Query query = Query.query(Criteria.where("resourceId").is(resourceId));
       MediaResource old = mongoTemplate.findOne(query, MediaResource.class);
+      if (old == null) {
+        log.error("resourceId={}数据丢失", resourceId);
+        return;
+      }
       Update update = Update.update(param.get(), ObjectUtils.defaultIfNull(function.apply(old), 0) + count.get());
       mongoTemplate.updateFirst(query, update, MediaResource.class);
     } catch (Exception e) {
