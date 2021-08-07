@@ -28,6 +28,8 @@ public class NewsService {
   public void createNews(News news) {
     NewsEntity entity = new NewsEntity();
     BeanUtils.copyProperties(news, entity);
+
+
     newsMapper.insert(entity);
     news.setId(entity.getId());
   }
