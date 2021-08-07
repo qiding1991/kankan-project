@@ -1,27 +1,24 @@
 package com.kankan.service;
 
-import io.netty.util.internal.StringUtil;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.annotation.Resource;
-
-import com.kankan.util.GsonUtil;
-import org.apache.commons.lang3.ObjectUtils;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Service;
-
 import com.kankan.dao.entity.NewsEntity;
 import com.kankan.dao.mapper.NewsMapper;
 import com.kankan.module.News;
 import com.kankan.param.tab.TabPageInfo;
+import com.kankan.util.GsonUtil;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
+@Slf4j
 @Service
 public class NewsService {
 
@@ -40,7 +37,7 @@ public class NewsService {
     return infoList.stream().map(News::parseEntity).collect(Collectors.toList());
   }
 
-  public News findById(String  newsId) {
+  public News findById(String newsId) {
     NewsEntity newsEntity = newsMapper.findNewsById(newsId);
     return News.parseEntity(newsEntity);
   }
@@ -52,15 +49,16 @@ public class NewsService {
 
   public News findNews(String resourceId) {
     NewsEntity newsEntity = newsMapper.findNewsByResourceId(resourceId);
-    if(ObjectUtils.allNotNull(newsEntity)){
+    if (ObjectUtils.allNotNull(newsEntity)) {
       return News.parseEntity(newsEntity);
     }
     return null;
   }
 
-  public News findNewsById(String newsId){
+  public News findNewsById(String newsId) {
     NewsEntity newsEntity = newsMapper.findNewsById(newsId);
-    if(ObjectUtils.allNotNull(newsEntity)){
+    log.info("findNewsById newsId={},response={}", newsId, newsEntity);
+    if (ObjectUtils.allNotNull(newsEntity)) {
       return News.parseEntity(newsEntity);
     }
     return null;
@@ -77,7 +75,7 @@ public class NewsService {
 
 
   public List<News> findByUserId(String userId) {
-    List<NewsEntity> newsEntities= newsMapper.findByUserId(userId);
+    List<NewsEntity> newsEntities = newsMapper.findByUserId(userId);
     return newsEntities.stream().map(News::parseEntity).collect(Collectors.toList());
   }
 
@@ -85,22 +83,22 @@ public class NewsService {
     if (CollectionUtils.isEmpty(newsIdList)) {
       return new ArrayList<>();
     }
-    String newsIds= GsonUtil.toGson(newsIdList);
-    newsIds=newsIds.substring(1,newsIds.length()-1);
-    List<NewsEntity> infoList=newsMapper.findTitles(newsIds);
+    String newsIds = GsonUtil.toGson(newsIdList);
+    newsIds = newsIds.substring(1, newsIds.length() - 1);
+    List<NewsEntity> infoList = newsMapper.findTitles(newsIds);
     return infoList;
   }
 
   public List<News> findNews(String offset, Integer size, String keyword) {
-    List<NewsEntity> infoList=newsMapper.findByKeyword(keyword,offset,size);
+    List<NewsEntity> infoList = newsMapper.findByKeyword(keyword, offset, size);
     return infoList.stream().map(News::parseEntity).collect(Collectors.toList());
   }
 
   public void delete(String id) {
-       newsMapper.delete(id);
+    newsMapper.delete(id);
   }
 
   public List<NewsEntity> findRelatedNews(String tabId, String id) {
-     return newsMapper.findRelated(tabId,id);
+    return newsMapper.findRelated(tabId, id);
   }
 }

@@ -37,8 +37,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-04
+ * @author <qiding@qiding.com> Created on 2020-12-04
  */
 @Log4j2
 @Validated
@@ -79,9 +78,9 @@ public class ItemController extends BaseController {
 
 
   public ItemController(TabService tabService, HotPointService hotPointService,
-                        KankanWorkService workService, NewsService newsService, KankanAdService adService,
-                        HeaderLineService headerLineService, KankanUserService kankanUserService,
-                        ResourceService resourceService, CommentService commentService, FavouriteService favouriteService, FollowService followService) {
+      KankanWorkService workService, NewsService newsService, KankanAdService adService,
+      HeaderLineService headerLineService, KankanUserService kankanUserService,
+      ResourceService resourceService, CommentService commentService, FavouriteService favouriteService, FollowService followService) {
     this.tabService = tabService;
     this.hotPointService = hotPointService;
     this.workService = workService;
@@ -98,7 +97,8 @@ public class ItemController extends BaseController {
 
   @ApiOperation("获取详情")
   @GetMapping("detail")
-  public CommonResponse detail(@RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "resourceId") String resourceId, @RequestParam(value = "itemType") Integer itemType) {
+  public CommonResponse detail(@RequestParam(value = "userId", required = false) String userId, @RequestParam(value = "resourceId") String resourceId,
+      @RequestParam(value = "itemType") Integer itemType) {
     MediaResource mediaResource = MediaResource.builder().resourceId(resourceId).build();
     mediaResource.incrementReadCount(resourceService);
     MediaResource resource = resourceService.findResource(resourceId);
@@ -116,14 +116,14 @@ public class ItemController extends BaseController {
         newsDetailVo.addAdInfo(adService);
         newsDetailVo.addCommentInfo(commentService, userService);
         //获取tabId有关的数据
-        News newsEntity=  newsService.findNews(resourceId);
+        News newsEntity = newsService.findNews(resourceId);
         newsDetailVo.setPublishTime(newsEntity.getCreateTime());
         newsDetailVo.setTilte(newsEntity.getTitle());
-        Tab tab=  tabService.findTab(newsEntity.getTabId());
+        Tab tab = tabService.findTab(newsEntity.getTabId());
         newsDetailVo.setSubTitle(tab.getTabName());
         //获取tabId下的数据
-        List<NewsEntity> infoList = newsService.findRelatedNews(newsEntity.getTabId(),newsEntity.getId());
-        if(!CollectionUtils.isEmpty(infoList)){
+        List<NewsEntity> infoList = newsService.findRelatedNews(newsEntity.getTabId(), newsEntity.getId());
+        if (!CollectionUtils.isEmpty(infoList)) {
           Set<String> resourceIdList = infoList.stream().map(NewsEntity::getResourceId).collect(Collectors.toSet());
           newsDetailVo.addRelatedNews(resourceIdList, resource, resourceService, tabService, newsService);
         }
@@ -167,11 +167,11 @@ public class ItemController extends BaseController {
   @ApiOperation("获取新闻列表")
   @GetMapping("list")
   public CommonResponse list(@Valid
-                             @NotNull(message = "不能为空") @RequestParam(value = "tabId") String tabId,
-                             @NotNull(message = "不能为空")
-                             @RequestParam(value = "offset", required = false, defaultValue ="0") String offset,
-                             @RequestParam(value = "userId", required = false) String userId,
-                             @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
+  @NotNull(message = "不能为空") @RequestParam(value = "tabId") String tabId,
+      @NotNull(message = "不能为空")
+      @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
+      @RequestParam(value = "userId", required = false) String userId,
+      @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
     if (offset.equals("2147483647")) {
       offset = "0";
