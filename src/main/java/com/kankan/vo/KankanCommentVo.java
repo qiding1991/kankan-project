@@ -15,7 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
- * @author <qiding@kuaishou.com>
+ * @author <qiding@qiding.com>
  * Created on 2020-12-12
  */
 @Data

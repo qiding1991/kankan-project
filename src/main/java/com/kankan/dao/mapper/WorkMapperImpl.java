@@ -39,6 +39,7 @@ public class WorkMapperImpl implements WorkMapper {
     if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
+    query.addCriteria(Criteria.where("status").is(1));
     return mongoTemplate.find(query, myClass);
   }
 
@@ -53,6 +54,7 @@ public class WorkMapperImpl implements WorkMapper {
     if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
       query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
     }
+    query.addCriteria(Criteria.where("status").is(1));
     return mongoTemplate.find(query, myClass);
 
   }

@@ -35,6 +35,7 @@ public class News {
   private Integer hotStatus;//是否设置称热点
   private Integer headStatus;
   private String desc;
+  private Integer auditStatus;
 
 
   public static News fromResourceId(String resourceId, NewsService newsService) {

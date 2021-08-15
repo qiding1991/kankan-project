@@ -14,37 +14,41 @@ import com.kankan.dao.entity.NewsEntity;
  */
 //@Mapper
 public interface NewsMapper {
-  void insert(NewsEntity entity);
+    void insert(NewsEntity entity);
 
-  List<NewsEntity> findNews(String tabId, String offset, Integer size);
+    List<NewsEntity> findNews(String tabId, String offset, Integer size);
 
 
-//  @Select("select * from news_info where id=#{newsId}")
-  NewsEntity findNewsById(String newsId);
+    //  @Select("select * from news_info where id=#{newsId}")
+    NewsEntity findNewsById(String newsId);
 
-//  @Select("select * from news_info")
-  List<NewsEntity> findAllNews();
+    //  @Select("select * from news_info")
+    List<NewsEntity> findAllNews();
 
-//  @Select("select * from news_info where resource_id=#{resourceId}")
-  NewsEntity findNewsByResourceId(String resourceId);
+    //  @Select("select * from news_info where resource_id=#{resourceId}")
+    NewsEntity findNewsByResourceId(String resourceId);
 
-//  @Update("update news_info set hot_status=#{hotStatus} where id=#{newsId}")
-  void setHot(String newsId, Integer hotStatus);
+    //  @Update("update news_info set hot_status=#{hotStatus} where id=#{newsId}")
+    void setHot(String newsId, Integer hotStatus);
 
-//  @Update("update news_info set head_status=#{headStatus} where id=#{newsId}")
-  void setHeader(String newsId, Integer headStatus);
+    //  @Update("update news_info set head_status=#{headStatus} where id=#{newsId}")
+    void setHeader(String newsId, Integer headStatus);
 
-//  @Select("select * from news_info where user_id=#{userId}")
-  List<NewsEntity> findByUserId(String userId);
+    //  @Select("select * from news_info where user_id=#{userId}")
+    List<NewsEntity> findByUserId(String userId);
 
-//  @Select("select * from news_info where id in (${newsIds})")
-  List<NewsEntity> findTitles(String newsIds);
+    //  @Select("select * from news_info where id in (${newsIds})")
+    List<NewsEntity> findTitles(String newsIds);
 
-//  @Select("select * from news_info where title like '%#{keyword}%' limit #{offset},#{size}")
-//  @Select("select * from news_info where title like  concat('%',#{keyword},'%')  limit #{offset},#{size} ")
-  List<NewsEntity> findByKeyword(String keyword, String offset, Integer size);
+    //  @Select("select * from news_info where title like '%#{keyword}%' limit #{offset},#{size}")
+    //  @Select("select * from news_info where title like  concat('%',#{keyword},'%')  limit #{offset},#{size} ")
+    List<NewsEntity> findByKeyword(String keyword, String offset, Integer size);
 
-  void delete(String id);
+    void delete(String id);
 
-  List<NewsEntity> findRelated(String tabId, String id);
+    List<NewsEntity> findRelated(String tabId, String id);
+
+    void updateNews(NewsEntity newsEntity);
+
+    void auditNews(String id, Integer auditStatus);
 }
