@@ -33,8 +33,7 @@ public class NewsService {
     public void createNews(News news) {
         NewsEntity entity = new NewsEntity();
         BeanUtils.copyProperties(news, entity);
-
-
+        news.setAuditStatus(1);
         newsMapper.insert(entity);
         news.setId(entity.getId());
     }
