@@ -47,7 +47,7 @@ public class ShareController extends BaseController {
   @ApiOperation("分享信息")
   @PostMapping("send")
   public CommonResponse sendShare(@RequestBody ShareDetail shareDetail) {
-     shareDetail = shareService.addShare(shareDetail);
+    shareDetail = shareService.addShare(shareDetail);
     //获取基本信息
     return success(shareDetail);
   }
@@ -57,5 +57,22 @@ public class ShareController extends BaseController {
   public CommonResponse detail(@PathVariable(value = "id") String id) {
     ShareDetail shareDetail = shareService.getShare(id);
     return success(shareDetail);
+  }
+
+  @ApiOperation("分享列表")
+  @GetMapping("list")
+  public CommonResponse list(
+      @RequestParam(value = "pageSize", required = false, defaultValue = "100000000") Integer pageSize,
+      @RequestParam(value = "pageNumber", required = false, defaultValue = "1") Integer pageNumber) {
+    Integer startIndex = (pageNumber - 1) * pageSize;
+    List<ShareDetail> shareDetail = shareService.findPage(startIndex, pageSize);
+    return success(shareDetail);
+  }
+
+  @ApiOperation("删除分享")
+  @PostMapping("del/{id}")
+  public CommonResponse del(@PathVariable(value = "id") String id) {
+    shareService.remove(id);
+    return success();
   }
 }
