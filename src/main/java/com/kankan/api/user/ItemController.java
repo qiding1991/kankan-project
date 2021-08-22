@@ -170,7 +170,6 @@ public class ItemController extends BaseController {
   @GetMapping("list")
   public CommonResponse list(@Valid
   @NotNull(message = "不能为空") @RequestParam(value = "tabId") String tabId,
-      @NotNull(message = "不能为空")
       @RequestParam(value = "offset", required = false) Long offset,
       @RequestParam(value = "userId", required = false) String userId,
       @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
