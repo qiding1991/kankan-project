@@ -1,5 +1,6 @@
 package com.kankan.api.admin.work;
 
+import com.kankan.constant.EnumItemType;
 import com.kankan.dao.entity.WorkEntity;
 import com.kankan.module.MediaResource;
 import com.kankan.module.privilege.UserPrivilege;
@@ -101,6 +102,7 @@ public class AdminWorkController extends BaseController {
   @PostMapping("delete/{id}")
   public CommonResponse delete(@PathVariable(value = "id") String id) {
     workService.delete(id);
+    hotPointService.delHot(EnumItemType.ARTICLE.getCode(), id);
     return success();
   }
 
