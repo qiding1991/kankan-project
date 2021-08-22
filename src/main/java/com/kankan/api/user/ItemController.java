@@ -193,14 +193,14 @@ public class ItemController extends BaseController {
       case ARTICLE:
         log.info("---开始查询文章--ARTICLE");
         infoList.add(findHotUserItemVo());
-        if (Objects.nonNull(offset)) {
+        if (Objects.isNull(offset)) {
           infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
         log.info("---开始查询新闻--NEWS");
-        if (Objects.nonNull(offset)) {
+        if (Objects.isNull(offset)) {
           infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findNews(newsService, pageInfo));
