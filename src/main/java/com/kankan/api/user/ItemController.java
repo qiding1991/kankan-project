@@ -338,24 +338,29 @@ public class ItemController extends BaseController {
     EnumItemType itemEnum = EnumItemType.getItem(itemType);
     TabItemVo item = TabItemVo.builder().itemType(itemType)
         .itemId(itemId)
-        .updateTime(hotPoint.getUpdateTime())
+        .updateTime(hotPoint.getOffset())
         .build();
 
     switch (itemEnum) {
       case NEWS:
         NewsItemVo newsItem = item.toNews(tabService, newsService, resourceService);
+        newsItem.setUpdateTime(hotPoint.getOffset());
         return newsItem;
       case VIDEO:
         VideoItemVo videoItem = item.toVideo(kankanUserService, workService, resourceService);
+        videoItem.setUpdateTime(hotPoint.getOffset());
         return videoItem;
       case ARTICLE:
         ArticleItemVo articleItem = item.toArticle(kankanUserService, workService, resourceService);
+        articleItem.setUpdateTime(hotPoint.getOffset());
         return articleItem;
       case AD:
         AdItemVo adItem = item.toAd(adService);
+        adItem.setUpdateTime(hotPoint.getOffset());
         return adItem;
       case HEADER_LINE_GROUP:
         HeaderLineVo headerLine = item.toHeaderLine(headerLineService);
+        headerLine.setUpdateTime(hotPoint.getOffset());
         return headerLine;
       default:
         return new TabItemVo();

@@ -19,7 +19,7 @@ public class HotPoint {
   private String itemId;
   private Integer itemType;
   private Integer itemOrder;
-  private Long updateTime;
+  private Long offset;
 
   public void create(HotPointService hotPointService) {
     hotPointService.createHotPoint(this);
@@ -30,7 +30,7 @@ public class HotPoint {
         .id(hotPointEntity.getId())
         .itemId(hotPointEntity.getItemId())
         .itemType(hotPointEntity.getItemType())
-        .updateTime(hotPointEntity.getUpdateTime())
+        .offset(hotPointEntity.getUpdateTime())
         .build();
   }
 
