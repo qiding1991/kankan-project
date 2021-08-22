@@ -174,7 +174,12 @@ public class ItemController extends BaseController {
       @RequestParam(value = "userId", required = false) String userId,
       @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
+
+    Boolean isFirstPage =Objects.isNull(offset);
     offset = Optional.ofNullable(offset).orElse(Instant.now().toEpochMilli());
+
+
+
 
     Tab tab = tabService.findTab(tabId);
     if (tab == null) {
@@ -193,14 +198,14 @@ public class ItemController extends BaseController {
       case ARTICLE:
         log.info("---开始查询文章--ARTICLE");
         infoList.add(findHotUserItemVo());
-        if (Objects.isNull(offset)) {
+        if (isFirstPage) {
           infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
         log.info("---开始查询新闻--NEWS");
-        if (Objects.isNull(offset)) {
+        if (isFirstPage) {
           infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findNews(newsService, pageInfo));
