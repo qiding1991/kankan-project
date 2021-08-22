@@ -27,33 +27,25 @@ public class WorkMapperImpl implements WorkMapper {
   }
 
   @Override
-  public List<WorkEntity> findArticle(String offset, Integer size) {
-//
-//      <select id="findArticle" resultType="WorkEntity">
-//        select * from work_info where  `type`=0 and id &lt; #{offset} order by id desc limit #{size}
-//    </select>
-//
-//    select * from work_info where  `type`=0 and id &lt; #{offset} order by id desc limit #{size}
-    Query query = Query.query(Criteria.where("type").is(0).and("auditStatus").is(2))
-        .limit(size).with(Sort.by(Order.desc("id")));
-    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
-      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
-    }
+  public List<WorkEntity> findArticle(Long offset, Integer size) {
+    Query query = Query.query(Criteria.where("type").is(0)
+        .and("auditStatus").is(2)
+        .and("updateTime").lt(offset))
+        .limit(size).with(Sort.by(Order.desc("updateTime")));
     query.addCriteria(Criteria.where("status").is(1));
     return mongoTemplate.find(query, myClass);
   }
 
   @Override
-  public List<WorkEntity> findVideo(String offset, Integer size) {
+  public List<WorkEntity> findVideo(Long offset, Integer size) {
 //
 //    <select id="findVideo" resultType="WorkEntity">
 //        select * from work_info where  `type`=1 and  id &lt; #{offset} order by id desc limit #{size}
 //    </select>
-    Query query = Query.query(Criteria.where("type").is(1).and("auditStatus").is(2))
-        .limit(size).with(Sort.by(Order.desc("id")));
-    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
-      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
-    }
+    Query query = Query.query(Criteria.where("type").is(1)
+        .and("auditStatus").is(2)
+        .and("updateTime").lt(offset))
+        .limit(size).with(Sort.by(Order.desc("updateTime")));
     query.addCriteria(Criteria.where("status").is(1));
     return mongoTemplate.find(query, myClass);
 

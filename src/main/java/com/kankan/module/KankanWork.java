@@ -38,6 +38,7 @@ public class KankanWork {
   private Integer hotStatus;//是否设置称热点
   private Integer headStatus;
   private Integer auditStatus;
+  private Long offset;
 
 
   public static KankanWork fromResourceId(String resourceId, KankanWorkService workService) {
@@ -53,6 +54,7 @@ public class KankanWork {
     KankanWork kankanWork = new KankanWork();
     BeanUtils.copyProperties(workEntity, kankanWork);
     kankanWork.publishTime = workEntity.getCreateTime();
+    kankanWork.offset = workEntity.getUpdateTime();
     return kankanWork;
   }
 

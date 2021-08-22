@@ -26,15 +26,18 @@ public class HotPointMapperImpl implements HotPointMapper {
     mongoTemplate.insert(hotPointEntity);
   }
 
+  /**
+   *
+   * @param offset 时间戳，倒序
+   * @param size
+   * @return
+   */
   @Override
-  public List<HotPointEntity> findHotInfo(String offset, Integer size) {
+  public List<HotPointEntity> findHotInfo(Long offset, Integer size) {
 //    return nuselect item_id,item_type from hot_info where status = 1 and item_order &lt; #{offset}  order by item_order desc limit #{size}ll;
-    Query query = new Query(Criteria.where("status").is(1))
-        .with(Sort.by(Order.desc("itemOrder")))
+    Query query = new Query(Criteria.where("status").is(1).and("updateTime").lt(offset))
+        .with(Sort.by(Order.desc("updateTime")))
         .limit(size);
-    if(!"0".equals(offset)&& StringUtils.isNotBlank(offset)){
-      query.addCriteria(Criteria.where("itemOrder").lt(offset));
-    }
     return  mongoTemplate.find(query,myClass);
   }
 

@@ -50,13 +50,11 @@ public class KankanUserMapperImpl implements KankanUserMapper {
   }
 
   @Override
-  public List<KankanUserEntity> findByPage(String offset, Integer size) {
+  public List<KankanUserEntity> findByPage(Long offset, Integer size) {
 //    @Select("select * from kankan_user where id < #{offset} limit #{size}")
     Query query = new Query().limit(size)
-        .with(Sort.by(Order.desc("id")));
-    if (!"0".equals(offset) && StringUtils.isNotBlank(offset)) {
-      query.addCriteria(Criteria.where("id").lt(new ObjectId(offset)));
-    }
+        .with(Sort.by(Order.desc("updateTime")));
+    query.addCriteria(Criteria.where("updateTime").lt(offset));
     return mongoTemplate.find(query, myClass);
   }
 

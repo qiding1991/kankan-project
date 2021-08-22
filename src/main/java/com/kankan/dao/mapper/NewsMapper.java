@@ -16,7 +16,7 @@ import com.kankan.dao.entity.NewsEntity;
 public interface NewsMapper {
     void insert(NewsEntity entity);
 
-    List<NewsEntity> findNews(String tabId, String offset, Integer size);
+    List<NewsEntity> findNews(String tabId, Long offset, Integer size);
 
 
     //  @Select("select * from news_info where id=#{newsId}")

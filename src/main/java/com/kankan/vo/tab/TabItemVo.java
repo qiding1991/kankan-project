@@ -36,7 +36,7 @@ public class TabItemVo {
   private Integer itemType;
   private String resourceId;
   private Long publishTime;
-
+  private Long updateTime;
 
   /**
    * 新闻展示方式

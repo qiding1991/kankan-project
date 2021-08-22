@@ -36,6 +36,7 @@ public class News {
   private Integer headStatus;
   private String desc;
   private Integer auditStatus;
+  private Long offset;
 
 
   public static News fromResourceId(String resourceId, NewsService newsService) {
@@ -49,6 +50,7 @@ public class News {
   public static News parseEntity(NewsEntity newsEntity) {
     News news = new News();
     BeanUtils.copyProperties(newsEntity, news);
+    news.setOffset(newsEntity.getUpdateTime());
     return news;
   }
 

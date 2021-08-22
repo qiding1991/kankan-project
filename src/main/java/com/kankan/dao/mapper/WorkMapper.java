@@ -22,9 +22,9 @@ public interface WorkMapper {
    * @param offset
    * @param size
    */
-  List<WorkEntity> findArticle(String offset, Integer size);
+  List<WorkEntity> findArticle(Long offset, Integer size);
 
-  List<WorkEntity> findVideo(String offset, Integer size);
+  List<WorkEntity> findVideo(Long offset, Integer size);
 
 //  @Select("select * from work_info where id=#{itemId}")
   WorkEntity findById(String itemId);

@@ -21,7 +21,7 @@ public interface KankanUserMapper {
   List<KankanUserEntity> findAllOrderByTime(Boolean desc);
 
 //  @Select("select * from kankan_user where id < #{offset} limit #{size}")
-  List<KankanUserEntity> findByPage(String offset, Integer size);
+  List<KankanUserEntity> findByPage(Long offset, Integer size);
 
 
 //  @Select("select * from kankan_user where user_type=#{userType}")

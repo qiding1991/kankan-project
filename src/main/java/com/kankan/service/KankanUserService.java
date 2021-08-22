@@ -58,7 +58,7 @@ public class KankanUserService {
 
 
 
-  public List<KankanUser> findUserByPageInfo(String offset, Integer size) {
+  public List<KankanUser> findUserByPageInfo(Long offset, Integer size) {
     log.info("参数，offset={},size={}", offset, size);
     List<KankanUserEntity> userEntityList = kankanUserMapper.findByPage(offset, size);
     List<KankanUser> infoList = userEntityList.stream().map(KankanUserEntity::parse).collect(Collectors.toList());

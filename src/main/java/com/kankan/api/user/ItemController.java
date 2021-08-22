@@ -18,6 +18,8 @@ import com.kankan.vo.detail.VideoDetailVo;
 import com.kankan.vo.tab.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.time.Instant;
+import java.util.Optional;
 import java.util.Set;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -169,15 +171,12 @@ public class ItemController extends BaseController {
   public CommonResponse list(@Valid
   @NotNull(message = "不能为空") @RequestParam(value = "tabId") String tabId,
       @NotNull(message = "不能为空")
-      @RequestParam(value = "offset", required = false, defaultValue = "0") String offset,
+      @RequestParam(value = "offset", required = false) Long offset,
       @RequestParam(value = "userId", required = false) String userId,
       @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
-    if (offset.equals("2147483647")) {
-      offset = "0";
-    }
+    offset = Optional.ofNullable(offset).orElse(Instant.now().toEpochMilli());
 
-    TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
     Tab tab = tabService.findTab(tabId);
     if (tab == null) {
       log.info("tab not exists ,tabId={}", tabId);
@@ -186,6 +185,7 @@ public class ItemController extends BaseController {
     List<TabItemVo> infoList = new ArrayList<>();
 
     //获取tab详情
+    TabPageInfo pageInfo = TabPageInfo.builder().offset(offset).size(size).tabId(tabId).build();
     switch (tabType) {
       case HOT:
         log.info("---开始查询热点--HOT");
@@ -194,15 +194,15 @@ public class ItemController extends BaseController {
       case ARTICLE:
         log.info("---开始查询文章--ARTICLE");
         infoList.add(findHotUserItemVo());
-        if (offset.equals("0")) {
-          infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
+        if (Objects.nonNull(offset)) {
+          infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findArticle(workService, pageInfo));
         break;
       case NEWS:
         log.info("---开始查询新闻--NEWS");
-        if (offset.equals("0")) {
-          infoList.add(findHeaderLine(resourceService, headerLineService, pageInfo));
+        if (Objects.nonNull(offset)) {
+          infoList.add(findHeaderLine(resourceService, headerLineService, tabId));
         }
         infoList.addAll(findNews(newsService, pageInfo));
         break;
@@ -232,6 +232,9 @@ public class ItemController extends BaseController {
       }
     }
     PageData pageData = PageData.pageData(infoList, size);
+    if(!CollectionUtils.isEmpty(infoList)){
+       pageData.setOffset(infoList.get(infoList.size()-1).getUpdateTime());
+    }
     return success(pageData);
   }
 
@@ -251,8 +254,8 @@ public class ItemController extends BaseController {
   /**
    * 头条
    */
-  private TabItemVo findHeaderLine(ResourceService resourceService, HeaderLineService headerLineService, TabPageInfo pageInfo) {
-    HeaderLine headerLine = headerLineService.findHeaderLineInfo(pageInfo.getTabId());
+  private TabItemVo findHeaderLine(ResourceService resourceService, HeaderLineService headerLineService, String tabId) {
+    HeaderLine headerLine = headerLineService.findHeaderLineInfo(tabId);
     if (headerLine == null) {
       return null;
     }
@@ -308,6 +311,7 @@ public class ItemController extends BaseController {
    */
   private NewsItemVo transform(News news) {
     NewsItemVo newsItemVo = news.toItemVo(tabService, resourceService);
+    newsItemVo.setUpdateTime(news.getOffset());
     return newsItemVo;
   }
 
@@ -317,9 +321,11 @@ public class ItemController extends BaseController {
   private TabItemVo transform(KankanWork kankanWork) {
     if (0 == kankanWork.getType()) {
       ArticleItemVo articleItemVo = kankanWork.toArticleItemVo(kankanUserService, resourceService);
+      articleItemVo.setUpdateTime(kankanWork.getOffset());
       return articleItemVo;
     } else {
       VideoItemVo itemVo = kankanWork.toVideoItemVo(kankanUserService, resourceService);
+      itemVo.setUpdateTime(kankanWork.getOffset());
       return itemVo;
     }
   }
@@ -331,7 +337,11 @@ public class ItemController extends BaseController {
     Integer itemType = hotPoint.getItemType();
     String itemId = hotPoint.getItemId();
     EnumItemType itemEnum = EnumItemType.getItem(itemType);
-    TabItemVo item = TabItemVo.builder().itemType(itemType).itemId(itemId).build();
+    TabItemVo item = TabItemVo.builder().itemType(itemType)
+        .itemId(itemId)
+        .updateTime(hotPoint.getUpdateTime())
+        .build();
+
     switch (itemEnum) {
       case NEWS:
         NewsItemVo newsItem = item.toNews(tabService, newsService, resourceService);

@@ -9,8 +9,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-04
+ * @author <qiding@qiding.com> Created on 2020-12-04
  */
 @Builder
 @Data
@@ -20,6 +19,7 @@ public class HotPoint {
   private String itemId;
   private Integer itemType;
   private Integer itemOrder;
+  private Long updateTime;
 
   public void create(HotPointService hotPointService) {
     hotPointService.createHotPoint(this);
@@ -27,10 +27,11 @@ public class HotPoint {
 
   public static HotPoint parseEntity(HotPointEntity hotPointEntity) {
     return HotPoint.builder()
-      .id(hotPointEntity.getId())
-      .itemId(hotPointEntity.getItemId())
-      .itemType(hotPointEntity.getItemType())
-      .build();
+        .id(hotPointEntity.getId())
+        .itemId(hotPointEntity.getItemId())
+        .itemType(hotPointEntity.getItemType())
+        .updateTime(hotPointEntity.getUpdateTime())
+        .build();
   }
 
 

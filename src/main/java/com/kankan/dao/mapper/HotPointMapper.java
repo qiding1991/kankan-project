@@ -29,7 +29,7 @@ public interface HotPointMapper {
      * @param size
      * @return
      */
-    List<HotPointEntity> findHotInfo(String offset, Integer size);
+    List<HotPointEntity> findHotInfo(Long offset, Integer size);
 
 //    @Select("select * from hot_info")
     List<HotPointEntity> findAll();
