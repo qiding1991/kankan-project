@@ -1,7 +1,9 @@
 package com.kankan.api.admin.news;
 
 import com.kankan.constant.EnumItemType;
+import com.kankan.service.HeaderLineService;
 import com.kankan.service.HotPointService;
+import java.util.Objects;
 import javax.validation.Valid;
 
 import com.kankan.api.admin.news.param.UpdateNewsInfo;
@@ -44,6 +46,9 @@ public class AdminNewsController extends BaseController {
   private NewsService newsService;
   @Autowired
   private HotPointService hotPointService;
+
+  @Autowired
+  private HeaderLineService headerLineService;
 
 
   @ApiOperation("创建新闻")
@@ -100,9 +105,17 @@ public class AdminNewsController extends BaseController {
   @ApiOperation("删除新闻")
   @PostMapping("delete/{id}")
   public CommonResponse delete(@PathVariable(value = "id") String id) {
+
+    //获取新闻详情
+    News newsInfo = newsService.findById(id);
     newsService.delete(id);
     //删除热点
     hotPointService.delHot(EnumItemType.NEWS.getCode(), id);
+    //删除头条
+    if(Objects.nonNull(newsInfo)){
+      headerLineService.delByResourceId(newsInfo.getResourceId());
+    }
+
     return success();
   }
 }

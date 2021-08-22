@@ -39,4 +39,10 @@ public class HeaderLineItemMapperImpl implements HeaderLineItemMapper {
     Query query = Query.query(Criteria.where("resourceId").is(resourceId).and("headerLineId").is(headerLineId));
     mongoTemplate.remove(query, myClass);
   }
+
+  @Override
+  public void delByResourceId(String resourceId) {
+    Query query = Query.query(Criteria.where("resourceId").is(resourceId));
+    mongoTemplate.remove(query, myClass);
+  }
 }

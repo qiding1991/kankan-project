@@ -19,4 +19,7 @@ public interface HeaderLineItemMapper {
 
 //  @Update("delete from header_line_item where header_line_id =#{headerLineId} and resource_id=#{resourceId}")
   void delByHeadLineIdAndResourceId(String headerLineId, String resourceId);
+
+
+  void delByResourceId(String resourceId);
 }

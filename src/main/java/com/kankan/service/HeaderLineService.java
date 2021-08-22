@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * @author <qiding@qiding.com>
- * Created on 2020-12-03
+ * @author <qiding@qiding.com> Created on 2020-12-03
  */
 @Service
 public class HeaderLineService {
@@ -41,10 +40,10 @@ public class HeaderLineService {
 
   public HeaderLine findHeaderLineInfo(String tabId) {
     HeaderLineInfoEntity entity = headerLineInfoMapper.findHeaderLineInfo(tabId);
-    if(entity!=null){
+    if (entity != null) {
       return HeaderLine.parseEntity(entity);
     }
-    return  null;
+    return null;
   }
 
   public List<HeaderLineItem> findHeaderLineItem(String headerLineId) {
@@ -63,14 +62,19 @@ public class HeaderLineService {
 
   public HeaderLineItem findHeaderLineDetail(String resourceId) {
     HeaderLineItemEntity headerLineItemEntity = headerLineItemMapper.findByResourceId(resourceId);
-    if(headerLineItemEntity!=null){
+    if (headerLineItemEntity != null) {
 
       return HeaderLineItem.parseEntity(headerLineItemEntity);
     }
     return null;
   }
 
-    public void delHeadItem(HeaderLineItem item) {
-      headerLineItemMapper.delByHeadLineIdAndResourceId(item.getHeaderLineId(),item.getResourceId());
-    }
+  public void delHeadItem(HeaderLineItem item) {
+    headerLineItemMapper.delByHeadLineIdAndResourceId(item.getHeaderLineId(), item.getResourceId());
+  }
+
+  public void delByResourceId(String resourceId) {
+    headerLineItemMapper.delByResourceId(resourceId);
+  }
+
 }
