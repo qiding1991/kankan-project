@@ -52,19 +52,22 @@ public class NewsMapperImpl implements NewsMapper {
   @Override
   public List<NewsEntity> findAllNews() {
     Query query = new Query(Criteria.where("status").is(1));
-    Integer pageSize = 10;
-    AtomicInteger index = new AtomicInteger();
-    List<NewsEntity> newsList = new ArrayList<>();
-    Supplier<Boolean> hasMore = () -> {
-      List<NewsEntity> infoList = mongoTemplate.find(query.skip((index.getAndIncrement() - 1) * pageSize).limit(pageSize), myClass);
-      if(CollectionUtils.isEmpty(infoList)){
-        return false;
-      }
-      newsList.addAll(infoList);
-      return  true;
-    };
-    while(hasMore.get()){}
-    return newsList;
+    query= query.with(Sort.by(Order.desc("updateTime"))).limit(20);
+    return mongoTemplate.find(query, myClass);
+//    Integer pageSize = 10;
+//    AtomicInteger index = new AtomicInteger(2);
+//    List<NewsEntity> newsList = new ArrayList<>();
+//    Supplier<Boolean> hasMore = () -> {
+//      List<NewsEntity> infoList = mongoTemplate.find(
+//          query.skip((index.getAndIncrement() - 1) * pageSize).with(Sort.by(Order.desc("update_at"))).limit(pageSize), myClass);
+//      if(CollectionUtils.isEmpty(infoList)){
+//        return false;
+//      }
+//      newsList.addAll(infoList);
+//      return  true;
+//    };
+//    while(hasMore.get()){}
+//    return newsList;
   }
 
   @Override
