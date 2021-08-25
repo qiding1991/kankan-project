@@ -14,10 +14,10 @@ public interface KankanWorkTypeMapper {
   void insert(KankanWorkTypeEntity kankanWorkTypeEntity);
 
 //  @Delete("delete from kankan_work_type where id=#{id}")
-  void removeKankanWorkType(Long id);
+  void removeKankanWorkType(String id);
 
 //  @Update("update kankan_work_type set type_name=#{typeName} where id=#{id}")
-  void updateWorkType(Long id, String typeName);
+  void updateWorkType(String id, String typeName);
 
 //  @Select("select * from kankan_work_type")
   List<KankanWorkTypeEntity> findAll();

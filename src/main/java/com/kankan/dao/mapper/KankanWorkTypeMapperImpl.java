@@ -22,13 +22,13 @@ public class KankanWorkTypeMapperImpl implements KankanWorkTypeMapper {
   }
 
   @Override
-  public void removeKankanWorkType(Long id) {
+  public void removeKankanWorkType(String id) {
     Query query = Query.query(Criteria.where("id").is(id));
     mongoTemplate.remove(query, myClass);
   }
 
   @Override
-  public void updateWorkType(Long id, String typeName) {
+  public void updateWorkType(String id, String typeName) {
     Query query = Query.query(Criteria.where("id").is(id));
     Update update = Update.update("typeName", typeName);
     mongoTemplate.updateFirst(query, update, myClass);

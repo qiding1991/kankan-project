@@ -178,9 +178,6 @@ public class ItemController extends BaseController {
     Boolean isFirstPage =Objects.isNull(offset);
     offset = Optional.ofNullable(offset).orElse(Instant.now().toEpochMilli());
 
-
-
-
     Tab tab = tabService.findTab(tabId);
     if (tab == null) {
       log.info("tab not exists ,tabId={}", tabId);

@@ -18,10 +18,10 @@ public class KankanWorkTypeService {
      return kankanWorkTypeEntity;
   }
 
-  public void delKankanWorkType(Long id){
+  public void delKankanWorkType(String  id){
      kankanWorkTypeMapper.removeKankanWorkType(id);
   }
-  public void updateKankanWorkType(Long id,String desc){
+  public void updateKankanWorkType(String id,String desc){
     kankanWorkTypeMapper.updateWorkType(id,desc);
   }
 
