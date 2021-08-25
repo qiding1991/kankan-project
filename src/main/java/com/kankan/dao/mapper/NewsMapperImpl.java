@@ -52,7 +52,7 @@ public class NewsMapperImpl implements NewsMapper {
   @Override
   public List<NewsEntity> findAllNews() {
     Query query = new Query(Criteria.where("status").is(1));
-    query= query.with(Sort.by(Order.desc("updateTime"))).limit(20);
+    query= query.with(Sort.by(Order.desc("updateTime"))).limit(10);
     return mongoTemplate.find(query, myClass);
 //    Integer pageSize = 10;
 //    AtomicInteger index = new AtomicInteger(2);
