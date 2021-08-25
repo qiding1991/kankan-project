@@ -4,7 +4,10 @@ import com.kankan.dao.entity.NewsEntity;
 
 import io.netty.util.internal.StringUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,6 +20,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class NewsMapperImpl implements NewsMapper {
@@ -48,7 +52,19 @@ public class NewsMapperImpl implements NewsMapper {
   @Override
   public List<NewsEntity> findAllNews() {
     Query query = new Query(Criteria.where("status").is(1));
-    return mongoTemplate.find(query, myClass);
+    Integer pageSize = 10;
+    AtomicInteger index = new AtomicInteger();
+    List<NewsEntity> newsList = new ArrayList<>();
+    Supplier<Boolean> hasMore = () -> {
+      List<NewsEntity> infoList = mongoTemplate.find(query.skip((index.getAndIncrement() - 1) * pageSize).limit(pageSize), myClass);
+      if(CollectionUtils.isEmpty(infoList)){
+        return false;
+      }
+      newsList.addAll(infoList);
+      return  true;
+    };
+    while(hasMore.get()){}
+    return newsList;
   }
 
   @Override
