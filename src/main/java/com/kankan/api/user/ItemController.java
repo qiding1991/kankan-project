@@ -174,8 +174,7 @@ public class ItemController extends BaseController {
       @RequestParam(value = "userId", required = false) String userId,
       @NotNull(message = "不能为空") @RequestParam(value = "size") Integer size) {
 
-
-    Boolean isFirstPage =Objects.isNull(offset);
+    Boolean isFirstPage = Objects.isNull(offset);
     offset = Optional.ofNullable(offset).orElse(Instant.now().toEpochMilli());
 
     Tab tab = tabService.findTab(tabId);
@@ -228,13 +227,14 @@ public class ItemController extends BaseController {
     if (!CollectionUtils.isEmpty(infoList)) {
       TabItemVo itemVo = infoList.get(0);
       //第一个热点新闻，修改为大图
-      if (itemVo.getItemType() == EnumItemType.NEWS.getCode()) {
+      if (itemVo.getItemType() == EnumItemType.NEWS.getCode()
+          || itemVo.getItemType() == EnumItemType.ARTICLE.getCode()) {
         itemVo.setItemType(EnumItemType.HOT_FIRST_NEWS.getCode());
       }
     }
     PageData pageData = PageData.pageData(infoList, size);
-    if(!CollectionUtils.isEmpty(infoList)){
-       pageData.setOffset(infoList.get(infoList.size()-1).getUpdateTime());
+    if (!CollectionUtils.isEmpty(infoList)) {
+      pageData.setOffset(infoList.get(infoList.size() - 1).getUpdateTime());
     }
     return success(pageData);
   }
