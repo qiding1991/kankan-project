@@ -48,8 +48,11 @@ mail:
 #  type-aliases-package:  com.kankan.dao.entity
 #  mapper-locations: mapper/*.xml
 #文件服务器地址
+
+kankan:
+  fileHost: 47.94.33.237
 fileServer:
-  baseUrl: http://47.94.33.237:${server.port}/
+  baseUrl: http://${kankan.fileHost}:${server.port}/
   ffmpeg-path:  /home/video-resource/path1/
   fast-path: /home/video-resource/path2/
   result-path: /home/video-resource/path3/
